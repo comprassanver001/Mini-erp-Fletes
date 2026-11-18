@@ -1,4 +1,4 @@
-# Mini ERP · Control de Fletes — versión V57 (Fernando)
+# Mini ERP · Control de Fletes — versión V58 (Fernando)
 
 ## Qué hay en esta carpeta
 
@@ -14,7 +14,14 @@
 
 > Importante: sube **toda la carpeta** (index.html + data/). Si solo subes el index.html, el módulo de cemento no tendrá precios.
 
-## Cambios respecto a la versión actual (V56)
+## Novedades V58
+
+- **Altas rápidas desde la OC:** razón social, fletera, tipo de unidad, ubicación por parada, producto por renglón, operador, unidad de fletera y tarifa de la ruta, sin salir de la OC ni perder la captura.
+- **Carga masiva en Excel** (Catálogos): plantilla, exportación de catálogos actuales y carga con vista previa (nuevos / ya existen / repetidos en archivo / errores). No se cargan duplicados.
+- **Bloqueo de duplicados** también en altas manuales (RFC, nombre, clave o ruta; sin importar mayúsculas, acentos o puntos).
+- **Pestaña Manual** con guía completa y glosario; los términos del portal muestran su definición al pasar el mouse con liga al glosario.
+
+## Cambios respecto a la versión original (V56)
 
 1. **Cancelar OC**: botón "Cancelar OC" en el histórico por etapas, con motivo obligatorio que queda en la bitácora. No se puede cancelar una OC ya liberada a pago. Las canceladas pasan a la sección "OC canceladas" y dejan de contar en el dashboard.
 2. Sección **"Todas las OC activas"** para el administrador y quien tenga el permiso "Cancelar/eliminar órdenes" (antes el administrador no veía las OC de otros).

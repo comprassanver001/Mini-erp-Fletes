@@ -1272,7 +1272,7 @@ function normHeader31(v){return txt(v).normalize('NFD').replace(/[\u0300-\u036f]
 function pickExcel31(r,ks){let m={};Object.keys(r||{}).forEach(k=>m[normHeader31(k)]=r[k]);for(let k of ks){let v=m[normHeader31(k)];if(v!==undefined&&txt(v).trim())return txt(v).trim()}return ''}
 function providerKey31(x){return normHeader31(x.proveedor)}
 async function importRolandoExcel31(file){if(!file)return;if(typeof XLSX==='undefined')return alert('No se pudo cargar el lector de Excel.');try{let data=await file.arrayBuffer(),wb=XLSX.read(data,{type:'array'}),ws=wb.Sheets[wb.SheetNames[0]],rows=XLSX.utils.sheet_to_json(ws,{defval:''});let incoming=rows.map(r=>({proveedor:pickExcel31(r,['PROVEEDOR','RAZON SOCIAL','NOMBRE PROVEEDOR']),ciudad:pickExcel31(r,['RUTA DE ENTREGA','CIUDAD','CIUDAD RUTA','RUTA','PLAZA','LOCALIDAD']),fletera:pickExcel31(r,['FLETERA','FLETERA HABITUAL','TRANSPORTISTA']),comprador:pickExcel31(r,['COMPRADOR','COMPRAS','RESPONSABLE']),pagaFlete:pickExcel31(r,['APOYO EN FLETE','PAGA FLETE','FLETE PAGADO POR','PAGA EL FLETE'])})).filter(x=>x.proveedor);if(!incoming.length)return alert('No encontré la columna Proveedor/Razón social.');let now=new Date().toISOString(),old=new Map(PROVIDERS_ROLANDO31.map(x=>[providerKey31(x),x])),seen=new Set(),nuevos=0,modificados=0,bajas=0,reactivados=0;incoming.forEach(n=>{let k=providerKey31(n);if(!k||seen.has(k))return;seen.add(k);let o=old.get(k);if(!o){PROVIDERS_ROLANDO31.push({...n,estatus:'ACTIVO',fechaAlta:now,fechaBaja:''});nuevos++;return}if(['ciudad','fletera','comprador','pagaFlete'].some(f=>txt(o[f])!==txt(n[f])))modificados++;if(o.estatus==='BAJA')reactivados++;Object.assign(o,n,{estatus:'ACTIVO',fechaBaja:'',ultimaActualizacion:now})});PROVIDERS_ROLANDO31.forEach(x=>{if(x.estatus!=='BAJA'&&!seen.has(providerKey31(x))){x.estatus='BAJA';x.fechaBaja=now;bajas++}});const saved=await saveRolandoCatalog31({fecha:now,archivo:file.name,totalArchivo:incoming.length,nuevos,modificados,bajas,reactivados});renderRolandoCatalog31();fillProviderUniverseFilters31();if(typeof renderDashboard31==='function')renderDashboard31();if(saved)alert(`Catálogo guardado en la nube: ${incoming.length} registros · ${nuevos} nuevos · ${modificados} modificados · ${bajas} bajas · ${reactivados} reactivados.`)}catch(e){console.error(e);alert('No pude leer el Excel: '+e.message)}}
-window.renderRolandoCatalog31=renderRolandoCatalog31;window.importRolandoExcel31=importRolandoExcel31;
+window.renderRolandoCatalog31=renderRolandoCatalog31;window.importRolandoExcel31=importRolandoExcel31;window.rolandoApi31={list:()=>PROVIDERS_ROLANDO31,reload:()=>loadRolandoCloud31(),save:(meta,silent)=>saveRolandoCatalog31(meta,silent),refresh:()=>{renderRolandoCatalog31();try{fillProviderUniverseFilters31()}catch(e){}}};
 function renderRolandoCatalog31(){let el=document.getElementById('cat-rolando');if(!el)return;let activos=PROVIDERS_ROLANDO31.filter(x=>x.estatus!=='BAJA').length,bajas=PROVIDERS_ROLANDO31.filter(x=>x.estatus==='BAJA').length,last=PROVIDERS_ROLANDO_HISTORY31[0];el.innerHTML=`<div class="notice"><b>Catálogo maestro de proveedores de recolección.</b> Carga el Excel de Rolando y el ERP lo compara contra la versión anterior. Los registros que desaparezcan quedan como <b>BAJA</b>; no se eliminan.</div><div class="actions" style="justify-content:space-between"><div><b>${activos}</b> activos · <b>${bajas}</b> dados de baja${last?` · Actualizado: ${esc(new Date(last.fecha).toLocaleString('es-MX'))} · ${esc(last.archivo)}`:''}</div><label class="btn btn-primary" style="display:inline-block">Importar / actualizar Excel<input type="file" accept=".xlsx,.xls,.csv" hidden onchange="importRolandoExcel31(this.files[0]);this.value=''" /></label></div><div class="table-wrap"><table><thead><tr><th>Proveedor</th><th>Ciudad / ruta</th><th>Fletera habitual</th><th>Comprador</th><th>Flete pagado por</th><th>Estado</th><th>Alta</th><th>Baja</th></tr></thead><tbody>${PROVIDERS_ROLANDO31.slice().sort((a,b)=>(a.estatus==='BAJA')-(b.estatus==='BAJA')||txt(a.proveedor).localeCompare(txt(b.proveedor),'es')).map(x=>`<tr><td>${esc(x.proveedor)}</td><td>${esc(x.ciudad||'—')}</td><td>${esc(x.fletera||'—')}</td><td>${esc(x.comprador||'—')}</td><td>${esc(x.pagaFlete||'—')}</td><td class="${x.estatus==='BAJA'?'status-inactive':'status-active'}">${x.estatus==='BAJA'?'BAJA':'ACTIVO'}</td><td>${esc(x.fechaAlta?String(x.fechaAlta).slice(0,10):'—')}</td><td>${esc(x.fechaBaja?String(x.fechaBaja).slice(0,10):'—')}</td></tr>`).join('')}</tbody></table></div>${PROVIDERS_ROLANDO_HISTORY31.length?`<h3>Historial de actualizaciones</h3><div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Archivo</th><th>Registros</th><th>Nuevos</th><th>Modificados</th><th>Bajas</th><th>Reactivados</th></tr></thead><tbody>${PROVIDERS_ROLANDO_HISTORY31.map(h=>`<tr><td>${esc(new Date(h.fecha).toLocaleString('es-MX'))}</td><td>${esc(h.archivo)}</td><td>${h.totalArchivo||0}</td><td>${h.nuevos||0}</td><td>${h.modificados||0}</td><td>${h.bajas||0}</td><td>${h.reactivados||0}</td></tr>`).join('')}</tbody></table></div>`:''}`}
 loadRolandoCatalog31();
 
@@ -2501,12 +2501,13 @@ const normTxt=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').t
 window.normTxt58=normTxt;
 const GENERIC_RFC=new Set(['XAXX010101000','XEXX010101000']);
 const LIST_OF={empresas:'empresas',fleteras:'fleteras',ubicaciones:'direcciones',productos:'mercancias',unidades:'unidades',tarifas:'tarifas'};
-const NAME_FIELD={empresas:'RAZÓN SOCIAL',fleteras:'RAZÓN SOCIAL',ubicaciones:'NOMBRE UBICACIÓN',productos:'NOMBRE CAPTURA',unidades:'TIPO DE UNIDAD'};
-const LABEL_OF={empresas:'razón social',fleteras:'fletera',ubicaciones:'ubicación',productos:'producto',unidades:'tipo de unidad',tarifas:'tarifa'};
+const NAME_FIELD={empresas:'RAZÓN SOCIAL',fleteras:'RAZÓN SOCIAL',ubicaciones:'NOMBRE UBICACIÓN',productos:'NOMBRE CAPTURA',unidades:'TIPO DE UNIDAD',proveedores:'proveedor'};
+const provList58=()=>(window.rolandoApi31?window.rolandoApi31.list():[])||[];window.provList58=provList58;
+const LABEL_OF={empresas:'razón social',fleteras:'fletera',ubicaciones:'ubicación',productos:'producto',unidades:'tipo de unidad',tarifas:'tarifa',proveedores:'proveedor de recolección'};
 let QA=null; // alta rápida en curso {name, target}
 
 /* ---------- Duplicados ---------- */
-function recLabel(name,r){if(name==='tarifas')return tariffLabel58(r);return first(r,[NAME_FIELD[name],'NOMBRE COMERCIAL'])||'(sin nombre)'}
+function recLabel(name,r){if(name==='tarifas')return tariffLabel58(r);if(name==='proveedores')return r.proveedor||'(sin nombre)';return first(r,[NAME_FIELD[name],'NOMBRE COMERCIAL'])||'(sin nombre)'}
 function tariffLabel58(r){const f=(CATALOGS.fleteras||[]).find(x=>String(x['ID FLETERA'])===String(r['ID FLETERA'])),o=(CATALOGS.direcciones||[]).find(x=>String(x['ID UBICACIÓN'])===String(r['ID ORIGEN'])),d=(CATALOGS.direcciones||[]).find(x=>String(x['ID UBICACIÓN'])===String(r['ID DESTINO']));return `${first(f||{},['NOMBRE COMERCIAL','RAZÓN SOCIAL'])||'?'} · ${first(o||{},['NOMBRE UBICACIÓN'])||'?'} → ${first(d||{},['NOMBRE UBICACIÓN'])||'?'} · ${r['TIPO UNIDAD']||'?'}`}
 function sameRfc(a,b){const x=normTxt(a).replace(/ /g,''),y=normTxt(b).replace(/ /g,'');return !!x&&x===y&&!GENERIC_RFC.has(x)}
 function sameName(a,b){const x=normTxt(a),y=normTxt(b);return !!x&&x===y}
@@ -2517,9 +2518,10 @@ function dupReason58(name,r,e){
  if(name==='ubicaciones'){if(!sameName(r['NOMBRE UBICACIÓN'],e['NOMBRE UBICACIÓN']))return '';const m1=normTxt(r['MUNICIPIO']),m2=normTxt(e['MUNICIPIO']);return (!m1||!m2||m1===m2)?'mismo nombre de ubicación':''}
  if(name==='productos'){if(sameName(r['NOMBRE CAPTURA'],e['NOMBRE CAPTURA']))return 'mismo producto / descripción';if(r['PRODUCTO INTERNO']&&sameName(r['PRODUCTO INTERNO'],e['PRODUCTO INTERNO']))return 'misma clave interna';return ''}
  if(name==='unidades')return sameName(r['TIPO DE UNIDAD'],e['TIPO DE UNIDAD'])?'mismo tipo de unidad':'';
+ if(name==='proveedores')return sameName(r.proveedor,e.proveedor)?'mismo proveedor':'';
  if(name==='tarifas'){const k=x=>[x['ID FLETERA'],x['ID ORIGEN'],x['ID DESTINO'],normTxt(x['TIPO UNIDAD'])].map(String).join('|');return k(r)===k(e)&&r['ID FLETERA']?'misma fletera, origen, destino y unidad':''}
  return ''}
-function findDuplicate58(name,r,exceptIndex=null){const rows=CATALOGS[LIST_OF[name]]||[];for(let i=0;i<rows.length;i++){if(i===exceptIndex)continue;const why=dupReason58(name,r,rows[i]);if(why)return {index:i,row:rows[i],why}}return null}
+function findDuplicate58(name,r,exceptIndex=null){const rows=name==='proveedores'?provList58():(CATALOGS[LIST_OF[name]]||[]);for(let i=0;i<rows.length;i++){if(i===exceptIndex)continue;const why=dupReason58(name,r,rows[i]);if(why)return {index:i,row:rows[i],why}}return null}
 window.findDuplicate58=findDuplicate58;window.dupReason58=dupReason58;
 
 /* ---------- Conservar la OC en captura al recargar catálogos ---------- */
@@ -2615,18 +2617,20 @@ function watch58(){['pointsBody','quickBody','tariffMessage'].forEach(id=>{const
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watch58);else watch58();
 
 /* ===================== Carga masiva por Excel ===================== */
-const XL_SHEETS=[['unidades','Tipos de unidad'],['empresas','Razones sociales'],['fleteras','Fleteras'],['ubicaciones','Ubicaciones'],['productos','Productos'],['tarifas','Tarifas']];
+const XL_SHEETS=[['unidades','Tipos de unidad'],['empresas','Razones sociales'],['fleteras','Fleteras'],['ubicaciones','Ubicaciones'],['productos','Productos'],['tarifas','Tarifas'],['proveedores','Proveedores recoleccion']];
+const PROV_COLS=[['proveedor','Proveedor','Nombre o razón social del proveedor al que se le recoge mercancía.'],['ciudad','Ciudad / ruta','Ciudad o ruta de recolección. Varias separadas con /.'],['fletera','Fletera habitual','Fletera que normalmente hace la recolección.'],['comprador','Comprador','Comprador responsable del proveedor.'],['pagaFlete','Flete pagado por','Quién paga el flete o si el proveedor da apoyo.']];
 const TARIFF_COLS=[['ID FLETERA','Fletera (nombre corto o RFC)'],['ID ORIGEN','Origen (nombre de la ubicación)'],['ID DESTINO','Destino (nombre de la ubicación)'],['TIPO UNIDAD','Tipo de unidad'],['TARIFA BASE','Tarifa base'],['VIGENCIA DESDE','Vigencia desde (AAAA-MM-DD)'],['VIGENCIA HASTA','Vigencia hasta (AAAA-MM-DD)'],['OBSERVACIONES','Observaciones']];
-function colsOf(name){return name==='tarifas'?TARIFF_COLS.map(([k,l])=>[k,l,schemas.tarifas.fields.find(f=>f[0]===k)?.[3]||'']):schemas[name].fields.map(f=>[f[0],f[1],f[3]||''])}
-function sheetFor(sheetName){const n=normTxt(sheetName);if(/LEEME|INSTRUC/.test(n))return null;if(/TARIFA/.test(n))return 'tarifas';if(/UNIDAD/.test(n))return 'unidades';if(/RAZON|EMPRESA/.test(n))return 'empresas';if(/FLETER/.test(n))return 'fleteras';if(/UBICACION|DIRECCION/.test(n))return 'ubicaciones';if(/PRODUCT|MERCANC/.test(n))return 'productos';return null}
+function colsOf(name){if(name==='proveedores')return PROV_COLS;return name==='tarifas'?TARIFF_COLS.map(([k,l])=>[k,l,schemas.tarifas.fields.find(f=>f[0]===k)?.[3]||'']):schemas[name].fields.map(f=>[f[0],f[1],f[3]||''])}
+function sheetFor(sheetName){const n=normTxt(sheetName);if(/LEEME|INSTRUC/.test(n))return null;if(/RECOLEC|PROVEEDOR/.test(n))return 'proveedores';if(/TARIFA/.test(n))return 'tarifas';if(/UNIDAD/.test(n))return 'unidades';if(/RAZON|EMPRESA/.test(n))return 'empresas';if(/FLETER/.test(n))return 'fleteras';if(/UBICACION|DIRECCION/.test(n))return 'ubicaciones';if(/PRODUCT|MERCANC/.test(n))return 'productos';return null}
 window.downloadCatalogTemplate58=function(withData=false){
  if(typeof XLSX==='undefined')return alert('La librería de Excel no cargó. Revisa tu conexión y recarga la página.');
  const wb=XLSX.utils.book_new();
- const leeme=[['PLANTILLA DE CATÁLOGOS · MINI ERP CONTROL DE FLETES'],[''],['Cómo usarla:'],['1. Llena una fila por registro en cada hoja. Puedes dejar hojas vacías.'],['2. No cambies los nombres de las columnas ni de las hojas.'],['3. En Tarifas escribe los NOMBRES (fletera, origen, destino, unidad) tal como aparecen en el portal o en esta misma plantilla; el portal los convierte solo.'],['4. Sube el archivo en Catálogos → "Cargar Excel". Antes de guardar verás cuántos registros son nuevos, cuáles están repetidos y cuáles tienen errores.'],['5. Nada repetido se carga: se omiten registros que ya existen o que vienen dos veces en el archivo.'],[''],['Reglas para detectar repetidos:'],['Razones sociales: mismo RFC o misma razón social.'],['Fleteras: mismo RFC, misma razón social o mismo nombre corto.'],['Ubicaciones: mismo nombre (en el mismo municipio, o cuando alguno no trae municipio).'],['Productos: mismo producto / descripción o misma clave interna.'],['Tipos de unidad: mismo nombre.'],['Tarifas: misma fletera + origen + destino + tipo de unidad.'],['Mayúsculas, acentos y espacios no cuentan: "Cedi Sanver" y "CEDI SANVER" son el mismo registro.'],[''],['Descripción de cada columna:']];
+ const leeme=[['PLANTILLA DE CATÁLOGOS · MINI ERP CONTROL DE FLETES'],[''],['Cómo usarla:'],['1. Llena una fila por registro en cada hoja. Puedes dejar hojas vacías.'],['2. No cambies los nombres de las columnas ni de las hojas.'],['3. En Tarifas escribe los NOMBRES (fletera, origen, destino, unidad) tal como aparecen en el portal o en esta misma plantilla; el portal los convierte solo.'],['4. Sube el archivo en Catálogos → "Cargar Excel". Antes de guardar verás cuántos registros son nuevos, cuáles están repetidos y cuáles tienen errores.'],['5. Nada repetido se carga: se omiten registros que ya existen o que vienen dos veces en el archivo.'],[''],['Reglas para detectar repetidos:'],['Razones sociales: mismo RFC o misma razón social.'],['Fleteras: mismo RFC, misma razón social o mismo nombre corto.'],['Ubicaciones: mismo nombre (en el mismo municipio, o cuando alguno no trae municipio).'],['Productos: mismo producto / descripción o misma clave interna.'],['Tipos de unidad: mismo nombre.'],['Tarifas: misma fletera + origen + destino + tipo de unidad.'],['Proveedores de recolección: mismo nombre de proveedor.'],['Mayúsculas, acentos y espacios no cuentan: "Cedi Sanver" y "CEDI SANVER" son el mismo registro.'],[''],['Descripción de cada columna:']];
  XL_SHEETS.forEach(([name,title])=>{colsOf(name).forEach(([k,l,h])=>leeme.push([title,l,h]))});
  const ws0=XLSX.utils.aoa_to_sheet(leeme);ws0['!cols']=[{wch:22},{wch:34},{wch:90}];XLSX.utils.book_append_sheet(wb,ws0,'LEEME');
  XL_SHEETS.forEach(([name,title])=>{const cols=colsOf(name),aoa=[cols.map(c=>c[1])];
-  if(withData){(CATALOGS[LIST_OF[name]]||[]).filter(active).forEach(r=>aoa.push(cols.map(([k])=>{if(name==='tarifas'){if(k==='ID FLETERA'){const f=CATALOGS.fleteras.find(x=>String(x['ID FLETERA'])===String(r[k]));return f?first(f,['NOMBRE COMERCIAL','RAZÓN SOCIAL']):''}if(k==='ID ORIGEN'||k==='ID DESTINO'){const d=CATALOGS.direcciones.find(x=>String(x['ID UBICACIÓN'])===String(r[k]));return d?first(d,['NOMBRE UBICACIÓN']):''}}const v=r[k];return v===undefined||v===null?'':v})))}
+  if(withData&&name==='proveedores')provList58().filter(x=>x.estatus!=='BAJA').forEach(r=>aoa.push(cols.map(([k])=>r[k]??'')));
+  else if(withData){(CATALOGS[LIST_OF[name]]||[]).filter(active).forEach(r=>aoa.push(cols.map(([k])=>{if(name==='tarifas'){if(k==='ID FLETERA'){const f=CATALOGS.fleteras.find(x=>String(x['ID FLETERA'])===String(r[k]));return f?first(f,['NOMBRE COMERCIAL','RAZÓN SOCIAL']):''}if(k==='ID ORIGEN'||k==='ID DESTINO'){const d=CATALOGS.direcciones.find(x=>String(x['ID UBICACIÓN'])===String(r[k]));return d?first(d,['NOMBRE UBICACIÓN']):''}}const v=r[k];return v===undefined||v===null?'':v})))}
   const ws=XLSX.utils.aoa_to_sheet(aoa);ws['!cols']=cols.map(c=>({wch:Math.max(14,Math.min(40,c[1].length+4))}));XLSX.utils.book_append_sheet(wb,ws,title)});
  XLSX.writeFile(wb,withData?`Catalogos_MiniERP_${new Date().toISOString().slice(0,10)}.xlsx`:'Plantilla_Catalogos_MiniERP.xlsx')};
 
@@ -2649,7 +2653,7 @@ window.uploadCatalogExcel58=async function(file){
   rows.forEach((raw,ix)=>{const fila=ix+2,r={};Object.entries(raw).forEach(([h,v])=>{if(map[h])r[map[h]]=v instanceof Date?v:(typeof v==='string'?v.trim():v)});
    if(Object.values(r).every(v=>v===''||v===null||v===undefined))return;
    const err=[];
-   schemas[name==='tarifas'?'tarifas':name].fields.forEach(f=>{if(f[2]==='date'&&r[f[0]]!==undefined&&r[f[0]]!==''){const d=toDate58(r[f[0]]);if(d==='INVALIDA')err.push(`${f[1]}: fecha no válida`);else r[f[0]]=d}else if(f[2]==='number'&&r[f[0]]!==undefined&&r[f[0]]!==''){const n=Number(String(r[f[0]]).replace(/[$,\s]/g,''));if(!Number.isFinite(n))err.push(`${f[1]}: debe ser número`);else r[f[0]]=n}});
+   (schemas[name]?.fields||[]).forEach(f=>{if(f[2]==='date'&&r[f[0]]!==undefined&&r[f[0]]!==''){const d=toDate58(r[f[0]]);if(d==='INVALIDA')err.push(`${f[1]}: fecha no válida`);else r[f[0]]=d}else if(f[2]==='number'&&r[f[0]]!==undefined&&r[f[0]]!==''){const n=Number(String(r[f[0]]).replace(/[$,\s]/g,''));if(!Number.isFinite(n))err.push(`${f[1]}: debe ser número`);else r[f[0]]=n}});
    let label;
    if(name==='tarifas'){const fl=findFleet58(r['ID FLETERA'],pending.fleteras),o=findLoc58(r['ID ORIGEN'],pending.ubicaciones),d=findLoc58(r['ID DESTINO'],pending.ubicaciones),u=findUnit58(r['TIPO UNIDAD'],pending.unidades);
     label=`${r['ID FLETERA']||'?'} · ${r['ID ORIGEN']||'?'} → ${r['ID DESTINO']||'?'} · ${r['TIPO UNIDAD']||'?'}`;
@@ -2659,7 +2663,7 @@ window.uploadCatalogExcel58=async function(file){
    else{label=String(r[NAME_FIELD[name]]||'').trim();if(!label)err.push(`falta «${cols.find(c=>c[0]===NAME_FIELD[name])[1]}»`)}
    if(err.length){P.errores.push({fila,label:label||'(vacío)',motivo:err.join('; ')});return}
    const ex=name==='tarifas'&&!r['ID FLETERA']?null:findDuplicate58(name,r);
-   if(ex){P.existentes.push({fila,label,motivo:`ya existe «${recLabel(name,ex.row)}» (${ex.why})${active(ex.row)?'':' · dado de baja'}`});return}
+   if(ex){const off=name==='proveedores'?ex.row.estatus==='BAJA':!active(ex.row);P.existentes.push({fila,label,motivo:`ya existe «${recLabel(name,ex.row)}» (${ex.why})${off?' · dado de baja':''}`});return}
    const twin=seen.find(x=>name==='tarifas'?(x.__refs&&r.__refs&&x.__refs.fleet===r.__refs.fleet&&x.__refs.orig===r.__refs.orig&&x.__refs.dest===r.__refs.dest&&x.__refs.unit===r.__refs.unit):dupReason58(name,r,x));
    if(twin){P.repetidosArchivo.push({fila,label,motivo:`repetido dentro del archivo (fila ${twin.__fila})`});return}
    r.__fila=fila;seen.push(r);P.nuevos.push(r);if(pending[name])pending[name].push(r)})}
@@ -2682,6 +2686,7 @@ window.commitPlan58=async function(){
    if(n==='tarifas'){await reloadKeepingOrder58();P.tarifas.nuevos.forEach(r=>{const fl=findFleet58(r.__refs.fleet['RAZÓN SOCIAL']||r.__refs.fleet['NOMBRE COMERCIAL'])||findFleet58(r.__refs.fleet['NOMBRE COMERCIAL']),o=findLoc58(r.__refs.orig['NOMBRE UBICACIÓN']),d=findLoc58(r.__refs.dest['NOMBRE UBICACIÓN']);r['ID FLETERA']=fl?.['ID FLETERA'];r['ID ORIGEN']=o?.['ID UBICACIÓN'];r['ID DESTINO']=d?.['ID UBICACIÓN']});
     P.tarifas.nuevos=P.tarifas.nuevos.filter(r=>{if(r['ID FLETERA']&&r['ID ORIGEN']&&r['ID DESTINO'])return !findDuplicate58('tarifas',r);P.tarifas.errores.push({fila:r.__fila,label:'tarifa',motivo:'no se encontró la fletera/ubicación recién cargada'});return false})}
    const rows=P[n].nuevos;if(!rows.length)continue;
+   if(n==='proveedores'){const A=window.rolandoApi31;if(!A)throw new Error('Proveedores de recolección: catálogo no disponible');await A.reload();const now=new Date().toISOString();let k=0;rows.forEach(r=>{if(findDuplicate58('proveedores',r))return;A.list().push({proveedor:String(r.proveedor).trim(),ciudad:r.ciudad||'',fletera:r.fletera||'',comprador:r.comprador||'',pagaFlete:r.pagaFlete||'',estatus:'ACTIVO',fechaAlta:now,fechaBaja:''});k++});if(k){const ok=await A.save({fecha:now,archivo:'Carga Excel (plantilla de catálogos)',totalArchivo:rows.length,nuevos:k,modificados:0,bajas:0,reactivados:0},true);if(!ok)throw new Error('Proveedores de recolección: no se pudo guardar en la nube');A.refresh()}done[n]=k;continue}
    const payloads=rows.map(r=>{const c={...r};delete c.__refs;delete c.__fila;return dbPayloadForCatalog(n,c)});
    for(let i=0;i<payloads.length;i+=200){const x=await supa.from(catTable[n]).insert(payloads.slice(i,i+200));if(x.error)throw new Error(`${XL_SHEETS.find(s=>s[0]===n)[1]}: ${x.error.message}`)}
    done[n]=rows.length;if(n!=='tarifas')await reloadKeepingOrder58()}
@@ -2690,6 +2695,92 @@ window.commitPlan58=async function(){
  catch(e){console.error(e);alert('La carga se detuvo: '+e.message+'\n\nLo que alcanzó a guardarse ya está en el catálogo; si vuelves a subir el archivo, eso se detectará como existente y no se duplicará.');await reloadKeepingOrder58();closePlan58();try{renderCatalogs()}catch(_){}}};
 function decorateCatalogs58(){const tabs=document.querySelector('#catalogos .catalog-tabs');if(!tabs||$('excel58'))return;tabs.insertAdjacentHTML('beforebegin',`<div id="excel58" class="notice" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center"><b style="margin-right:6px">Carga masiva en Excel:</b><button class="btn btn-light" onclick="downloadCatalogTemplate58(false)">⬇ Bajar plantilla vacía</button><button class="btn btn-light" onclick="downloadCatalogTemplate58(true)">⬇ Bajar catálogos actuales</button><label class="btn btn-primary" style="display:inline-block;margin:0">⬆ Cargar Excel<input type="file" accept=".xlsx,.xls" hidden onchange="uploadCatalogExcel58(this.files[0]);this.value=''"></label><span class="small">Antes de guardar verás qué es nuevo, qué ya existe y qué tiene errores. Nada repetido se carga. <a href="#" onclick="openManual58('carga-excel');return false">¿Cómo se usa?</a></span></div>`)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',decorateCatalogs58);else decorateCatalogs58();
+})();
+
+</script>
+<script>
+/* ===================== V58 · Proveedores de recolección y edición de catálogos desde la OC ===================== */
+(function(){
+const N=v=>window.normTxt58?normTxt58(v):String(v||'').toUpperCase().trim();
+const A=()=>window.rolandoApi31;
+const list=()=>A()?A().list():[];
+const findProv=name=>{const n=N(name);return n?list().find(x=>N(x.proveedor)===n)||null:null};
+window.findProvider58=findProv;
+let PROV_CTX=null; // {original: nombre normalizado o null, tr}
+
+/* ---------- Ventana de alta / edición ---------- */
+window.openProvider58=function(prefill={},ctx={}){
+ if(!can24('editar_catalogos'))return alert('No tienes permiso para modificar catálogos. Pide al administrador el permiso "Editar catálogos".');
+ if(!A())return alert('El catálogo de proveedores de recolección no está disponible. Recarga la página.');
+ const ex=findProv(prefill.proveedor),r=ex?{...ex}:{estatus:'ACTIVO',...prefill};
+ PROV_CTX={original:ex?N(ex.proveedor):null,tr:ctx.tr||null};
+ const fleets=[...new Set((CATALOGS.fleteras||[]).filter(active).map(f=>first(f,['NOMBRE COMERCIAL','RAZÓN SOCIAL'])).filter(Boolean))];
+ const inp=(id,lab,val,help,extra='')=>`<div><label>${lab}</label><input id="${id}" value="${esc(val||'')}" ${extra}><div class="small" style="margin-top:5px">${help}</div></div>`;
+ let m=document.getElementById('prov58');if(!m){m=document.createElement('div');m.id='prov58';m.className='modal';m.innerHTML='<div class="modal-card form-modal"><div id="prov58Body"></div><div class="actions"><button class="btn btn-light" onclick="closeProvider58()">Cancelar</button><button class="btn btn-primary" onclick="saveProvider58()">Guardar</button></div></div>';document.body.appendChild(m)}
+ document.getElementById('prov58Body').innerHTML=`<h2>${ex?'Editar':'Nuevo'} proveedor de recolección</h2>
+ ${ex?`<div class="notice qa58">Este proveedor ya está en el catálogo${ex.estatus==='BAJA'?' (<b>dado de baja</b>: al guardar puedes reactivarlo)':''}. Puedes actualizar sus datos.</div>`:'<div class="notice">Se agregará al catálogo maestro de proveedores de recolección (el mismo que se actualiza con el Excel de costos).</div>'}
+ <div class="grid">${inp('pv58_proveedor','Proveedor *',r.proveedor,'Nombre o razón social del proveedor.','oninput="provNameHint58(this.value)"')}${inp('pv58_ciudad','Ciudad / ruta',r.ciudad,'Ciudad o ruta de recolección. Varias separadas con /.')}
+ <div><label>Fletera habitual</label><input id="pv58_fletera" list="pv58_fl" value="${esc(r.fletera||'')}"><datalist id="pv58_fl">${fleets.map(f=>`<option value="${esc(f)}">`).join('')}</datalist><div class="small" style="margin-top:5px">Elige una fletera del catálogo o escribe otra.</div></div>
+ ${inp('pv58_comprador','Comprador',r.comprador,'Comprador responsable del proveedor.')}${inp('pv58_paga','Flete pagado por',r.pagaFlete,'Quién paga el flete o si el proveedor da apoyo.')}
+ <div><label>Estado</label><select id="pv58_estatus"><option value="ACTIVO" ${r.estatus!=='BAJA'?'selected':''}>Activo</option><option value="BAJA" ${r.estatus==='BAJA'?'selected':''}>Dado de baja</option></select><div class="small" style="margin-top:5px">Dar de baja no borra el registro.</div></div></div><div id="pv58_hint" class="small" style="margin-top:8px"></div>`;
+ m.classList.add('open');setTimeout(()=>document.getElementById('pv58_proveedor')?.focus(),50)};
+window.provNameHint58=function(v){const h=document.getElementById('pv58_hint');if(!h)return;const ex=findProv(v);h.innerHTML=ex&&N(ex.proveedor)!==PROV_CTX?.original?`⚠️ Ya existe «${esc(ex.proveedor)}» en el catálogo; no se puede repetir.`:''};
+window.closeProvider58=function(){document.getElementById('prov58')?.classList.remove('open');PROV_CTX=null};
+window.saveProvider58=async function(){
+ const g=id=>String(document.getElementById(id)?.value||'').trim(),nombre=g('pv58_proveedor');
+ if(!nombre)return alert('Captura el nombre del proveedor.');
+ const ctx=PROV_CTX||{};await A().reload();
+ const clash=findProv(nombre);if(clash&&N(clash.proveedor)!==ctx.original)return alert(`Ya existe «${clash.proveedor}» en el catálogo de proveedores de recolección. Edita ese registro en lugar de crear otro.`);
+ const now=new Date().toISOString(),est=g('pv58_estatus')||'ACTIVO';
+ let rec=ctx.original?list().find(x=>N(x.proveedor)===ctx.original):null;const isNew=!rec;
+ if(!rec){rec={fechaAlta:now,fechaBaja:''};list().push(rec)}
+ const wasBaja=rec.estatus==='BAJA';
+ Object.assign(rec,{proveedor:nombre,ciudad:g('pv58_ciudad'),fletera:g('pv58_fletera'),comprador:g('pv58_comprador'),pagaFlete:g('pv58_paga'),estatus:est,ultimaActualizacion:now});
+ if(est==='BAJA'&&!wasBaja)rec.fechaBaja=now;if(est!=='BAJA')rec.fechaBaja='';
+ const ok=await A().save(null,true);if(!ok)return alert('No se pudo guardar en la nube. Revisa tu conexión e inténtalo de nuevo.');
+ A().refresh();closeProvider58();updateProviderBadges58();
+ try{if(typeof renderDashboard31==='function'&&document.querySelector('#dashboard.active'))renderDashboard31()}catch(e){}
+ window.toast58&&toast58(isNew?`Proveedor «${nombre}» agregado a recolección.`:`Proveedor «${nombre}» actualizado.`)};
+
+/* ---------- En la OC: estado del proveedor de cada parada de carga ---------- */
+function rowProvider(tr){const v=tr.querySelector('.pProveedor')?.value?.trim();if(v)return v;const i=Number(tr.querySelector('.pUbicacion')?.value);const d=(CATALOGS.direcciones||[])[i];return d?first(d,['EMPRESA / CLIENTE','NOMBRE UBICACIÓN']):''}
+function rowCity(tr){const i=Number(tr.querySelector('.pUbicacion')?.value);const d=(CATALOGS.direcciones||[])[i];return d?first(d,['MUNICIPIO']):''}
+function updateProviderBadges58(){document.querySelectorAll('#pointsBody tr').forEach(tr=>{const td=tr.querySelector('.pProveedor')?.parentElement;if(!td)return;let b=td.querySelector('.prov58-btn');const tipo=String(tr.querySelector('.pTipo')?.value||'');const name=rowProvider(tr);
+ if(!/CARGA/.test(tipo)||!name){b?.remove();return}
+ if(!b){td.insertAdjacentHTML('beforeend','<button type="button" class="btn btn-light btn-mini prov58-btn" style="margin-top:6px;display:block" onclick="providerFromRow58(this)"></button>');b=td.querySelector('.prov58-btn')}
+ const ex=findProv(name);b.textContent=ex?(ex.estatus==='BAJA'?'⚠ Recolección: dado de baja · Editar':'✓ En recolección · Editar'):'+ Agregar a proveedores de recolección';b.title=ex?`${ex.proveedor} · ${ex.ciudad||'sin ciudad'} · fletera: ${ex.fletera||'—'}`:'Este proveedor no está en el catálogo de proveedores de recolección'})}
+window.updateProviderBadges58=updateProviderBadges58;
+window.providerFromRow58=function(btn){const tr=btn.closest('tr'),f=$('fletera');openProvider58({proveedor:rowProvider(tr),ciudad:rowCity(tr),fletera:f?.value!==''?f?.options[f.selectedIndex]?.textContent?.trim():'',comprador:String(current24()?.nombre||'').split(' ')[0].toUpperCase()},{tr})};
+
+/* ---------- En la OC: botones Editar junto a cada catálogo ---------- */
+function selIdx(id){const el=$(id),i=Number(el?.value);return el&&el.value!==''&&Number.isInteger(i)?i:null}
+window.editFromOrder58=function(name,id){if(!can24('editar_catalogos'))return alert('No tienes permiso para modificar catálogos.');const i=selIdx(id);if(i===null)return alert('Primero selecciona un registro.');openCatalogForm(name,i)};
+window.editProductFromRow58=function(btn){if(!can24('editar_catalogos'))return alert('No tienes permiso para modificar catálogos.');const i=Number(btn.closest('tr')?.querySelector('.qProd')?.value);if(!Number.isInteger(i)||!CATALOGS.mercancias[i])return alert('Selecciona un producto.');openCatalogForm('productos',i)};
+window.editSafetyFromOrder58=function(kind){const id=$(kind==='op'?'operadorCatalogo':'unidadFlotaCatalogo')?.value;if(!id)return alert(kind==='op'?'Primero selecciona un operador.':'Primero selecciona una unidad.');editSafetySANVER(kind,id);
+ const wait=setInterval(()=>{if(document.getElementById('safetyModal'))return;clearInterval(wait);const s=$(kind==='op'?'operadorCatalogo':'unidadFlotaCatalogo');if(s&&[...s.options].some(o=>o.value===id)){s.value=id;try{kind==='op'?applyOperatorSANVER():applyFleetUnitSANVER()}catch(e){}try{legalCheckSANVER()}catch(e){}}},400)};
+function currentTariffIndex58(){try{const pts=getPoints(),f=sel(CATALOGS.fleteras,'fletera'),u=sel(CATALOGS.unidades,'unidad');if(!f||!u||pts.length<2)return -1;const o=CATALOGS.direcciones[pts[0].ubicacionIndex],d=CATALOGS.direcciones[pts[pts.length-1].ubicacionIndex];return CATALOGS.tarifas.findIndex(t=>active(t)&&String(t['ID FLETERA'])===String(first(f,['ID FLETERA']))&&String(t['ID ORIGEN'])===String(first(o,['ID UBICACIÓN']))&&String(t['ID DESTINO'])===String(first(d,['ID UBICACIÓN']))&&String(t['TIPO UNIDAD']).toUpperCase()===String(first(u,['TIPO DE UNIDAD'])).toUpperCase())}catch(e){return -1}}
+window.editTariffFromOrder58=function(){if(!can24('editar_catalogos'))return alert('No tienes permiso para modificar catálogos.');const i=currentTariffIndex58();if(i<0)return alert('No hay tarifa para esta ruta.');openCatalogForm('tarifas',i)};
+function decorateEdits58(){
+ const add=(id,html)=>{const el=$(id);if(!el||el.parentElement.querySelector(`.qa58-edit[data-for="${id}"]`))return;const anchor=el.parentElement.querySelector(`.qa58-btn[data-for="${id}"]`)||el;anchor.insertAdjacentHTML('afterend',html)};
+ [['empresa','empresas'],['fletera','fleteras'],['unidad','unidades']].forEach(([id,name])=>add(id,` <button type="button" class="btn btn-light btn-mini qa58-btn qa58-edit" data-for="${id}" onclick="editFromOrder58('${name}','${id}')">Editar</button>`));
+ add('operadorCatalogo',` <button type="button" class="btn btn-light btn-mini qa58-btn qa58-edit" data-for="operadorCatalogo" onclick="editSafetyFromOrder58('op')">Editar operador</button>`);
+ add('unidadFlotaCatalogo',` <button type="button" class="btn btn-light btn-mini qa58-btn qa58-edit" data-for="unidadFlotaCatalogo" onclick="editSafetyFromOrder58('unit')">Editar unidad</button>`);
+ document.querySelectorAll('#quickBody tr').forEach(tr=>{if(tr.querySelector('.qa58-edit'))return;tr.querySelector('.qa58-btn')?.insertAdjacentHTML('afterend',`<button type="button" class="btn btn-light btn-mini qa58-btn qa58-edit" style="margin-top:4px;display:block" onclick="editProductFromRow58(this)">Editar producto</button>`)});
+ const tm=$('tariffMessage');if(tm&&/^Tarifa encontrada/.test(tm.textContent.trim())&&!tm.querySelector('.qa58-edit'))tm.insertAdjacentHTML('beforeend',` <button type="button" class="btn btn-light btn-mini qa58-btn qa58-edit" onclick="editTariffFromOrder58()">Editar tarifa</button>`);
+ updateProviderBadges58()}
+let t=null;const deco=()=>{clearTimeout(t);t=setTimeout(()=>{try{decorateEdits58()}catch(e){console.warn(e)}},90)};
+function watch(){['pointsBody','quickBody','tariffMessage'].forEach(id=>{const el=$(id);if(el)new MutationObserver(deco).observe(el,{childList:true,subtree:true,characterData:true})});
+ document.addEventListener('change',e=>{if(e.target?.closest?.('#pointsBody')||e.target?.id==='fletera')deco()});deco();
+ const cat=document.getElementById('cat-rolando');if(cat)new MutationObserver(()=>decorateRolando58()).observe(cat,{childList:true});decorateRolando58()}
+
+/* ---------- Catálogo de proveedores de recolección: alta, edición y baja ---------- */
+function decorateRolando58(){const el=document.getElementById('cat-rolando');if(!el||el.dataset.v58===el.innerHTML.length+'')return;
+ const actions=el.querySelector('.actions');if(actions&&!actions.querySelector('.prov58-add'))actions.insertAdjacentHTML('beforeend',' <button class="btn btn-light prov58-add" onclick="openProvider58({})">+ Agregar proveedor</button>');
+ const table=el.querySelector('table');if(table&&!table.querySelector('th.prov58-th')){table.querySelector('thead tr')?.insertAdjacentHTML('beforeend','<th class="prov58-th">Acciones</th>');
+  table.querySelectorAll('tbody tr').forEach(tr=>{const name=tr.children[0]?.textContent||'',ex=findProv(name);if(!ex)return tr.insertAdjacentHTML('beforeend','<td></td>');const q=JSON.stringify(ex.proveedor).replace(/"/g,'&quot;');tr.insertAdjacentHTML('beforeend',`<td><button class="btn btn-light" onclick="openProvider58({proveedor:${q}})">Editar</button> <button class="btn ${ex.estatus==='BAJA'?'btn-primary':'btn-danger'}" onclick="toggleProvider58(${q})">${ex.estatus==='BAJA'?'Reactivar':'Dar de baja'}</button></td>`)})}
+ el.dataset.v58=el.innerHTML.length+''}
+window.toggleProvider58=async function(name){if(!can24('editar_catalogos'))return alert('No tienes permiso para modificar catálogos.');await A().reload();const r=findProv(name);if(!r)return;const now=new Date().toISOString();if(r.estatus==='BAJA'){r.estatus='ACTIVO';r.fechaBaja=''}else{if(!confirm(`¿Dar de baja a «${r.proveedor}»? No se borra; puedes reactivarlo después.`))return;r.estatus='BAJA';r.fechaBaja=now}r.ultimaActualizacion=now;const ok=await A().save(null,true);if(!ok)return alert('No se pudo guardar en la nube.');A().refresh();window.toast58&&toast58(`«${r.proveedor}» ${r.estatus==='BAJA'?'dado de baja':'reactivado'}.`)};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watch);else watch();
 })();
 
 </script>
@@ -2755,7 +2846,7 @@ const GL=[
 ['etapa','Etapa de la OC','Avance de la OC: PENDIENTE AUT. FLETE → AUTORIZADA → XML/CP VÁLIDOS → PENDIENTE AUT. PAGO → LIBERADA A PAGO. Puede quedar CANCELADA.',['etapa','estatus']],
 ['cancelar','Cancelar OC','Deja la OC como CANCELADA con un motivo obligatorio que queda en la bitácora. No se borra: pasa a "OC canceladas". No se puede cancelar una OC liberada a pago.',['cancelar oc','oc canceladas','cancelar/eliminar ordenes']],
 ['bitacora','Bitácora','Registro automático de quién hizo qué y cuándo (creó, autorizó, canceló, validó…). No se puede modificar.',['bitacora']],
-['proveedores-recoleccion','Proveedores de recolección','Catálogo maestro de proveedores a los que se recoge mercancía, con su ciudad, ruta y fletera habitual. Se actualiza subiendo el Excel de costos; los que desaparecen quedan como BAJA.',['proveedores de recoleccion']],
+['proveedores-recoleccion','Proveedores de recolección','Catálogo maestro de proveedores a los que se recoge mercancía, con su ciudad/ruta, fletera habitual, comprador y quién paga el flete. Se alimenta del Excel de costos y también se puede dar de alta o editar a mano, desde Catálogos o desde la OC. Alimenta el análisis de recolecciones del Dashboard.',['proveedores de recoleccion']],
 ['regimen','Régimen fiscal','Clave SAT del régimen del contribuyente (601 General de Ley Personas Morales, 612 Personas Físicas con Actividades Empresariales…).',['regimen fiscal']],
 ['uso-cfdi','Uso CFDI','Clave que indica para qué usará el receptor la factura (G03 Gastos en general). La fletera debe facturar con el uso indicado.',['uso cfdi']],
 ['rfc','RFC','Registro Federal de Contribuyentes. Se usa para relacionar facturas y para detectar duplicados en catálogos (los RFC genéricos XAXX/XEXX no cuentan).',['rfc']],
@@ -2795,14 +2886,16 @@ const SECTIONS=[
 <li><b>${g('tarifa','Tarifa')}:</b> si existe para esa fletera + origen + destino + unidad, se coloca sola con ${g('iva','IVA')} y ${g('retencion','retención')}. Si no existe, aparece <b>+ Registrar esta tarifa</b>.</li>
 <li>Pulsa <b>Guardar OC</b>. Se genera el ${g('folio','folio')} y queda pendiente de autorización de flete.</li>
 </ol>`],
-['altas-rapidas','4. Dar de alta catálogos sin salir de la OC',`
-<p>Debajo de cada lista de la OC hay un botón para crear lo que falta. Al guardar, el registro queda en el catálogo <b>y seleccionado en tu OC</b>, sin perder lo que ya capturaste:</p>
+['altas-rapidas','4. Dar de alta y editar catálogos sin salir de la OC',`
+<p>Debajo de cada lista de la OC hay botones para <b>crear</b> lo que falta o <b>editar</b> lo que ya elegiste. Al guardar, el cambio queda en el catálogo <b>y tu OC se conserva</b> con lo nuevo seleccionado:</p>
 <ul>
 <li><b>+ Nueva razón social</b>, <b>+ Nueva fletera</b> y <b>+ Nuevo tipo de unidad</b>, en el encabezado.</li>
 <li><b>+ Nueva ubicación</b>, en cada parada de la ruta. <i>Editar ubicación</i> corrige la ubicación elegida sin borrar la OC.</li>
 <li><b>+ Nuevo producto</b>, en cada renglón de mercancías.</li>
 <li><b>+ Nuevo operador</b> y <b>+ Nueva unidad de fletera</b>, en la validación legal; se proponen con la fletera de la OC.</li>
-<li><b>+ Registrar esta tarifa</b>, cuando la ruta no tiene tarifa. Se abre con fletera, origen, destino y unidad ya llenos; solo captura el importe y la vigencia.</li>
+<li><b>+ Registrar esta tarifa</b>, cuando la ruta no tiene tarifa. Se abre con fletera, origen, destino y unidad ya llenos; solo captura el importe y la vigencia. Si la tarifa ya existe aparece <b>Editar tarifa</b>.</li>
+<li><b>Editar</b> junto a razón social, fletera y tipo de unidad; <b>Editar producto</b> en cada renglón; <b>Editar operador</b> y <b>Editar unidad</b> en la validación legal.</li>
+<li>En cada parada de <b>carga</b>, debajo del proveedor, verás si ya está en ${g('proveedores-recoleccion','proveedores de recolección')}: <b>✓ En recolección · Editar</b> para actualizar su ciudad/ruta, fletera habitual, comprador o quién paga el flete, o <b>+ Agregar a proveedores de recolección</b> si no está (se propone con el proveedor, la ciudad de la ubicación y la fletera de tu OC).</li>
 </ul>
 <p>Si lo que intentas crear ya existe (${g('duplicado','registro repetido')}), el portal te avisa y te ofrece usar el existente; si estaba dado de baja, lo reactiva. Necesitas el permiso <i>Editar catálogos</i>.</p>`],
 ['historico','5. Histórico, consulta y cancelación',`
@@ -2839,18 +2932,18 @@ const SECTIONS=[
 <li><b>Razones sociales</b> (${g('razon-social')}), <b>Fleteras</b>, <b>Ubicaciones</b>, <b>Productos frecuentes</b>, <b>Tarifas</b> y <b>Tipos de unidad</b>: alta con <i>+ Nuevo</i>, corrección con <i>Editar</i>.</li>
 <li><b>Dar de baja</b> no borra: el registro deja de aparecer en las OC nuevas y puedes reactivarlo.</li>
 <li><b>Operadores</b> y <b>Unidades de fletera</b> forman el expediente de seguridad que se valida en cada OC.</li>
-<li><b>${g('proveedores-recoleccion','Proveedores de recolección')}</b> se actualiza subiendo el Excel de costos.</li>
+<li><b>${g('proveedores-recoleccion','Proveedores de recolección')}</b>: se actualiza completo subiendo el Excel de costos (lo que ya no venga queda como BAJA), y también puedes <b>+ Agregar proveedor</b>, <b>Editar</b> o <b>Dar de baja / Reactivar</b> uno por uno.</li>
 <li>No se permiten ${g('duplicado','registros repetidos')}.</li>
 </ul>`],
 ['carga-excel','13. Cargar catálogos desde Excel',`
 <ol>
 <li>En <b>Catálogos</b> pulsa <b>⬇ Bajar plantilla vacía</b> (o <i>Bajar catálogos actuales</i> para ver lo que ya existe en el mismo formato).</li>
-<li>Llena una fila por registro en cada hoja: <i>Tipos de unidad, Razones sociales, Fleteras, Ubicaciones, Productos y Tarifas</i>. La hoja <b>LEEME</b> explica cada columna. Puedes dejar hojas vacías.</li>
+<li>Llena una fila por registro en cada hoja: <i>Tipos de unidad, Razones sociales, Fleteras, Ubicaciones, Productos, Tarifas y Proveedores de recolección</i>. La hoja <b>LEEME</b> explica cada columna. Puedes dejar hojas vacías.</li>
 <li>En <b>Tarifas</b> escribe nombres, no códigos: fletera por ${g('nombre-corto','nombre corto')}, razón social o RFC; origen y destino por nombre de ubicación; y el tipo de unidad. Pueden ser registros que vienen en el mismo archivo.</li>
 <li>Pulsa <b>⬆ Cargar Excel</b> y elige el archivo. Verás una <b>vista previa</b> por catálogo: <i>nuevos</i>, <i>ya existen</i>, <i>repetidos en el archivo</i> y <i>con error</i> (con número de fila y motivo).</li>
 <li>Pulsa <b>Cargar N registros nuevos</b>. Solo se guardan los nuevos; si corriges el Excel y lo vuelves a subir, lo ya cargado se detecta como existente.</li>
 </ol>
-<p><b>Cuándo es repetido:</b> razones sociales por RFC o nombre; fleteras por RFC, razón social o nombre corto; ubicaciones por nombre en el mismo municipio; productos por descripción o clave interna; tipos de unidad por nombre; tarifas por fletera + origen + destino + unidad. No importan mayúsculas, acentos ni espacios.</p>`],
+<p><b>Cuándo es repetido:</b> razones sociales por RFC o nombre; fleteras por RFC, razón social o nombre corto; ubicaciones por nombre en el mismo municipio; productos por descripción o clave interna; tipos de unidad por nombre; tarifas por fletera + origen + destino + unidad; proveedores de recolección por nombre. La carga por plantilla <b>solo agrega</b> proveedores nuevos (no da de baja a los que no vengan, a diferencia del Excel de costos). No importan mayúsculas, acentos ni espacios.</p>`],
 ['usuarios','14. Usuarios y permisos (administrador)',`
 <ol>
 <li>En <b>Usuarios</b> captura nombre, puesto, usuario, correo, ${g('autorizador','autorizador')} y ${g('permisos','permisos')}, y pulsa <i>Guardar acceso</i>. La persona queda como ${g('acceso-pendiente','acceso pendiente')} hasta que activa su cuenta.</li>

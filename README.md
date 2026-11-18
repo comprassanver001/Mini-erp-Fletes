@@ -18,6 +18,7 @@
 
 - **Altas rápidas desde la OC:** razón social, fletera, tipo de unidad, ubicación por parada, producto por renglón, operador, unidad de fletera y tarifa de la ruta, sin salir de la OC ni perder la captura.
 - **Carga masiva en Excel** (Catálogos): plantilla, exportación de catálogos actuales y carga con vista previa (nuevos / ya existen / repetidos en archivo / errores). No se cargan duplicados.
+- **Editar desde la OC:** razón social, fletera, tipo de unidad, ubicación, producto, operador, unidad y tarifa; y **proveedores de recolección** (alta/edición desde cada parada de carga, además de Agregar/Editar/Dar de baja en Catálogos y hoja propia en la plantilla de Excel).
 - **Bloqueo de duplicados** también en altas manuales (RFC, nombre, clave o ruta; sin importar mayúsculas, acentos o puntos).
 - **Pestaña Manual** con guía completa y glosario; los términos del portal muestran su definición al pasar el mouse con liga al glosario.
 

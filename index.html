@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mini ERP · Control de Fletes V58 · Captura directa de existencias</title>
+<title>Mini ERP · Control de Fletes V59 · Captura directa de existencias</title>
 <style>
 :root{--navy:#173f63;--blue:#2f75b5;--green:#2f7d4a;--gold:#d7a62f;--red:#a12620;--bg:#f3f6f9;--text:#263746;--border:#d8e0e7;--muted:#657481}
 *{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
@@ -78,6 +78,30 @@ textarea{min-height:74px}.notice{padding:12px 14px;border-radius:9px;background:
 .flash58{background:#fff3c4!important;transition:background .4s}
 .perm58{width:100%;border-collapse:collapse;margin-top:8px}.perm58 td,.perm58 th{border:1px solid #e1e8ee;padding:6px 8px;text-align:left}
 @media(max-width:820px){.manual58-grid{grid-template-columns:1fr}.manual58-toc{position:static}}
+</style>
+<style id="ck59Style">
+/* V59 · checklist de liberación y tablero por comprador */
+.ck59-chip{display:inline-block;padding:3px 8px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap}
+.ck59-chip.ok{background:#dff5e7;color:#1d6b35}.ck59-chip.mid{background:#e7f0fa;color:#174c73}.ck59-chip.warn{background:#fff1cc;color:#7a5200}.ck59-chip.bad{background:#fde1e1;color:#a01919}
+.ck59-hbtn{padding:2px 4px!important;background:transparent!important;border:0!important;box-shadow:none!important}
+.ck59-card{max-width:1000px}
+.ck59-top{display:flex;gap:14px;align-items:center;justify-content:space-between;margin:6px 0 10px}.ck59-top>div:first-child{flex:1}
+.ck59-bar{height:10px;background:#e6edf3;border-radius:999px;overflow:hidden;min-width:80px}.ck59-bar span{display:block;height:100%;background:linear-gradient(90deg,#2f75b5,#2e9d57)}
+.ck59-bar.sm{display:inline-block;width:90px;height:8px;vertical-align:middle;margin-right:6px}
+.ck59-res{margin:8px 0;padding:10px 12px;border-radius:10px;font-weight:700}.ck59-res.ok{background:#e8f6ec;color:#1d6b35}.ck59-res.warn{background:#fff4d6;color:#7a5200}.ck59-res.bad{background:#fde8e8;color:#a01919}
+.ck59-head,.ck59-tbl{width:100%;border-collapse:collapse;margin:8px 0}.ck59-head th,.ck59-head td,.ck59-tbl td,.ck59-tbl th{border:1px solid #dfe7ee;padding:6px 8px;text-align:left;vertical-align:top;font-size:13px}
+.ck59-head th{background:#f4f8fb;width:16%}.ck59-tbl thead th{background:#173f63;color:#fff}
+.ck59-sec td{background:#eef4fa}.ck59-st{white-space:nowrap;font-weight:700;width:150px}
+.ck59-ok .ck59-st{color:#1d6b35}.ck59-no .ck59-st{color:#a01919}.ck59-no{background:#fff5f5}.ck59-warn .ck59-st{color:#8a5a00}.ck59-pend .ck59-st{color:#8a5a00}.ck59-later{opacity:.6}.ck59-later .ck59-st{color:#6b7c8c}
+.ck59-src{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#55708a;background:#eef3f7;border-radius:6px;padding:1px 5px;margin-left:4px}.ck59-src.man{color:#6a4bc4;background:#f0ebff}
+.ck59-hint{color:#55708a}.ck59-ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:6px}.ck59-ctl label{font-weight:700;font-size:13px}.ck59-ctl .ck59-nota{flex:1;min-width:180px;padding:4px 8px;border:1px solid #cfdbe6;border-radius:6px}
+.ck59-inorder{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#f4f8fb;border:1px solid #d5e3ef;border-radius:10px;padding:8px 12px;margin-bottom:10px}
+.ck59-board{margin-top:16px}.ck59-board-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ck59-kpis{margin:10px 0}.ck59-kpi-bad{background:#fde8e8!important;color:#a01919}
+.ck59-btable{width:100%;border-collapse:collapse}.ck59-btable th,.ck59-btable td{border-bottom:1px solid #e6edf3;padding:6px 8px;text-align:left;font-size:13px;vertical-align:top}.ck59-btable th{background:#173f63;color:#fff}
+.ck59-row-bad td:first-child{border-left:4px solid #c62828}.ck59-pct{white-space:nowrap}.ck59-alarm-btn{padding:3px 8px!important;font-size:12px!important}.ck59-days{color:#a01919;font-size:15px}
+@media print{.ck59-inorder{display:none}}
+.ck59-scroll{max-height:560px;overflow:auto}
 </style>
 </head>
 <body class="auth-locked"><style>body.auth-locked>header,body.auth-locked>nav,body.auth-locked>main,body.auth-locked>section,body.auth-locked>#orderModal{display:none!important}#loginGate{position:fixed;inset:0;z-index:99999;background:#eef3f7;display:flex;align-items:center;justify-content:center;padding:20px}.login-card{width:min(440px,94vw);background:#fff;border:1px solid #cbd8e3;border-radius:16px;padding:28px;box-shadow:0 18px 60px rgba(20,48,72,.18)}.login-card input{width:100%;margin:5px 0 14px}.login-msg{min-height:38px;margin-top:10px;font-weight:700}.login-msg.error{color:#a12828}.login-msg.warn{color:#9a6500}#sessionBar{background:#123f63;color:#fff;padding:7px 16px;text-align:right;font-size:12px}
@@ -2790,6 +2814,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 const N=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[*:▾·•]/g,' ').replace(/\s+/g,' ').trim();
 /* key, término, definición, etiquetas del portal donde aparece (se comparan sin acentos, mayúsculas ni asteriscos) */
 const GL=[
+['checklist','Checklist de liberación','Lista de verificación por folio basada en el “Checklist de liberación de viaje” de SANVER: secciones A Transportista, B Unidad y operador, C Mercancía, D Carta Porte y L Liberación/cierre. Los puntos automáticos se llenan solos con la OC, el expediente de unidad y operador, el XML/CP validado, la entrega y el pago; los manuales los marca el comprador o quien libera (Sí / No / N/A con nota).',['checklist','checklist de liberacion','punto a verificar']],
+['punto-critico','Punto crítico (A, B, D)','Puntos del checklist de las secciones A (transportista), B (unidad y operador) y D (Carta Porte). Si alguno queda en “No”, la unidad no sale sin autorización escrita de la Gerencia de Compras.',['criticos abiertos','punto critico']],
+['alarma-folio','Alarma de folio parado','Se enciende cuando un folio abierto (no cancelado ni liberado a pago) tiene más de 7 días desde su creación y aún tiene puntos del checklist pendientes o en “No” para la etapa en la que va. Aparece en el tablero de Inicio por comprador.',['alarmas','folios parados con informacion incompleta']],
 ['oc','OC (orden de servicio)','Documento maestro de un viaje: dice qué fletera mueve qué mercancía, entre qué puntos, con qué unidad y a qué precio. Cada OC tiene un folio único y pasa por etapas hasta liberarse a pago.',['nueva orden de servicio','oc']],
 ['folio','Folio','Número único de la OC con formato AAAAMMDD-NNN (fecha de creación + consecutivo del día). Ej.: 20261118-002. Lo genera el sistema; no se captura.',['folio']],
 ['razon-social','Razón social receptora','Empresa del grupo (SANVER, MASYFERR…) que contrata y paga el flete. Es a quien la fletera debe facturar: su RFC debe coincidir con el receptor del XML.',['razon social','razon social receptora','empresa']],
@@ -2954,7 +2981,16 @@ const SECTIONS=[
 <tr><td>Crear solicitudes</td><td>Capturar OC nuevas y duplicar.</td></tr><tr><td>Ver histórico</td><td>Consultar OC.</td></tr><tr><td>Editar órdenes</td><td>Corregir OC antes de autorizarse.</td></tr><tr><td>Cancelar/eliminar órdenes</td><td>Cancelar cualquier OC no liberada a pago.</td></tr><tr><td>Autorizar órdenes</td><td>Firmar flete y pago de las OC que tiene asignadas.</td></tr><tr><td>Ver XML / Validar XML</td><td>Consultar y validar expedientes de factura y Carta Porte.</td></tr><tr><td>Ver pagos / Registrar pagos</td><td>Bandeja de pagos.</td></tr><tr><td>Ver / Editar catálogos</td><td>Consultar o dar de alta y modificar catálogos (incluye altas rápidas y Excel).</td></tr><tr><td>Ver dashboard</td><td>Indicadores.</td></tr><tr><td>Administrar usuarios</td><td>Usuarios, respaldo y todas las OC.</td></tr><tr><td>Compra de cemento</td><td>Módulo de cemento.</td></tr>
 </tbody></table>`],
 ['respaldo','15. Respaldo',`
-<p>En <b>Respaldo</b> (solo administrador): <i>Descargar respaldo completo</i> genera un JSON con todas las tablas y archivos. <i>Restaurar en una base nueva</i> solo se usa al migrar a otro proyecto de Supabase. Guarda los respaldos en un lugar seguro: contienen información de la empresa.</p>`]
+<p>En <b>Respaldo</b> (solo administrador): <i>Descargar respaldo completo</i> genera un JSON con todas las tablas y archivos. <i>Restaurar en una base nueva</i> solo se usa al migrar a otro proyecto de Supabase. Guarda los respaldos en un lugar seguro: contienen información de la empresa.</p>`],
+['checklist','16. Checklist de liberación y tablero de avance',`
+<p>Cada folio tiene un ${g('checklist','checklist de liberación')} que sigue la circular “Ninguna unidad carga sin póliza vigente y Carta Porte timbrada y revisada”. Ábrelo con el botón <b>Checklist %</b> del histórico o con <b>Abrir checklist</b> dentro de la OC.</p>
+<ol>
+<li><b>Se llena solo conforme avanza el folio.</b> Al crear la OC se validan transportista, puntos, mercancía, remisión, unidad, operador, licencia, seguro y peso. Al validar el XML se revisan timbrado, claves SAT y peso de la Carta Porte. Al confirmar la entrega y liberar el pago se cierran los puntos de la sección L.</li>
+<li><b>Puntos manuales.</b> Contrato, suma asegurada, embalaje, fotos, remisión firmada, valor, placas y origen/destino en la Carta Porte se marcan con <i>Sí / No / N/A</i> y una nota; pulsa <b>Guardar puntos manuales</b>. Queda registrado quién y cuándo los marcó.</li>
+<li><b>Etapas.</b> Los puntos de etapas futuras aparecen en gris y no cuentan como faltantes hasta que el folio llega a esa etapa.</li>
+<li><b>Resultado.</b> Si un ${g('punto-critico','punto crítico')} queda en “No”, el checklist marca <b>No liberado</b>: se requiere autorización escrita de la Gerencia de Compras.</li>
+<li><b>Tablero de Inicio.</b> Muestra por comprador cuántos folios tiene en cada etapa, su avance promedio de checklist y las ${g('alarma-folio','alarmas')} de folios con más de 7 días sin la información correcta. Pulsa la alarma de un comprador para filtrar su lista.</li>
+</ol>`]
 ];
 function renderManual58(){
  const sec=document.getElementById('manual');if(!sec||sec.dataset.ready)return;sec.dataset.ready='1';
@@ -2983,6 +3019,251 @@ function decorate58(root=document){(root.querySelectorAll?root:document).querySe
 window.decorateGlossary58=decorate58;
 let dt=null;new MutationObserver(()=>{clearTimeout(dt);dt=setTimeout(()=>decorate58(document),250)}).observe(document.documentElement,{childList:true,subtree:true});
 const boot58=()=>{renderManual58();decorate58()};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot58);else boot58();
+})();
+
+</script>
+<script>
+/* V59 · Checklist de liberación por folio + tablero de avance por comprador con alarma de folios parados */
+(function(){
+'use strict';
+const DAY=864e5, ALARM_DAYS=7;
+const E=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const M=v=>typeof money==='function'?money(v):'$'+Number(v||0).toLocaleString('es-MX',{minimumFractionDigits:2});
+const kg=v=>Number(v||0).toLocaleString('es-MX',{maximumFractionDigits:0})+' kg';
+const dOnly=v=>v?String(v).slice(0,10):'';
+const daysBetween=(a,b)=>Math.floor((b-a)/DAY);
+
+/* ---------- Documentos en la nube (XML/CP y evidencias) ---------- */
+let XML59=new Map(),EVID59=new Map(),DOCS_AT59=0,DOCS_BUSY59=false;
+async function loadDocs59(force){
+ if(DOCS_BUSY59||(!force&&Date.now()-DOCS_AT59<60000))return false;
+ if(typeof supa==='undefined'||typeof current24!=='function'||!current24())return false;
+ DOCS_BUSY59=true;
+ try{
+  const [x,e]=await Promise.all([
+   supa.from('facturas_xml').select('orden_id,resultado_validacion,diferencias,tiene_carta_porte,fecha_emision,uuid_fiscal,validado_at'),
+   supa.from('evidencias_entrega').select('orden_id,nombre_archivo,created_at')]);
+  const group=rows=>{const m=new Map();(rows||[]).forEach(r=>{if(!m.has(r.orden_id))m.set(r.orden_id,[]);m.get(r.orden_id).push(r)});return m};
+  if(!x.error)XML59=group(x.data);else console.warn('Checklist: no se pudieron leer los XML',x.error.message);
+  if(!e.error)EVID59=group(e.data);else console.warn('Checklist: no se pudieron leer las evidencias',e.error.message);
+  DOCS_AT59=Date.now();return true;
+ }finally{DOCS_BUSY59=false}
+}
+
+/* ---------- Respuestas manuales (bitácora ORDEN · accion CHECKLIST) ---------- */
+function manualOf(o){
+ const out={};
+ (o.bitacora||[]).filter(b=>b.accion==='CHECKLIST'&&b.detalle&&b.detalle.checklist).sort((a,b)=>String(a.createdAt).localeCompare(String(b.createdAt)))
+  .forEach(b=>Object.entries(b.detalle.checklist).forEach(([k,v])=>{out[k]=Object.assign({},v,{at:b.createdAt})}));
+ return out;
+}
+
+/* ---------- Contexto del folio ---------- */
+function ctxOf(o){
+ let risk=null;try{risk=typeof riskForOrderSANVER==='function'?riskForOrderSANVER(o):null}catch(e){}
+ const fleet=typeof FLOTA_SANVER!=='undefined'&&Array.isArray(FLOTA_SANVER)?FLOTA_SANVER:[];
+ const ops=typeof OPERADORES_SANVER!=='undefined'&&Array.isArray(OPERADORES_SANVER)?OPERADORES_SANVER:[];
+ const unit=risk&&risk.unidadFlotaId?fleet.find(u=>u.id===risk.unidadFlotaId):null;
+ const op=risk&&risk.operadorId?ops.find(x=>x.id===risk.operadorId):null;
+ const xmls=(XML59.get(o._cloud_id)||[]).slice().sort((a,b)=>String(b.validado_at||'').localeCompare(String(a.validado_at||'')));
+ const xml=xmls.find(x=>x.resultado_validacion==='VALIDADO')||xmls[0]||null;
+ const checks={};((xml&&xml.diferencias&&xml.diferencias.checks)||[]).forEach(c=>{if(Array.isArray(c))checks[c[0]]={ok:!!c[1],got:c[2],exp:c[3]}});
+ const errs=(risk&&risk.errores)||[],warns=(risk&&risk.advertencias)||[];
+ const hasErr=t=>errs.some(e=>String(e).toUpperCase().includes(t));
+ const merch=o.mercancias||[];
+ return{risk,unit,op,xml,checks,errs,warns,hasErr,merch,
+  evid:EVID59.get(o._cloud_id)||[],
+  peso:merch.reduce((a,m)=>a+Number(m.pesoKg||0),0),
+  valor:Number(o.valorMercanciaSinIva||merch.reduce((a,m)=>a+Number(m.valorMercanciaSinIva||0),0)),
+  viaje:dOnly(o.fechaServicio||o.fechaSolicitud),
+  placas:(risk&&risk.placasTracto)||(unit&&unit.placasTracto)||'',
+  operador:(risk&&risk.operador)||(op&&op.nombre)||'',
+  docs:!!(xml||o.documentosValidados)};
+}
+
+/* ---------- Puntos del checklist (Checklist de liberación de viaje – SANVER) ---------- */
+const R=(s,d)=>({s,d:d||''});
+const SECS=[
+ ['S','Solicitud del folio','Datos con los que el comprador crea el folio.'],
+ ['A','Transportista','Si un punto queda en “No”, la unidad no sale sin autorización escrita de Gerencia.'],
+ ['B','Unidad y operador','Datos de la unidad y del operador que llegan a cargar.'],
+ ['C','Mercancía','Facturas o remisiones, peso, bultos, embalaje y fotos.'],
+ ['D','Carta Porte (CFDI con complemento)','Se valida al subir y validar el XML/PDF timbrado.'],
+ ['L','Liberación, recepción y cierre','Autorización, entrega con evidencia y liberación a pago.']];
+const CRIT=new Set(['A','B','D']);
+const ITEMS=[
+ {id:'S1',sec:'S',t:'Transportista seleccionado del padrón',auto:o=>o.fletera?R('OK',o.fletera):R('NO','Sin fletera')},
+ {id:'S2',sec:'S',t:'Origen y destino con puntos de carga y descarga',auto:o=>{const p=o.puntos||[],c=p.some(x=>String(x.tipo).toUpperCase()==='CARGA'),d=p.some(x=>['DESCARGA','DESTINO'].includes(String(x.tipo).toUpperCase()));return c&&d?R('OK',p.map(x=>x.ubicacion).filter(Boolean).join(' → ')):R('NO',!c?'Falta punto de carga':'Falta punto de descarga')}},
+ {id:'S3',sec:'S',t:'Mercancía con clave SAT, peso y valor',auto:(o,c)=>{if(!c.merch.length)return R('NO','Sin mercancías');const bad=c.merch.filter(m=>!m.clave||!(Number(m.pesoKg)>0)||!(Number(m.valorMercanciaSinIva)>0));return bad.length?R('NO',bad.length+' partida(s) sin clave, peso o valor'):R('OK',c.merch.length+' partida(s) · '+kg(c.peso)+' · '+M(c.valor))}},
+ {id:'A1',sec:'A',t:'Contrato vigente con la empresa',manual:true,hint:'Confirma el contrato de la fletera.'},
+ {id:'A2',sec:'A',t:'Póliza de carga vigente a la fecha del viaje',manual:true,auto:(o,c)=>{
+   if(c.hasErr('SEGURO'))return R('NO','El expediente marcó el seguro de la unidad vencido');
+   if(c.unit&&c.unit.seguroVigencia){return c.unit.seguroVigencia>=c.viaje?R('OK',(c.unit.aseguradora||'Póliza')+' vence '+c.unit.seguroVigencia):R('NO','Póliza vencida el '+c.unit.seguroVigencia)}
+   return null}},
+ {id:'A3',sec:'A',t:'Suma asegurada mayor o igual al valor de la carga',manual:true,hint:o=>'Valor de la carga: '+M(o.valorMercanciaSinIva)},
+ {id:'B1',sec:'B',t:'Placas y unidad coinciden con las reportadas por el transportista',auto:(o,c)=>{
+   if(!c.risk)return R('PEND','Sin expediente de unidad en la OC');
+   if(c.hasErr('UNIDAD NO REGISTRADA')||!c.risk.unidadFlotaId)return R('NO','Unidad no registrada en el expediente');
+   return R('OK','Placas '+(c.placas||'registradas')+(c.risk.configuracion?' · '+c.risk.configuracion:''))}},
+ {id:'B2',sec:'B',t:'Operador identificado, con licencia federal vigente',auto:(o,c)=>{
+   if(!c.risk)return R('PEND','Sin expediente de operador en la OC');
+   if(c.hasErr('OPERADOR NO REGISTRADO')||!c.risk.operadorId)return R('NO','Operador no registrado');
+   const vig=(c.op&&c.op.vigencia)||c.risk.licenciaVigencia||'';
+   if(!vig)return R('PEND','Sin vigencia de licencia');
+   return vig>=c.viaje?R('OK',c.operador+' · licencia vence '+vig):R('NO','Licencia vencida el '+vig)}},
+ {id:'B3',sec:'B',t:'Enlace de rastreo GPS recibido y activo',manual:true,auto:(o,c)=>c.risk&&String(c.risk.gpsVerificado).toUpperCase()==='SI'?R('OK','GPS verificado en la OC'):null},
+ {id:'C1',sec:'C',t:'Factura o remisión valorizada de cada proveedor, con número de OC',auto:(o,c)=>(o.remisiones||[]).length&&c.valor>0?R('OK','Remisión '+(o.remisiones||[]).join(', ')+' · '+M(c.valor)):R('NO',!(o.remisiones||[]).length?'Sin remisión / factura capturada':'Sin valor de mercancía')},
+ {id:'C2',sec:'C',t:'Bultos y peso registrados; peso total dentro del límite de la unidad',auto:(o,c)=>{
+   if(!(c.peso>0))return R('NO','Sin peso registrado');
+   const r=c.risk;if(r&&Number(r.pbvMaxAutorizadoKg)>0&&Number(r.pbvCalculadoKg)>Number(r.pbvMaxAutorizadoKg))return R('NO','PBV '+kg(r.pbvCalculadoKg)+' supera el máximo '+kg(r.pbvMaxAutorizadoKg));
+   if(c.hasErr('PBV')||c.hasErr('SOBREPESO'))return R('NO','Sobrepeso detectado en la OC');
+   return R('OK',kg(c.peso)+(r&&Number(r.pbvMaxAutorizadoKg)>0?' · PBV '+kg(r.pbvCalculadoKg)+' de '+kg(r.pbvMaxAutorizadoKg):''))}},
+ {id:'C3',sec:'C',t:'Embalaje en buen estado e identificado',manual:true},
+ {id:'C4',sec:'C',t:'Fotos de la carga y la estiba recibidas (por proveedor)',manual:true},
+ {id:'C5',sec:'C',t:'Remisión de carga firmada por el operador',manual:true},
+ {id:'D1',sec:'D',t:'Carta Porte timbrada antes de iniciar el traslado',auto:(o,c)=>{
+   if(!c.docs)return R('PEND','Falta subir y validar el XML/CP');
+   if(c.xml&&String(c.xml.tiene_carta_porte)==='false')return R('NO','El XML no trae complemento Carta Porte');
+   const em=c.xml&&dOnly(c.xml.fecha_emision);
+   if(em&&c.viaje&&em>c.viaje)return R('NO','Timbrada el '+em+', después del viaje ('+c.viaje+')');
+   return R('OK',(em?'Timbrada el '+em:'XML validado')+(c.xml&&c.xml.uuid_fiscal?' · UUID '+String(c.xml.uuid_fiscal).slice(0,8)+'…':''))}},
+ {id:'D2',sec:'D',t:'Incluye todos los proveedores, productos y puntos de carga',manual:true,auto:(o,c)=>{if(!c.docs)return R('PEND','Falta validar el XML/CP');const k=c.checks['Claves SAT mercancía'];return k?(k.ok?R('OK','Claves SAT: '+k.got):R('NO','Claves SAT distintas: '+k.got+' vs '+k.exp)):null}},
+ {id:'D3',sec:'D',t:'Peso y bultos coinciden con lo cargado',manual:true,auto:(o,c)=>{if(!c.docs)return R('PEND','Falta validar el XML/CP');const k=c.checks['Peso Carta Porte'];return k?(k.ok?R('OK',String(k.got)):R('NO','Peso CP '+k.got+' vs '+k.exp)):null}},
+ {id:'D4',sec:'D',t:'Valor de la mercancía coincide con facturas o remisiones',manual:true,hint:o=>'Valor en la OC: '+M(o.valorMercanciaSinIva)},
+ {id:'D5',sec:'D',t:'Placas, unidad y operador coinciden con los que cargaron',manual:true,hint:(o,c)=>[c.placas&&'Placas '+c.placas,c.operador&&'Operador '+c.operador].filter(Boolean).join(' · ')},
+ {id:'D6',sec:'D',t:'Origen, destino y número de OC u orden de servicio correctos',manual:true,hint:(o,c)=>{const k=c.checks['Distancia Carta Porte'];return k?'Distancia CP '+k.got+' · OC '+k.exp:''}},
+ {id:'L1',sec:'L',t:'Flete autorizado y firmado',auto:o=>o.firmaAutoriza?R('OK',(o.autorizadoPor||'Autorizado')+(o.fechaAutorizacion?' · '+dOnly(o.fechaAutorizacion):'')):R('PEND','Pendiente de autorizar')},
+ {id:'L2',sec:'L',t:'Validó una segunda persona distinta al comprador',auto:o=>{if(!o.firmaAutoriza)return R('PEND','Pendiente de autorizar');return o.autorizadoPorId&&o.autorizadoPorId===o.usuarioSolicitaId?R('WARN','Lo autorizó el mismo comprador'):R('OK',o.autorizadoPor||'Segunda persona')}},
+ {id:'L3',sec:'L',t:'Recepción confirmada con evidencia',auto:(o,c)=>{if(!o.entregaConfirmada)return R('PEND','Pendiente de confirmar entrega');return c.evid.length?R('OK',c.evid.length+' evidencia(s)'+(o.entregaConfirmadaAt?' · '+dOnly(o.entregaConfirmadaAt):'')):R('WARN','Entrega confirmada sin evidencia adjunta')}},
+ {id:'L4',sec:'L',t:'Pago del flete liberado (folio cerrado)',auto:o=>o.liberadoPago?R('OK',(o.pagoAutorizadoPor||'Liberado')+(o.fechaAutorizacionPago?' · '+dOnly(o.fechaAutorizacionPago):'')):R('PEND','Pendiente de liberar pago')}];
+
+/* Etapa del folio y qué secciones ya deberían estar completas */
+function stageOf(o){return o.liberadoPago?5:o.entregaConfirmada?4:o.documentosValidados?3:o.firmaAutoriza?2:1}
+const STAGE_NAMES=['','Pendiente de autorizar flete','Autorizada (en tránsito / falta XML)','XML/CP validado (falta entrega)','Entregada (falta autorizar pago)','Liberada a pago'];
+function dueOf(item,o,st){
+ if(['S','A','B'].includes(item.sec))return true;
+ if(item.sec==='C')return st>=2;
+ if(item.sec==='D')return st>=3||!!o.documentosValidados;
+ if(item.id==='L1'||item.id==='L2')return true;
+ if(item.id==='L3')return st>=3;
+ if(item.id==='L4')return st>=4;
+ return true;
+}
+
+function evaluate59(o){
+ const c=ctxOf(o),man=manualOf(o),st=stageOf(o),rows=[];
+ for(const it of ITEMS){
+  let r=it.auto?it.auto(o,c):null,src='auto';
+  if(!r){const m=man[it.id];if(m&&m.v){r=R(m.v==='SI'?'OK':m.v==='NO'?'NO':'NA',m.nota||'');src='manual';r.por=m.por;r.at=m.at}else{r=R('PEND','');src=it.manual?'manual':'auto'}}
+  const hint=typeof it.hint==='function'?it.hint(o,c):(it.hint||'');
+  rows.push(Object.assign({},it,r,{src,editable:!!it.manual&&(src==='manual'),hint,due:dueOf(it,o,st)}));
+ }
+ const appl=rows.filter(r=>r.s!=='NA'),done=appl.filter(r=>r.s==='OK'||r.s==='WARN');
+ const missing=rows.filter(r=>r.due&&(r.s==='PEND'||r.s==='NO')).sort((a,b)=>(b.s==='NO')-(a.s==='NO')||(CRIT.has(b.sec)&&!b.editable)-(CRIT.has(a.sec)&&!a.editable));
+ const fails=rows.filter(r=>r.s==='NO');
+ const critOpen=rows.filter(r=>CRIT.has(r.sec)&&r.due&&(r.s==='NO'||r.s==='PEND'));
+ const created=createdAt(o),last=lastActivity(o),now=Date.now();
+ const closed=!!o.liberadoPago||['CERRADO','CANCELADO'].includes(o.estatus);
+ const age=created?daysBetween(created,now):0,idle=last?daysBetween(last,now):age;
+ return{o,c,rows,st,stage:STAGE_NAMES[st],pct:appl.length?Math.round(done.length*100/appl.length):0,
+  missing,fails,critOpen,age,idle,closed,alarm:!closed&&o.estatus!=='CANCELADO'&&age>ALARM_DAYS&&missing.length>0};
+}
+function createdAt(o){const b=(o.bitacora||[]).find(x=>x.accion==='CREADA');const t=b&&Date.parse(b.createdAt);if(t)return t;const f=Date.parse((o.fechaSolicitud||'')+'T12:00:00');return isNaN(f)?0:f}
+function lastActivity(o){let t=createdAt(o);(o.bitacora||[]).forEach(b=>{const x=Date.parse(b.createdAt);if(x>t)t=x});[o.fechaAutorizacion,o.documentosValidadosAt,o.entregaConfirmadaAt,o.fechaAutorizacionPago].forEach(v=>{const x=Date.parse(v||'');if(x>t)t=x});return t}
+
+/* ---------- Vista del checklist ---------- */
+const ICON={OK:'✅',NO:'⛔',PEND:'⏳',NA:'➖',WARN:'⚠️'};
+const LABEL={OK:'Sí',NO:'No',PEND:'Pendiente',NA:'N/A',WARN:'Con observación'};
+function chip59(ev){const cls=ev.alarm?'bad':ev.pct>=100?'ok':ev.missing.length?'warn':'mid';return `<span class="ck59-chip ${cls}" title="${E(ev.stage)}">${ev.alarm?'🚨 ':''}Checklist ${ev.pct}%</span>`}
+function ensureModal(){let m=document.getElementById('ck59Modal');if(m)return m;m=document.createElement('div');m.className='modal';m.id='ck59Modal';m.innerHTML='<div class="modal-card ck59-card"><div id="ck59Content"></div><div class="actions no-print"><button class="btn btn-light" onclick="closeChecklist59()">Cerrar</button><button class="btn btn-blue" onclick="printChecklist59()">Imprimir</button></div></div>';document.body.appendChild(m);return m}
+function rowHTML(r,canEdit){
+ const ctl=r.editable&&canEdit?`<div class="ck59-ctl" data-id="${r.id}">${['SI','NO','NA'].map(v=>`<label><input type="radio" name="ck59-${r.id}" value="${v}" ${(r.s==='OK'&&v==='SI')||(r.s==='NO'&&v==='NO')||(r.s==='NA'&&v==='NA')?'checked':''}> ${v==='SI'?'Sí':v==='NO'?'No':'N/A'}</label>`).join('')}<input class="ck59-nota" placeholder="Nota (opcional)" value="${r.src==='manual'&&r.d?E(r.d):''}"></div>`:'';
+ const who=r.src==='manual'&&r.por?`<div class="small">Marcado por ${E(r.por)}${r.at?' · '+dOnly(r.at):''}</div>`:'';
+ const tag=r.src==='manual'?'<span class="ck59-src man">manual</span>':'<span class="ck59-src">automático</span>';
+ return `<tr class="ck59-${r.s.toLowerCase()} ${r.due?'':'ck59-later'}"><td><b>${r.id}</b></td><td>${E(r.t)} ${tag}${r.d&&!(r.editable&&canEdit)?`<div class="small">${E(r.d)}</div>`:''}${r.hint?`<div class="small ck59-hint">${E(r.hint)}</div>`:''}${who}${ctl}</td><td class="ck59-st">${ICON[r.s]} ${r.due||r.s!=='PEND'?LABEL[r.s]:'Etapa futura'}</td></tr>`;
+}
+function checklistHTML(ev,canEdit){
+ const o=ev.o,c=ev.c,p=o.puntos||[];
+ const head=[['Folio / OC',o.folio],['Fecha de servicio',o.fechaServicio],['Comprador',o.solicitadoPor],['Operación',o.tipoServicio],['Transportista',o.fletera],['Origen → Destino',(p[0]&&p[0].ubicacion||'')+' → '+(p.length?p[p.length-1].ubicacion:'')],['Placas',c.placas||'—'],['Operador',c.operador||'—'],['Valor de la carga',M(c.valor)],['Peso total',kg(c.peso)]];
+ const crit=ev.critOpen.length;
+ const res=ev.fails.some(r=>CRIT.has(r.sec))?'<div class="ck59-res bad">⛔ No liberado: hay puntos críticos en “No” (secciones A, B o D). Requiere autorización escrita de Gerencia de Compras.</div>'
+  :crit?`<div class="ck59-res warn">⏳ Expediente incompleto: faltan ${crit} punto(s) crítico(s) de las secciones A, B o D.</div>`
+  :'<div class="ck59-res ok">✅ Puntos críticos (A, B y D) completos.</div>';
+ let body='';
+ for(const [k,t,d] of SECS){const rs=ev.rows.filter(r=>r.sec===k);const ok=rs.filter(r=>['OK','WARN','NA'].includes(r.s)).length;
+  body+=`<tr class="ck59-sec"><td>${k==='S'?'':k}</td><td colspan="2"><b>${E(t)}</b> <span class="small">· ${ok}/${rs.length}${CRIT.has(k)?' · crítico':''}</span><div class="small">${E(d)}</div></td></tr>`+rs.map(r=>rowHTML(r,canEdit)).join('')}
+ const alarm=ev.alarm?`<div class="ck59-res bad">🚨 Folio con ${ev.age} días desde su creación y ${ev.missing.length} punto(s) pendiente(s) de su etapa.</div>`:'';
+ return `<h2>Checklist de liberación de viaje · ${E(o.folio)}</h2>
+ <div class="ck59-top"><div><div class="ck59-bar"><span style="width:${ev.pct}%"></span></div><div class="small">${ev.pct}% completo · Etapa: <b>${E(ev.stage)}</b> · ${ev.age} día(s) desde su creación · ${ev.idle} sin movimiento</div></div>${chip59(ev)}</div>
+ ${alarm}${res}
+ <table class="ck59-head">${head.map((h,i)=>i%2?'':`<tr><th>${h[0]}</th><td>${E(h[1]||'—')}</td><th>${head[i+1]?head[i+1][0]:''}</th><td>${E(head[i+1]?head[i+1][1]||'—':'')}</td></tr>`).join('')}</table>
+ <table class="ck59-tbl"><thead><tr><th>#</th><th>Punto a verificar</th><th>Resultado</th></tr></thead><tbody>${body}</tbody></table>
+ ${canEdit&&o.estatus!=='CANCELADO'?`<div class="actions" style="justify-content:flex-start"><button class="btn btn-primary" onclick="saveChecklist59('${E(o.folio)}')">Guardar puntos manuales</button><span class="small">Los puntos automáticos se llenan solos con la OC, el expediente de unidad/operador, el XML/CP validado, la entrega y el pago.</span></div>`:''}`;
+}
+window.openChecklist59=async function(folio){
+ const o=(typeof orders!=='undefined'?orders:[]).find(x=>x.folio===folio);if(!o)return alert('No se encontró el folio '+folio);
+ ensureModal();document.getElementById('ck59Content').innerHTML='<p>Cargando checklist…</p>';document.getElementById('ck59Modal').classList.add('open');
+ await loadDocs59(false);
+ const canEdit=typeof current24==='function'&&!!current24();
+ document.getElementById('ck59Content').innerHTML=checklistHTML(evaluate59(o),canEdit);
+};
+window.closeChecklist59=()=>{const m=document.getElementById('ck59Modal');if(m)m.classList.remove('open')};
+window.printChecklist59=function(){const html=document.getElementById('ck59Content').innerHTML;const w=window.open('','_blank');if(!w)return alert('Permite ventanas emergentes para imprimir.');w.document.write('<html><head><title>Checklist</title><style>'+document.getElementById('ck59Style').textContent+' body{font-family:Arial,sans-serif;padding:16px} .ck59-ctl input.ck59-nota{display:none}</style></head><body>'+html.replace(/<div class="actions"[\s\S]*?<\/div>/,'')+'</body></html>');w.document.close();w.focus();setTimeout(()=>w.print(),300)};
+window.saveChecklist59=async function(folio){
+ const o=orders.find(x=>x.folio===folio);if(!o)return;
+ const u=current24();if(!u)return alert('Inicia sesión para guardar.');
+ const prev=manualOf(o),changes={};
+ document.querySelectorAll('#ck59Content .ck59-ctl').forEach(div=>{const id=div.dataset.id,sel=div.querySelector('input[type=radio]:checked'),nota=(div.querySelector('.ck59-nota').value||'').trim();if(!sel)return;const p=prev[id]||{};if(p.v!==sel.value||(p.nota||'')!==nota)changes[id]={v:sel.value,nota,por:u.nombre||u.nombre_completo||u.login||'',fecha:new Date().toISOString()}});
+ if(!Object.keys(changes).length)return alert('No hay cambios que guardar.');
+ if(Object.values(changes).some(x=>x.v==='NO'&&!x.nota)&&!confirm('Marcaste puntos en “No” sin nota. ¿Guardar de todos modos?'))return;
+ const x=await supa.from('bitacora').insert({usuario_id:u.id,accion:'CHECKLIST',modulo:'ORDEN',registro_id:folio,detalle:{checklist:changes,fecha_original:new Date().toLocaleString('es-MX')}});
+ if(x.error)return alert('No se pudo guardar el checklist: '+x.error.message);
+ if(typeof loadCloudData==='function')await loadCloudData();
+ openChecklist59(folio);
+};
+
+/* ---------- Tablero de avance por comprador (Inicio) ---------- */
+let BOARD_PERIOD59='90';
+function boardHTML(){
+ const list=(typeof orders!=='undefined'?orders:[]).filter(o=>o.estatus!=='CANCELADO');
+ const now=Date.now(),lim=BOARD_PERIOD59==='all'?0:now-Number(BOARD_PERIOD59)*DAY;
+ const evs=list.map(evaluate59).filter(ev=>!ev.closed||createdAt(ev.o)>=lim);
+ const by=new Map();
+ evs.forEach(ev=>{const k=ev.o.solicitadoPor||'(sin comprador)';if(!by.has(k))by.set(k,[]);by.get(k).push(ev)});
+ const rows=[...by.entries()].map(([k,a])=>({k,a,open:a.filter(e=>!e.closed).length,st:[1,2,3,4,5].map(s=>a.filter(e=>e.st===s).length),pct:Math.round(a.reduce((s,e)=>s+e.pct,0)/a.length),crit:a.filter(e=>!e.closed&&e.critOpen.length).length,alarms:a.filter(e=>e.alarm)})).sort((x,y)=>y.alarms.length-x.alarms.length||y.open-x.open||x.k.localeCompare(y.k));
+ const alarms=evs.filter(e=>e.alarm).sort((a,b)=>b.age-a.age);
+ const avg=evs.length?Math.round(evs.reduce((s,e)=>s+e.pct,0)/evs.length):0;
+ const bar=p=>`<div class="ck59-bar sm"><span style="width:${p}%"></span></div><span class="small">${p}%</span>`;
+ return `<div class="card ck59-board"><div class="ck59-board-h"><h3>Avance de folios por comprador</h3><label class="small">Periodo <select onchange="setBoardPeriod59(this.value)">${[['30','Últimos 30 días'],['90','Últimos 90 días'],['all','Todo']].map(([v,t])=>`<option value="${v}" ${v===BOARD_PERIOD59?'selected':''}>${t}</option>`).join('')}</select></label></div>
+ <div class="small">Incluye todos los folios abiertos y los cerrados del periodo. Alarma: folio abierto con más de ${ALARM_DAYS} días desde su creación y puntos del checklist pendientes o en “No” para su etapa.</div>
+ <div class="kpis ck59-kpis"><div class="kpi"><b>${evs.filter(e=>!e.closed).length}</b>Folios abiertos</div><div class="kpi"><b>${avg}%</b>Checklist promedio</div><div class="kpi ${alarms.length?'ck59-kpi-bad':''}"><b>${alarms.length}</b>Alarmas &gt; ${ALARM_DAYS} días</div></div>
+ <div class="table-wrap"><table class="ck59-btable"><thead><tr><th>Comprador</th><th>Folios</th><th>Abiertos</th><th>Pend. aut.</th><th>Autorizadas</th><th>XML/CP</th><th>Entregadas</th><th>Liberadas</th><th>Checklist</th><th>Críticos abiertos</th><th>Alarmas</th></tr></thead><tbody>
+ ${rows.map(r=>`<tr class="${r.alarms.length?'ck59-row-bad':''}"><td><b>${E(r.k)}</b></td><td>${r.a.length}</td><td>${r.open}</td>${r.st.map(n=>`<td>${n||''}</td>`).join('')}<td class="ck59-pct">${bar(r.pct)}</td><td>${r.crit||''}</td><td>${r.alarms.length?`<button class="btn btn-danger ck59-alarm-btn" onclick="filterAlarms59(${E(JSON.stringify(r.k))})">🚨 ${r.alarms.length}</button>`:'—'}</td></tr>`).join('')||'<tr><td colspan="11">Sin folios en el periodo.</td></tr>'}
+ </tbody></table></div>
+ <h3 style="margin-top:14px">🚨 Folios parados con información incompleta <span class="small" id="ck59AlarmFilter"></span></h3>
+ ${alarms.length?`<div class="table-wrap ck59-scroll"><table class="ck59-btable" id="ck59Alarms"><thead><tr><th>Folio</th><th>Comprador</th><th>Días</th><th>Sin movimiento</th><th>Etapa</th><th>Qué falta</th><th></th></tr></thead><tbody>
+ ${alarms.map(e=>`<tr data-buyer="${E(e.o.solicitadoPor||'(sin comprador)')}"><td><b>${E(e.o.folio)}</b><div class="small">${E(e.o.fletera||'')}</div></td><td>${E(e.o.solicitadoPor)}</td><td><b class="ck59-days">${e.age}</b></td><td>${e.idle} d</td><td>${E(e.stage)}</td><td class="small">${e.missing.slice(0,4).map(r=>`${ICON[r.s]} ${r.id} ${E(r.t)}`).join('<br>')}${e.missing.length>4?`<br>… y ${e.missing.length-4} más`:''}</td><td><button class="btn btn-primary" onclick="openChecklist59('${E(e.o.folio)}')">Checklist</button> <button class="btn btn-light" onclick="showByFolio('${E(e.o.folio)}')">Ver OC</button></td></tr>`).join('')}
+ </tbody></table></div>`:'<div class="ck59-res ok">✅ No hay folios parados con información incompleta.</div>'}
+ </div>`;
+}
+function renderBoard59(){
+ const sec=document.getElementById('inicio');if(!sec)return;
+ let el=document.getElementById('board59');if(!el){el=document.createElement('div');el.id='board59';sec.appendChild(el)}
+ if(typeof current24!=='function'||!current24()){el.innerHTML='';return}
+ try{el.innerHTML=boardHTML()}catch(e){console.error('Tablero V59',e);el.innerHTML=''}
+}
+window.renderBoard59=renderBoard59;
+window.setBoardPeriod59=v=>{BOARD_PERIOD59=v;renderBoard59()};
+window.filterAlarms59=function(buyer){const t=document.getElementById('ck59Alarms');if(!t)return;const same=t.dataset.f===buyer;t.dataset.f=same?'':buyer;t.querySelectorAll('tbody tr').forEach(tr=>tr.style.display=!same&&tr.dataset.buyer!==buyer?'none':'');const f=document.getElementById('ck59AlarmFilter');if(f)f.textContent=same?'':'· '+buyer+' (pulsa de nuevo para ver todos)';t.scrollIntoView({behavior:'smooth',block:'nearest'})};
+window.evaluateChecklist59=evaluate59;
+window.reloadChecklistDocs59=async()=>{await loadDocs59(true);renderBoard59()};
+
+/* ---------- Enganches con la app ---------- */
+if(typeof refreshKpis==='function'){const base=refreshKpis;refreshKpis=function(){const r=base.apply(this,arguments);renderBoard59();loadDocs59(false).then(ch=>{if(ch)renderBoard59()});return r}}
+if(typeof histStageRow28==='function'){const base=histStageRow28;histStageRow28=function(o,title){let html=base.apply(this,arguments);if(o&&o.estatus!=='CANCELADO'){let ev;try{ev=evaluate59(o)}catch(e){return html}const btn=`<button class="btn btn-light ck59-hbtn" onclick="openChecklist59('${E(o.folio)}')">${chip59(ev)}</button> `;html=html.replace(/(<td>)(<button class="btn btn-blue" onclick="showByFolio)/,'$1'+btn+'$2')}return html}}
+if(typeof showOrder==='function'){const base=showOrder;showOrder=function(o){const r=base.apply(this,arguments);try{if(o&&o.folio&&o.estatus!=='CANCELADO'){const ev=evaluate59(o),box=document.getElementById('orderContent');if(box){const d=document.createElement('div');d.className='no-print ck59-inorder';d.innerHTML=`<div>${chip59(ev)} <b>Checklist de liberación</b> · Etapa: ${E(ev.stage)}${ev.missing.length?` · faltan ${ev.missing.length} punto(s)`:''}</div><button class="btn btn-primary" onclick="openChecklist59('${E(o.folio)}')">Abrir checklist</button>`;box.prepend(d)}}}catch(e){console.warn(e)}return r}}
+const boot=()=>{renderBoard59()};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
 
 </script>

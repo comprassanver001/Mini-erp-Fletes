@@ -102,6 +102,9 @@ textarea{min-height:74px}.notice{padding:12px 14px;border-radius:9px;background:
 .ck59-row-bad td:first-child{border-left:4px solid #c62828}.ck59-pct{white-space:nowrap}.ck59-alarm-btn{padding:3px 8px!important;font-size:12px!important}.ck59-days{color:#a01919;font-size:15px}
 @media print{.ck59-inorder{display:none}}
 .ck59-scroll{max-height:560px;overflow:auto}
+.ck59-filters{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:10px 0;padding:10px;background:#f4f8fb;border:1px solid #dfe7ee;border-radius:10px}
+.ck59-filters label{display:flex;flex-direction:column;font-size:12px;font-weight:700;color:#36536d;gap:3px}.ck59-filters select,.ck59-filters input{min-width:170px;padding:6px 8px;border:1px solid #cfdbe6;border-radius:8px;font-size:13px}
+.ck59-filters .ck59-q input{min-width:220px}.ck59-link{color:#174c73;text-decoration:none}.ck59-link:hover{text-decoration:underline}
 </style>
 </head>
 <body class="auth-locked"><style>body.auth-locked>header,body.auth-locked>nav,body.auth-locked>main,body.auth-locked>section,body.auth-locked>#orderModal{display:none!important}#loginGate{position:fixed;inset:0;z-index:99999;background:#eef3f7;display:flex;align-items:center;justify-content:center;padding:20px}.login-card{width:min(440px,94vw);background:#fff;border:1px solid #cbd8e3;border-radius:16px;padding:28px;box-shadow:0 18px 60px rgba(20,48,72,.18)}.login-card input{width:100%;margin:5px 0 14px}.login-msg{min-height:38px;margin-top:10px;font-weight:700}.login-msg.error{color:#a12828}.login-msg.warn{color:#9a6500}#sessionBar{background:#123f63;color:#fff;padding:7px 16px;text-align:right;font-size:12px}
@@ -3196,8 +3199,8 @@ function checklistHTML(ev,canEdit){
  return `<h2>Checklist de liberación de viaje · ${E(o.folio)}</h2>
  <div class="ck59-top"><div><div class="ck59-bar"><span style="width:${ev.pct}%"></span></div><div class="small">${ev.pct}% completo · Etapa: <b>${E(ev.stage)}</b> · ${ev.age} día(s) desde su creación · ${ev.idle} sin movimiento</div></div>${chip59(ev)}</div>
  ${alarm}${res}
- <table class="ck59-head">${head.map((h,i)=>i%2?'':`<tr><th>${h[0]}</th><td>${E(h[1]||'—')}</td><th>${head[i+1]?head[i+1][0]:''}</th><td>${E(head[i+1]?head[i+1][1]||'—':'')}</td></tr>`).join('')}</table>
- <table class="ck59-tbl"><thead><tr><th>#</th><th>Punto a verificar</th><th>Resultado</th></tr></thead><tbody>${body}</tbody></table>
+ <table class="ck59-head" data-excel-filters49="1">${head.map((h,i)=>i%2?'':`<tr><th>${h[0]}</th><td>${E(h[1]||'—')}</td><th>${head[i+1]?head[i+1][0]:''}</th><td>${E(head[i+1]?head[i+1][1]||'—':'')}</td></tr>`).join('')}</table>
+ <table class="ck59-tbl" data-excel-filters49="1"><thead><tr><th>#</th><th>Punto a verificar</th><th>Resultado</th></tr></thead><tbody>${body}</tbody></table>
  ${canEdit&&o.estatus!=='CANCELADO'?`<div class="actions" style="justify-content:flex-start"><button class="btn btn-primary" onclick="saveChecklist59('${E(o.folio)}')">Guardar puntos manuales</button><span class="small">Los puntos automáticos se llenan solos con la OC, el expediente de unidad/operador, el XML/CP validado, la entrega y el pago.</span></div>`:''}`;
 }
 window.openChecklist59=async function(folio){
@@ -3223,38 +3226,71 @@ window.saveChecklist59=async function(folio){
 };
 
 /* ---------- Tablero de avance por comprador (Inicio) ---------- */
-let BOARD_PERIOD59='90';
-function boardHTML(){
- const list=(typeof orders!=='undefined'?orders:[]).filter(o=>o.estatus!=='CANCELADO');
- const now=Date.now(),lim=BOARD_PERIOD59==='all'?0:now-Number(BOARD_PERIOD59)*DAY;
- const evs=list.map(evaluate59).filter(ev=>!ev.closed||createdAt(ev.o)>=lim);
- const by=new Map();
- evs.forEach(ev=>{const k=ev.o.solicitadoPor||'(sin comprador)';if(!by.has(k))by.set(k,[]);by.get(k).push(ev)});
- const rows=[...by.entries()].map(([k,a])=>({k,a,open:a.filter(e=>!e.closed).length,st:[1,2,3,4,5].map(s=>a.filter(e=>e.st===s).length),pct:Math.round(a.reduce((s,e)=>s+e.pct,0)/a.length),crit:a.filter(e=>!e.closed&&e.critOpen.length).length,alarms:a.filter(e=>e.alarm)})).sort((x,y)=>y.alarms.length-x.alarms.length||y.open-x.open||x.k.localeCompare(y.k));
- const alarms=evs.filter(e=>e.alarm).sort((a,b)=>b.age-a.age);
- const avg=evs.length?Math.round(evs.reduce((s,e)=>s+e.pct,0)/evs.length):0;
- const bar=p=>`<div class="ck59-bar sm"><span style="width:${p}%"></span></div><span class="small">${p}%</span>`;
- return `<div class="card ck59-board"><div class="ck59-board-h"><h3>Avance de folios por comprador</h3><label class="small">Periodo <select onchange="setBoardPeriod59(this.value)">${[['30','Últimos 30 días'],['90','Últimos 90 días'],['all','Todo']].map(([v,t])=>`<option value="${v}" ${v===BOARD_PERIOD59?'selected':''}>${t}</option>`).join('')}</select></label></div>
- <div class="small">Incluye todos los folios abiertos y los cerrados del periodo. Alarma: folio abierto con más de ${ALARM_DAYS} días desde su creación y puntos del checklist pendientes o en “No” para su etapa.</div>
- <div class="kpis ck59-kpis"><div class="kpi"><b>${evs.filter(e=>!e.closed).length}</b>Folios abiertos</div><div class="kpi"><b>${avg}%</b>Checklist promedio</div><div class="kpi ${alarms.length?'ck59-kpi-bad':''}"><b>${alarms.length}</b>Alarmas &gt; ${ALARM_DAYS} días</div></div>
- <div class="table-wrap"><table class="ck59-btable"><thead><tr><th>Comprador</th><th>Folios</th><th>Abiertos</th><th>Pend. aut.</th><th>Autorizadas</th><th>XML/CP</th><th>Entregadas</th><th>Liberadas</th><th>Checklist</th><th>Críticos abiertos</th><th>Alarmas</th></tr></thead><tbody>
- ${rows.map(r=>`<tr class="${r.alarms.length?'ck59-row-bad':''}"><td><b>${E(r.k)}</b></td><td>${r.a.length}</td><td>${r.open}</td>${r.st.map(n=>`<td>${n||''}</td>`).join('')}<td class="ck59-pct">${bar(r.pct)}</td><td>${r.crit||''}</td><td>${r.alarms.length?`<button class="btn btn-danger ck59-alarm-btn" onclick="filterAlarms59(${E(JSON.stringify(r.k))})">🚨 ${r.alarms.length}</button>`:'—'}</td></tr>`).join('')||'<tr><td colspan="11">Sin folios en el periodo.</td></tr>'}
- </tbody></table></div>
- <h3 style="margin-top:14px">🚨 Folios parados con información incompleta <span class="small" id="ck59AlarmFilter"></span></h3>
- ${alarms.length?`<div class="table-wrap ck59-scroll"><table class="ck59-btable" id="ck59Alarms"><thead><tr><th>Folio</th><th>Comprador</th><th>Días</th><th>Sin movimiento</th><th>Etapa</th><th>Qué falta</th><th></th></tr></thead><tbody>
- ${alarms.map(e=>`<tr data-buyer="${E(e.o.solicitadoPor||'(sin comprador)')}"><td><b>${E(e.o.folio)}</b><div class="small">${E(e.o.fletera||'')}</div></td><td>${E(e.o.solicitadoPor)}</td><td><b class="ck59-days">${e.age}</b></td><td>${e.idle} d</td><td>${E(e.stage)}</td><td class="small">${e.missing.slice(0,4).map(r=>`${ICON[r.s]} ${r.id} ${E(r.t)}`).join('<br>')}${e.missing.length>4?`<br>… y ${e.missing.length-4} más`:''}</td><td><button class="btn btn-primary" onclick="openChecklist59('${E(e.o.folio)}')">Checklist</button> <button class="btn btn-light" onclick="showByFolio('${E(e.o.folio)}')">Ver OC</button></td></tr>`).join('')}
- </tbody></table></div>`:'<div class="ck59-res ok">✅ No hay folios parados con información incompleta.</div>'}
- </div>`;
+/* Filtros propios (los ▾ genéricos de encabezado no se usan aquí: el tablero se repinta con cada recarga automática) */
+const F59={periodo:'90',comprador:'',etapa:'',fletera:'',estado:'abiertos',texto:''};
+const NOFILTER='data-excel-filters49="1"';
+const ESTADOS=[['abiertos','Abiertos'],['alarma','🚨 En alarma'],['criticos','Con críticos abiertos (A, B, D)'],['no','Con puntos en “No”'],['completos','Abiertos con checklist completo'],['cerrados','Cerrados (liberados a pago)'],['todos','Todos']];
+const buyerOf=o=>o.solicitadoPor||'(sin comprador)';
+function baseSet(){
+ const now=Date.now(),lim=F59.periodo==='all'?0:now-Number(F59.periodo)*DAY;
+ return (typeof orders!=='undefined'?orders:[]).filter(o=>o.estatus!=='CANCELADO').map(evaluate59).filter(ev=>!ev.closed||createdAt(ev.o)>=lim);
 }
+function passEstado(e){switch(F59.estado){case'abiertos':return!e.closed;case'alarma':return e.alarm;case'criticos':return!e.closed&&e.critOpen.length>0;case'no':return e.fails.length>0;case'completos':return!e.closed&&!e.missing.length;case'cerrados':return e.closed;default:return true}}
+function passText(e){const t=F59.texto.trim().toLowerCase();if(!t)return true;const o=e.o;return [o.folio,o.fletera,(o.remisiones||[]).join(' '),buyerOf(o),(o.puntos||[]).map(p=>p.ubicacion).join(' ')].join(' ').toLowerCase().includes(t)}
+function filtered(all){return all.filter(e=>(!F59.comprador||buyerOf(e.o)===F59.comprador)&&(!F59.etapa||String(e.st)===F59.etapa)&&(!F59.fletera||(e.o.fletera||'')===F59.fletera)&&passEstado(e)&&passText(e))}
+function opts(list,sel,all){return `<option value="">${all}</option>`+list.map(v=>`<option value="${E(v)}" ${v===sel?'selected':''}>${E(v)}</option>`).join('')}
+function filtersHTML(all){
+ const buyers=[...new Set(all.map(e=>buyerOf(e.o)))].sort((a,b)=>a.localeCompare(b,'es'));
+ const fleets=[...new Set(all.map(e=>e.o.fletera).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+ const active=['comprador','etapa','fletera','texto'].some(k=>F59[k])||F59.estado!=='abiertos'||F59.periodo!=='90';
+ return `<label>Comprador<select data-f="comprador">${opts(buyers,F59.comprador,'Todos los compradores')}</select></label>
+ <label>Estado<select data-f="estado">${ESTADOS.map(([v,t])=>`<option value="${v}" ${v===F59.estado?'selected':''}>${t}</option>`).join('')}</select></label>
+ <label>Etapa<select data-f="etapa"><option value="">Todas las etapas</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${String(n)===F59.etapa?'selected':''}>${STAGE_NAMES[n]}</option>`).join('')}</select></label>
+ <label>Fletera<select data-f="fletera">${opts(fleets,F59.fletera,'Todas las fleteras')}</select></label>
+ <label>Periodo<select data-f="periodo">${[['30','Últimos 30 días'],['90','Últimos 90 días'],['all','Todo']].map(([v,t])=>`<option value="${v}" ${v===F59.periodo?'selected':''}>${t}</option>`).join('')}</select></label>
+ <label class="ck59-q">Buscar<input data-f="texto" type="search" placeholder="Folio, remisión, ruta…" value="${E(F59.texto)}"></label>
+ ${active?'<button class="btn btn-light" onclick="resetBoard59()">Limpiar filtros</button>':''}`;
+}
+function bodyHTML(all){
+ const evs=filtered(all);
+ const by=new Map();evs.forEach(ev=>{const k=buyerOf(ev.o);if(!by.has(k))by.set(k,[]);by.get(k).push(ev)});
+ const rows=[...by.entries()].map(([k,a])=>({k,a,open:a.filter(e=>!e.closed).length,st:[1,2,3,4,5].map(s=>a.filter(e=>e.st===s).length),pct:Math.round(a.reduce((s,e)=>s+e.pct,0)/a.length),crit:a.filter(e=>!e.closed&&e.critOpen.length).length,alarms:a.filter(e=>e.alarm).length})).sort((x,y)=>y.alarms-x.alarms||y.open-x.open||x.k.localeCompare(y.k));
+ const list=evs.slice().sort((a,b)=>(b.alarm-a.alarm)||(b.age-a.age));
+ const alarms=evs.filter(e=>e.alarm).length,avg=evs.length?Math.round(evs.reduce((s,e)=>s+e.pct,0)/evs.length):0;
+ const bar=p=>`<div class="ck59-bar sm"><span style="width:${p}%"></span></div><span class="small">${p}%</span>`;
+ const q=s=>E(JSON.stringify(s));
+ return `<div class="kpis ck59-kpis"><div class="kpi"><b>${evs.length}</b>Folios en el filtro</div><div class="kpi"><b>${evs.filter(e=>!e.closed).length}</b>Abiertos</div><div class="kpi"><b>${avg}%</b>Checklist promedio</div><div class="kpi ${alarms?'ck59-kpi-bad':''}"><b>${alarms}</b>Alarmas &gt; ${ALARM_DAYS} días</div></div>
+ <div class="table-wrap"><table class="ck59-btable" ${NOFILTER}><thead><tr><th>Comprador</th><th>Folios</th><th>Abiertos</th><th>Pend. aut.</th><th>Autorizadas</th><th>XML/CP</th><th>Entregadas</th><th>Liberadas</th><th>Checklist</th><th>Críticos abiertos</th><th>Alarmas</th></tr></thead><tbody>
+ ${rows.map(r=>`<tr class="${r.alarms?'ck59-row-bad':''}"><td><a href="#" class="ck59-link" onclick="setBoardFilter59('comprador',${q(r.k)});return false"><b>${E(r.k)}</b></a></td><td>${r.a.length}</td><td>${r.open}</td>${r.st.map((n,i)=>`<td>${n?`<a href="#" class="ck59-link" onclick="setBoardFilter59({comprador:${q(r.k)},etapa:'${i+1}',estado:'todos'});return false">${n}</a>`:''}</td>`).join('')}<td class="ck59-pct">${bar(r.pct)}</td><td>${r.crit||''}</td><td>${r.alarms?`<button class="btn btn-danger ck59-alarm-btn" onclick="setBoardFilter59({comprador:${q(r.k)},estado:'alarma'})">🚨 ${r.alarms}</button>`:'—'}</td></tr>`).join('')||'<tr><td colspan="11">Ningún folio cumple los filtros.</td></tr>'}
+ </tbody></table></div>
+ <h3 style="margin-top:14px">Folios (${list.length})${alarms?` · <span class="ck59-days">🚨 ${alarms} en alarma</span>`:''}</h3>
+ ${list.length?`<div class="table-wrap ck59-scroll"><table class="ck59-btable" id="ck59Alarms" ${NOFILTER}><thead><tr><th>Folio</th><th>Comprador</th><th>Días</th><th>Sin movimiento</th><th>Etapa</th><th>Checklist</th><th>Qué falta</th><th></th></tr></thead><tbody>
+ ${list.map(e=>`<tr data-buyer="${E(buyerOf(e.o))}" class="${e.alarm?'ck59-row-bad':''}"><td><b>${E(e.o.folio)}</b><div class="small">${E(e.o.fletera||'')}</div></td><td>${E(e.o.solicitadoPor)}</td><td><b class="${e.alarm?'ck59-days':''}">${e.age}</b></td><td>${e.idle} d</td><td>${E(e.stage)}</td><td>${chip59(e)}</td><td class="small">${e.missing.length?e.missing.slice(0,4).map(r=>`${ICON[r.s]} ${r.id} ${E(r.t)}`).join('<br>')+(e.missing.length>4?`<br>… y ${e.missing.length-4} más`:''):'✅ Nada pendiente en su etapa'}</td><td><button class="btn btn-primary" onclick="openChecklist59('${E(e.o.folio)}')">Checklist</button> <button class="btn btn-light" onclick="showByFolio('${E(e.o.folio)}')">Ver OC</button></td></tr>`).join('')}
+ </tbody></table></div>`:'<div class="ck59-res ok">Ningún folio cumple los filtros.</div>'}`;
+}
+let LAST_BODY59='',LAST_FILTERS59='';
 function renderBoard59(){
  const sec=document.getElementById('inicio');if(!sec)return;
  let el=document.getElementById('board59');if(!el){el=document.createElement('div');el.id='board59';sec.appendChild(el)}
- if(typeof current24!=='function'||!current24()){el.innerHTML='';return}
- try{el.innerHTML=boardHTML()}catch(e){console.error('Tablero V59',e);el.innerHTML=''}
+ if(typeof current24!=='function'||!current24()){el.innerHTML='';LAST_BODY59=LAST_FILTERS59='';return}
+ try{
+  if(!el.querySelector('.ck59-board')){el.innerHTML=`<div class="card ck59-board"><h3>Avance de folios por comprador</h3><div class="small">Alarma: folio abierto con más de ${ALARM_DAYS} días desde su creación y puntos del checklist pendientes o en “No” para su etapa. Los folios cerrados solo cuentan dentro del periodo.</div><div class="ck59-filters" id="board59Filters"></div><div id="board59Body"></div></div>`;LAST_BODY59=LAST_FILTERS59='';
+   const fb=el.querySelector('#board59Filters');
+   fb.addEventListener('change',ev=>{const k=ev.target.dataset.f;if(k&&k!=='texto'){F59[k]=ev.target.value;renderBoard59()}});
+   let t=null;fb.addEventListener('input',ev=>{if(ev.target.dataset.f==='texto'){F59.texto=ev.target.value;clearTimeout(t);t=setTimeout(()=>renderBoard59(),250)}});}
+  const all=baseSet();
+  const fh=filtersHTML(all),fb=el.querySelector('#board59Filters');
+  /* No repinta los filtros mientras el usuario está escribiendo o eligiendo en uno de ellos */
+  if(fh!==LAST_FILTERS59&&!fb.contains(document.activeElement)){fb.innerHTML=fh;LAST_FILTERS59=fh}
+  const bh=bodyHTML(all);if(bh!==LAST_BODY59){const sc=el.querySelector('.ck59-scroll'),top=sc?sc.scrollTop:0;el.querySelector('#board59Body').innerHTML=bh;LAST_BODY59=bh;const s2=el.querySelector('.ck59-scroll');if(s2)s2.scrollTop=top}
+ }catch(e){console.error('Tablero V59',e)}
 }
 window.renderBoard59=renderBoard59;
-window.setBoardPeriod59=v=>{BOARD_PERIOD59=v;renderBoard59()};
-window.filterAlarms59=function(buyer){const t=document.getElementById('ck59Alarms');if(!t)return;const same=t.dataset.f===buyer;t.dataset.f=same?'':buyer;t.querySelectorAll('tbody tr').forEach(tr=>tr.style.display=!same&&tr.dataset.buyer!==buyer?'none':'');const f=document.getElementById('ck59AlarmFilter');if(f)f.textContent=same?'':'· '+buyer+' (pulsa de nuevo para ver todos)';t.scrollIntoView({behavior:'smooth',block:'nearest'})};
+window.setBoardFilter59=function(k,v){if(typeof k==='object')Object.assign(F59,k);else F59[k]=v;LAST_FILTERS59='';const a=document.activeElement;if(a&&a.blur)a.blur();renderBoard59();const b=document.getElementById('board59Body');if(b)b.scrollIntoView({behavior:'smooth',block:'start'})};
+window.setBoardPeriod59=v=>setBoardFilter59('periodo',v);
+window.resetBoard59=()=>{Object.assign(F59,{periodo:'90',comprador:'',etapa:'',fletera:'',estado:'abiertos',texto:''});setBoardFilter59({})};
+window.filterAlarms59=buyer=>setBoardFilter59({comprador:buyer,estado:'alarma'});
+window.boardFilters59=F59;
 window.evaluateChecklist59=evaluate59;
 window.reloadChecklistDocs59=async()=>{await loadDocs59(true);renderBoard59()};
 

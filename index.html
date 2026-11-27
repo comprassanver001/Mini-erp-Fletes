@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>window.APP61={modo:'cemento',nombre:'Mini ERP',sub:'Inventario y compra de cemento · SANVER',otro:'SANVER Embarques',urlOtro:'embarques/',logo:'assets/logo-sanver.png'};</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mini ERP · Control de Fletes V60 · Captura directa de existencias</title>
+<title>SANVER · V61</title>
 <style>
 :root{--navy:#173f63;--blue:#2f75b5;--green:#2f7d4a;--gold:#d7a62f;--red:#a12620;--bg:#f3f6f9;--text:#263746;--border:#d8e0e7;--muted:#657481}
 *{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
@@ -136,6 +137,74 @@ body.transp60>header nav,body.transp60>main,body.transp60>section:not(#portal60)
 .t60-chk{display:flex;gap:8px;align-items:center;font-weight:700;margin:8px 0}.rv60-card{max-width:1100px}.rv60-decision{border-color:#173f63}
 .t60-badge{display:inline-block;background:#f0ebff;color:#5a3cb0;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:800}
 @media(max-width:700px){.st60-s{font-size:10px}}
+</style>
+<style id="t61Style">
+/* V61 · Diseño fluido SANVER (Mini ERP y SANVER Embarques) */
+:root{--navy:#0f2f4d;--blue:#1f6fb2;--green:#1f8a4c;--gold:#d39b1f;--red:#c0392b;--bg:#f2f5f8;--text:#1f2d3a;--border:#dde5ec;--muted:#5f6f7e;
+ --brand:#0f2f4d;--brand2:#1f6fb2;--surface:#fff;--radius:14px;--shadow:0 1px 2px rgba(15,47,77,.06),0 6px 20px rgba(15,47,77,.06)}
+html.mode-cemento{--brand:#3b3f47;--brand2:#7a5b1e}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+/* Encabezado */
+body>header{position:sticky;top:0;z-index:40;display:block!important;padding:0!important;background:var(--surface)!important;color:var(--text)!important;box-shadow:0 1px 0 var(--border),0 4px 14px rgba(15,47,77,.05)}
+.top61{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px clamp(12px,3vw,28px)}
+.brand61{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;min-width:0}
+.brand61-logo{display:inline-flex;align-items:center;height:40px}.brand61-logo img{height:40px;width:auto;max-width:150px;object-fit:contain}
+.brand61-logo b{display:none;background:var(--brand);color:#fff;font-weight:900;letter-spacing:.08em;padding:7px 11px;border-radius:9px;font-size:15px}.brand61-logo.nologo b{display:inline-block}
+.brand61-logo.big{height:64px}.brand61-logo.big img{height:64px;max-width:220px}.brand61-logo.big b{font-size:22px;padding:10px 16px}
+.brand61-t{display:flex;flex-direction:column;min-width:0}.brand61-t b{font-size:18px;color:var(--brand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand61-t small{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.act61{display:flex;align-items:center;gap:8px}
+.switch61{font-size:13px;font-weight:700;color:var(--brand2);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 12px;white-space:nowrap}.switch61:hover{background:#eef4fa}
+.bell61{position:relative;border:1px solid var(--border);background:var(--surface);border-radius:999px;width:40px;height:40px;font-size:18px;cursor:pointer}
+.bell61.live::after{content:"";position:absolute;bottom:4px;right:5px;width:8px;height:8px;border-radius:50%;background:#2ecc71;border:2px solid #fff}
+#bellCount61{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;border-radius:999px;font-size:11px;font-weight:800;min-width:18px;height:18px;line-height:18px;padding:0 5px;display:none}
+.user61{position:relative}.chip61{display:flex;align-items:center;gap:8px;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:3px 12px 3px 3px;cursor:pointer;max-width:260px}
+.av61{width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.nm61{display:flex;flex-direction:column;text-align:left;min-width:0}.nm61 b{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nm61 small{font-size:11px;color:var(--muted)}
+.menu61{display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);min-width:230px;padding:6px;z-index:60}
+.user61.open .menu61{display:grid}.menu61 button,.menu61 a{all:unset;cursor:pointer;padding:9px 12px;border-radius:8px;font-size:14px}.menu61 button:hover,.menu61 a:hover{background:#eef4fa}
+#sessionBar{display:none!important}
+/* Navegación: barra de pestañas que se desliza en celular */
+nav.nav61{display:flex!important;gap:4px;overflow-x:auto;scrollbar-width:none;padding:0 clamp(8px,3vw,24px);border-top:1px solid var(--border);flex-wrap:nowrap!important;background:var(--surface)}
+nav.nav61::-webkit-scrollbar{display:none}
+nav.nav61 button{flex:none;background:transparent!important;color:var(--muted)!important;border:0!important;border-bottom:3px solid transparent!important;border-radius:0!important;padding:12px 14px!important;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap}
+nav.nav61 button:hover{color:var(--brand)!important}nav.nav61 button.active{color:var(--brand)!important;border-bottom-color:var(--brand2)!important}
+.nb61{display:inline-block;background:var(--red);color:#fff;border-radius:999px;font-size:11px;padding:1px 7px;margin-left:4px;font-weight:800}
+/* Contenido */
+main,#portal60{padding:clamp(10px,2.4vw,24px)!important;max-width:1500px;margin:0 auto}
+.card{background:var(--surface)!important;border:1px solid var(--border)!important;border-radius:var(--radius)!important;box-shadow:var(--shadow)!important}
+.card h2{color:var(--brand)}.notice{border-radius:12px}
+.btn{border-radius:10px!important;font-weight:700;min-height:38px;transition:transform .05s,box-shadow .15s}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--brand2)!important;border-color:var(--brand2)!important;color:#fff!important}.btn-primary:hover{box-shadow:0 4px 12px rgba(31,111,178,.25)}
+.btn-green{background:#1f8a4c!important;color:#fff!important;border:0}
+input,select,textarea{border-radius:9px;font-size:15px}
+input:focus,select:focus,textarea:focus{outline:2px solid rgba(31,111,178,.35);outline-offset:1px}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+table th{position:sticky;top:0;z-index:1}
+/* Modales: pantalla completa en celular */
+.modal .modal-card{border-radius:18px!important}
+@media(max-width:760px){.modal .modal-card{width:100vw!important;max-width:100vw!important;min-height:100vh;border-radius:0!important;margin:0!important}
+ .brand61-t small,.nm61,.switch61{display:none}.chip61{padding:3px}.brand61-t b{font-size:16px}.brand61-logo img{height:32px}
+ .t60-grid2{grid-template-columns:1fr}.t60-fs{grid-template-columns:1fr 1fr}.st60{grid-template-columns:repeat(7,minmax(64px,1fr));overflow-x:auto}
+ .t60-actions{flex-direction:column}.t60-actions .btn{width:100%}}
+.st60{grid-template-columns:repeat(7,minmax(0,1fr))}
+/* Login */
+.login61{display:flex;flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:10px}.login61 h1{margin:6px 0 0;color:var(--brand);font-size:24px}.login61 small{color:var(--muted)}
+#loginGate{background:linear-gradient(135deg,#eef3f8,#dfe9f3)!important}.login-card{border-radius:18px!important}
+/* Panel de notificaciones */
+#bellPanel61{display:none;position:fixed;top:62px;right:clamp(8px,3vw,28px);width:min(380px,94vw);max-height:70vh;overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 50px rgba(15,47,77,.2);z-index:70}
+#bellPanel61.open{display:block}.bp61-h{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface)}
+.bp61-h button,.bp61-on{border:0;background:none;color:var(--brand2);font-weight:700;cursor:pointer}.bp61-on{display:block;width:100%;text-align:left;padding:10px 14px;background:#eef4fa}
+.bp61-i{all:unset;display:grid;gap:2px;width:100%;box-sizing:border-box;padding:10px 14px;border-bottom:1px solid #eef2f6;cursor:pointer}.bp61-i:hover{background:#f6f9fc}.bp61-i.new{background:#f0f7ff;border-left:3px solid var(--brand2)}
+.bp61-i b{font-size:14px}.bp61-i span{font-size:13px;color:var(--muted)}.bp61-i small{font-size:11px;color:#8a99a7}.bp61-e{padding:18px 14px;color:var(--muted);font-size:13px}
+#toast61{position:fixed;right:16px;bottom:16px;display:grid;gap:8px;z-index:200000}.t61{background:var(--brand);color:#fff;border-radius:12px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.25);display:grid;max-width:340px;animation:t61in .25s ease}.t61 span{font-size:13px;opacity:.85}.t61.out{opacity:0;transform:translateY(8px);transition:.4s}
+@keyframes t61in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* Aprobación */
+.ap61-b{display:inline-block;margin:6px 0;padding:4px 10px;border-radius:999px;font-weight:700;font-size:13px}.ap61-b.ok{background:#e6f5ec;color:#1d6b35}.ap61-b.bad{background:#fde8e8;color:#a01919}.ap61-b.warn{background:#fff4d6;color:#7a5200}
+.ap61-det{margin:8px 0}.ap61-det summary{cursor:pointer;font-weight:700;color:var(--brand2)}
+.nt61-pre{white-space:pre-wrap;font-size:12px;background:#f6f9fc;border-radius:10px;padding:10px;max-height:300px;overflow:auto}
+.mode-cemento #inicio>:not(.nocem61){display:none}
+@media print{body>header,#toast61,#bellPanel61{display:none!important}}
+@media(max-width:760px){.t60-t,.t60-checks,.ck59-tbl,.ck59-head{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}.t60-card{min-width:0}}
 </style>
 </head>
 <body class="auth-locked"><style>body.auth-locked>header,body.auth-locked>nav,body.auth-locked>main,body.auth-locked>section,body.auth-locked>#orderModal{display:none!important}#loginGate{position:fixed;inset:0;z-index:99999;background:#eef3f7;display:flex;align-items:center;justify-content:center;padding:20px}.login-card{width:min(440px,94vw);background:#fff;border:1px solid #cbd8e3;border-radius:16px;padding:28px;box-shadow:0 18px 60px rgba(20,48,72,.18)}.login-card input{width:100%;margin:5px 0 14px}.login-msg{min-height:38px;margin-top:10px;font-weight:700}.login-msg.error{color:#a12828}.login-msg.warn{color:#9a6500}#sessionBar{background:#123f63;color:#fff;padding:7px 16px;text-align:right;font-size:12px}
@@ -315,7 +384,7 @@ body.transp60>header nav,body.transp60>main,body.transp60>section:not(#portal60)
 <script>
 /* Cargador de datos pesados bajo demanda (archivos en /data). */
 const ERP_DATA_VERSION='1';
-function loadErpData(file,key){window.ERP_DATA=window.ERP_DATA||{};if(window.ERP_DATA[key])return Promise.resolve(window.ERP_DATA[key]);return new Promise((res,rej)=>{const sc=document.createElement('script');sc.src='data/'+file+'.js?v='+ERP_DATA_VERSION;sc.onload=()=>res(window.ERP_DATA[key]);sc.onerror=()=>rej(new Error('No se pudo cargar data/'+file+'.js'));document.head.appendChild(sc)})}
+function loadErpData(file,key){window.ERP_DATA=window.ERP_DATA||{};if(window.ERP_DATA[key])return Promise.resolve(window.ERP_DATA[key]);return new Promise((res,rej)=>{const sc=document.createElement('script');sc.src=(window.DATA_BASE61||'data/')+file+'.js?v='+ERP_DATA_VERSION;sc.onload=()=>res(window.ERP_DATA[key]);sc.onerror=()=>rej(new Error('No se pudo cargar data/'+file+'.js'));document.head.appendChild(sc)})}
 </script>
 <script>
 const DEFAULT_CATALOGS={empresas:[],fleteras:[],direcciones:[],mercancias:[],unidades:[],tarifas:[]};
@@ -1475,8 +1544,8 @@ async function loadCloudData(firstLoad=false){if(cloudBusy)return;cloudBusy=true
  orders=(co.data||[]).map(o=>{let emp=empBy.get(o.empresa_receptora_id)||{},fl=flBy.get(o.fletera_id)||{},un=unBy.get(o.tipo_unidad_id)||{},sol=profBy.get(o.solicitante_id)||{},aut=profBy.get(o.autorizado_por_id)||{};
   let pts=(pp.data||[]).filter(x=>x.orden_id===o.id).sort((a,b)=>a.partida-b.partida).map(x=>{let d=locBy.get(x.ubicacion_id)||{};let idx=CATALOGS.direcciones.findIndex(z=>z._cloud_id===x.ubicacion_id);return{tipo:x.tipo,ubicacionIndex:idx,ubicacion:d.nombre||'',direccion:[d.calle,d.numero_exterior,d.colonia,d.municipio,d.estado,d.codigo_postal].filter(Boolean).join(', '),proveedor:x.proveedor_cliente||d.razon_social||'',material:x.material||'',cantidad:x.cantidad??'',observaciones:x.observaciones||'',referencias:x.referencias||d.referencia_horario||'',contacto:x.contacto||d.contacto||'',telefono:x.telefono||d.telefono||'',liga:x.liga||d.liga_ubicacion||''}});
   let merch=(mm.data||[]).filter(x=>x.orden_id===o.id).map(x=>{const cantidad=Number(x.cantidad||0),unidadSat=x.unidad_sat,pesoKg=Number(x.peso_total_kg||0),unidadCaptura=x.unidad_captura||'';return{clave:x.bienes_transp,descripcion:x.descripcion,cantidad,cantidadCaptura:cantidad,unidadCaptura,unidadSat,cantidadSat:satQtyFromWeight28(unidadSat,pesoKg,cantidad),pesoKg,valorMercanciaSinIva:Number(x.valor_mercancia_sin_iva||0),proveedor:x.proveedor_cliente||''}});
-  let bits=(bh.data||[]).filter(x=>x.registro_id===o.folio).map(x=>({fecha:x.detalle?.fecha_original||new Date(x.created_at).toLocaleString('es-MX'),accion:x.accion,detalle:x.detalle||{},createdAt:x.created_at}));
-  return{_cloud_id:o.id,folio:o.folio,fechaSolicitud:o.fecha_solicitud,solicitadoPor:o.solicitado_por_snapshot||sol.nombre_completo||'',puestoSolicita:o.puesto_solicita_snapshot||sol.puesto||'',firmaSolicita:o.firma_solicita_snapshot||sol.firma_url||'',usuarioSolicitaId:o.solicitante_id,autorizadorAsignadoId:o.autorizador_asignado_id,autorizadoPorId:o.autorizado_por_id,autorizadoPor:o.autorizado_por_snapshot||aut.nombre_completo||'',puestoAutoriza:o.puesto_autoriza_snapshot||aut.puesto||'',firmaAutoriza:o.firma_autoriza_snapshot||aut.firma_url||'',fechaAutorizacion:o.fecha_autorizacion,fechaServicio:o.fecha_requerida,empresa:emp.razon_social||'',rfcReceptor:emp.rfc||'',regimen:emp.regimen_fiscal||'',usoCfdi:emp.uso_cfdi||'',cpFiscal:emp.codigo_postal||'',fletera:fl.nombre_comercial||fl.razon_social||'',razonFletera:fl.razon_social||'',rfcFletera:fl.rfc||'',regimenFletera:fl.regimen_fiscal||'',contactoFletera:fl.contacto||'',telefonoFletera:fl.telefono||'',correoFletera:fl.correo||'',metodoPagoFletera:fl.metodo_pago||'',unidad:un.nombre||'',tipoServicio:o.tipo_servicio,estatus:o.estatus,entregaConfirmada:Boolean(o.entrega_confirmada),puntos:pts,mercancias:merch,montoBase:Number(o.tarifa_base||0),iva:Number(o.iva||0),retencion:Number(o.retencion||0),total:Number(o.total||0),porcentajeRetencion:Number(o.porcentaje_retencion??0.04),fiscalEsperado:o.fiscal_esperado||{},observaciones:o.observaciones||'',distanciaKm:Number(o.distancia_km||0),valorMercanciaSinIva:Number(o.valor_mercancia_sin_iva||0),costoKm:Number(o.costo_km||0),costoTonKm:Number(o.costo_ton_km||0),impactoFletePct:Number(o.impacto_flete_pct||0),apoyosFlete:Array.isArray(o.apoyos_flete)?o.apoyos_flete:[],apoyoTotalEsperado:Number(o.apoyo_total_esperado||0),fleteBrutoDespuesApoyo:Number(o.flete_bruto_despues_apoyo||0),impactoDespuesApoyoPct:Number(o.impacto_despues_apoyo_pct||0),costoTonKmDespuesApoyo:Number(o.costo_ton_km_despues_apoyo||0),distanciaCartaPorteKm:Number(o.distancia_carta_porte_km||0),
+  let bits=(bh.data||[]).filter(x=>x.registro_id===o.folio).map(x=>({fecha:x.detalle?.fecha_original||new Date(x.created_at).toLocaleString('es-MX'),accion:x.accion,usuarioId:x.usuario_id,detalle:x.detalle||{},createdAt:x.created_at}));
+  return{_cloud_id:o.id,_fletera_id:o.fletera_id,folio:o.folio,fechaSolicitud:o.fecha_solicitud,solicitadoPor:o.solicitado_por_snapshot||sol.nombre_completo||'',puestoSolicita:o.puesto_solicita_snapshot||sol.puesto||'',firmaSolicita:o.firma_solicita_snapshot||sol.firma_url||'',usuarioSolicitaId:o.solicitante_id,autorizadorAsignadoId:o.autorizador_asignado_id,autorizadoPorId:o.autorizado_por_id,autorizadoPor:o.autorizado_por_snapshot||aut.nombre_completo||'',puestoAutoriza:o.puesto_autoriza_snapshot||aut.puesto||'',firmaAutoriza:o.firma_autoriza_snapshot||aut.firma_url||'',fechaAutorizacion:o.fecha_autorizacion,fechaServicio:o.fecha_requerida,empresa:emp.razon_social||'',rfcReceptor:emp.rfc||'',regimen:emp.regimen_fiscal||'',usoCfdi:emp.uso_cfdi||'',cpFiscal:emp.codigo_postal||'',fletera:fl.nombre_comercial||fl.razon_social||'',razonFletera:fl.razon_social||'',rfcFletera:fl.rfc||'',regimenFletera:fl.regimen_fiscal||'',contactoFletera:fl.contacto||'',telefonoFletera:fl.telefono||'',correoFletera:fl.correo||'',metodoPagoFletera:fl.metodo_pago||'',unidad:un.nombre||'',tipoServicio:o.tipo_servicio,estatus:o.estatus,entregaConfirmada:Boolean(o.entrega_confirmada),puntos:pts,mercancias:merch,montoBase:Number(o.tarifa_base||0),iva:Number(o.iva||0),retencion:Number(o.retencion||0),total:Number(o.total||0),porcentajeRetencion:Number(o.porcentaje_retencion??0.04),fiscalEsperado:o.fiscal_esperado||{},observaciones:o.observaciones||'',distanciaKm:Number(o.distancia_km||0),valorMercanciaSinIva:Number(o.valor_mercancia_sin_iva||0),costoKm:Number(o.costo_km||0),costoTonKm:Number(o.costo_ton_km||0),impactoFletePct:Number(o.impacto_flete_pct||0),apoyosFlete:Array.isArray(o.apoyos_flete)?o.apoyos_flete:[],apoyoTotalEsperado:Number(o.apoyo_total_esperado||0),fleteBrutoDespuesApoyo:Number(o.flete_bruto_despues_apoyo||0),impactoDespuesApoyoPct:Number(o.impacto_despues_apoyo_pct||0),costoTonKmDespuesApoyo:Number(o.costo_ton_km_despues_apoyo||0),distanciaCartaPorteKm:Number(o.distancia_carta_porte_km||0),
 remisiones:Array.isArray(o.remisiones)?o.remisiones:(o.remisiones||[]),
 etapa:o.etapa||'CREADA',
 documentosValidados:!!o.documentos_validados,
@@ -2849,7 +2918,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 const N=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[*:▾·•]/g,' ').replace(/\s+/g,' ').trim();
 /* key, término, definición, etiquetas del portal donde aparece (se comparan sin acentos, mayúsculas ni asteriscos) */
 const GL=[
-['coordinador-transporte','Coordinador de Transporte','Persona con el permiso “Coordinar transporte”. Revisa el checklist y la información que cargó el transportista y decide: autoriza el flete y libera el embarque, o lo devuelve al transportista con una nota. Desde V60 esta liberación reemplaza la autorización del flete.',['coordinacion','coordinador de transporte','coordinar transporte']],
+['coordinador-transporte','Coordinador de Transporte','Persona con el permiso “Coordinar transporte”. Aprueba cada solicitud antes de que llegue al transportista (contrato SANVER vigente y rentabilidad dentro de lineamientos) y, cuando el transportista carga su información, revisa el checklist y libera el embarque o lo devuelve.',['coordinacion','coordinador de transporte','coordinar transporte']],
 ['portal-transportista','Portal del transportista','Vista que ve el usuario de una fletera: solo sus viajes. Por cada folio carga unidad y placas, operador con licencia, enlace GPS, póliza y contrato, fotos de la carga, remisión firmada y la Carta Porte (XML y PDF), y lo envía a revisión.',['portal del transportista','transportista (portal de su fletera)']],
 ['expediente-embarque','Expediente del embarque','Toda la información y archivos que el transportista (o Compras en su nombre) cargó para un folio. Estados: En captura, Enviado a revisión, Devuelto para corregir y Liberado.',['expediente del embarque','informacion del transportista']],
 ['checklist','Checklist de liberación','Lista de verificación por folio basada en el “Checklist de liberación de viaje” de SANVER: secciones A Transportista, B Unidad y operador, C Mercancía, D Carta Porte y L Liberación/cierre. Los puntos automáticos se llenan solos con la OC, el expediente de unidad y operador, el XML/CP validado, la entrega y el pago; los manuales los marca el comprador o quien libera (Sí / No / N/A con nota).',['checklist','checklist de liberacion','punto a verificar']],
@@ -3029,13 +3098,15 @@ const SECTIONS=[
 <li><b>Resultado.</b> Si un ${g('punto-critico','punto crítico')} queda en “No”, el checklist marca <b>No liberado</b>: se requiere autorización escrita de la Gerencia de Compras.</li>
 <li><b>Tablero de Inicio.</b> Muestra por comprador cuántos folios tiene en cada etapa, su avance promedio de checklist y las ${g('alarma-folio','alarmas')} de folios con más de 7 días sin la información correcta. Pulsa la alarma de un comprador para filtrar su lista.</li>
 </ol>`],
-['embarque','17. Embarque por etapas: comprador, transportista y coordinador',`
-<p>Cada viaje pasa por tres personas, cada una con su propia pantalla:</p>
+['embarque','17. SANVER Embarques: solicitud, aprobación, transportista y liberación',`
+<p>Los fletes viven en <b>SANVER Embarques</b>; el <b>Mini ERP</b> queda solo para el inventario y la compra de cemento. Se entra con el mismo usuario a los dos y se cambia con el botón ⇄ del encabezado.</p>
 <ol>
-<li><b>Comprador.</b> Crea la OC como siempre y elige la fletera. El folio aparece al instante en el ${g('portal-transportista','portal del transportista')} de esa fletera. Con <b>Copiar aviso para el transportista</b> (en el expediente) puedes mandarle por correo o WhatsApp los datos y la liga del portal. Si la fletera no usa el portal, Compras puede <b>Capturar en nombre del transportista</b>.</li>
-<li><b>Transportista.</b> Entra con su usuario (lo da de alta el administrador en Usuarios → Tipo “Transportista” y su fletera). Solo ve sus viajes. Carga unidad y placas, operador con licencia vigente, enlace GPS, póliza y contrato, fotos de la carga, remisión firmada y la Carta Porte: el XML se compara al instante contra la OC (RFC, importes, claves SAT, peso, placas y operador). Al terminar pulsa <b>Enviar a revisión</b>; ya no puede modificar salvo que se lo devuelvan.</li>
-<li><b>${g('coordinador-transporte','Coordinador de Transporte')}.</b> En la pestaña <b>Coordinación</b> ve los folios por revisar, con transportista, devueltos y liberados. Abre el ${g('expediente-embarque','expediente')}, revisa el ${g('checklist','checklist')} (los puntos A, B, C y D se llenan solos con lo que cargó el transportista) y decide: <b>Autorizar y liberar embarque</b> (firma la OC) o <b>Devolver al transportista</b> con nota. Si falta un ${g('punto-critico','punto crítico')}, solo puede liberar con excepción autorizada por escrito por la Gerencia de Compras y escribiendo el motivo.</li>
-<li><b>Después de liberar.</b> Si la Carta Porte del transportista es la factura de ingreso y coincide con la OC, queda registrada como XML validado automáticamente. La confirmación de entrega y la liberación del pago siguen igual que antes.</li>
+<li><b>Comprador.</b> Crea la solicitud (Nueva solicitud) y elige la fletera. Queda <i>Por aprobar</i>; el transportista todavía no la ve.</li>
+<li><b>${g('coordinador-transporte','Coordinador de Transporte')} · aprobación.</b> En <b>Coordinación → Por aprobar</b> abre la solicitud y confirma: (1) que existe <b>contrato SANVER</b> con la fletera y que la vigencia es correcta (si falta, lo registra ahí mismo con su PDF); (2) la <b>rentabilidad</b>: % del flete sobre el valor de la mercancía y costo por tonelada contra los <i>Lineamientos de rentabilidad</i> y el promedio de la ruta. Si excede, solo aprueba con justificación. Al aprobar se adjunta el contrato al viaje y se abren el <b>correo nuevo</b> y el <b>WhatsApp</b> con los datos para el transportista. Si rechaza, el comprador ve el motivo, corrige y reenvía.</li>
+<li><b>Transportista.</b> En el ${g('portal-transportista','portal')} ve solo los viajes aprobados, con el contrato SANVER adjunto. Carga unidad, operador y licencia, GPS, póliza, <b>todas las fotos de carga y estiba</b>, <b>todas las remisiones firmadas</b> y la Carta Porte; luego <b>Enviar a revisión</b>.</li>
+<li><b>Coordinador · liberación.</b> Revisa el ${g('expediente-embarque','expediente')} y el ${g('checklist','checklist')} y <b>autoriza y libera</b> o <b>devuelve</b> con nota. Con un ${g('punto-critico','punto crítico')} abierto solo libera con excepción escrita de la Gerencia.</li>
+<li><b>Notificaciones.</b> La campana 🔔 avisa al instante (nueva solicitud, aprobación, rechazo, envío del transportista, liberación). Con <i>Activar avisos en el escritorio</i> llegan aunque la pestaña esté minimizada.</li>
+<li><b>Después.</b> Si la Carta Porte es la factura y coincide, queda como XML validado; entrega y pago siguen igual.</li>
 </ol>`]
 ];
 function renderManual58(){
@@ -3145,7 +3216,7 @@ const ITEMS=[
  {id:'S1',sec:'S',t:'Transportista seleccionado del padrón',auto:o=>o.fletera?R('OK',o.fletera):R('NO','Sin fletera')},
  {id:'S2',sec:'S',t:'Origen y destino con puntos de carga y descarga',auto:o=>{const p=o.puntos||[],c=p.some(x=>String(x.tipo).toUpperCase()==='CARGA'),d=p.some(x=>['DESCARGA','DESTINO'].includes(String(x.tipo).toUpperCase()));return c&&d?R('OK',p.map(x=>x.ubicacion).filter(Boolean).join(' → ')):R('NO',!c?'Falta punto de carga':'Falta punto de descarga')}},
  {id:'S3',sec:'S',t:'Mercancía con clave SAT, peso y valor',auto:(o,c)=>{if(!c.merch.length)return R('NO','Sin mercancías');const bad=c.merch.filter(m=>!m.clave||!(Number(m.pesoKg)>0)||!(Number(m.valorMercanciaSinIva)>0));return bad.length?R('NO',bad.length+' partida(s) sin clave, peso o valor'):R('OK',c.merch.length+' partida(s) · '+kg(c.peso)+' · '+M(c.valor))}},
- {id:'A1',sec:'A',t:'Contrato vigente con la empresa',manual:true,hint:'Confirma el contrato de la fletera.',auto:(o,c)=>{const k=c.E.contrato||{};if(!k.vigencia)return null;return k.vigencia>=c.viaje?R('OK','Contrato '+(k.numero||'')+' vence '+k.vigencia+(c.nFiles('CONTRATO')?' · archivo adjunto':'')):R('NO','Contrato vencido el '+k.vigencia)}},
+ {id:'A1',sec:'A',t:'Contrato SANVER vigente con la fletera',manual:true,hint:'Lo confirma el Coordinador al aprobar la solicitud.',auto:(o,c)=>{const k=c.E.contratoSanver||c.E.contrato||(window.contratoFletera61&&window.contratoFletera61(o))||{};if(!k.vigencia)return null;return k.vigencia>=c.viaje?R('OK','Contrato '+(k.numero||'')+' vence '+k.vigencia+(c.nFiles('CONTRATO_SANVER')?' · adjunto a la solicitud':'')):R('NO','Contrato vencido el '+k.vigencia)}},
  {id:'A2',sec:'A',t:'Póliza de carga vigente a la fecha del viaje',manual:true,auto:(o,c)=>{
    const P=c.E.poliza||{};if(P.vigencia)return P.vigencia>=c.viaje?R('OK',(P.aseguradora||'Póliza')+' '+(P.numero||'')+' vence '+P.vigencia+(c.nFiles('POLIZA')?' · PDF adjunto':'')):R('NO','Póliza vencida el '+P.vigencia);
    if(c.hasErr('SEGURO'))return R('NO','El expediente marcó el seguro de la unidad vencido');
@@ -3197,16 +3268,19 @@ const ITEMS=[
 /* Etapa del folio y qué secciones ya deberían estar completas */
 /* 0 con el transportista · 1 en revisión del coordinador · 2 liberado/autorizado · 3 XML/CP · 4 entregada · 5 liberada a pago */
 function embOf(o){return o._emb||EMB59.get(o._cloud_id)||null}
-function stageOf(o){if(o.liberadoPago)return 5;if(o.entregaConfirmada)return 4;if(o.documentosValidados)return 3;if(o.firmaAutoriza)return 2;const e=embOf(o);return e&&e.estado==='ENVIADO'?1:0}
-const STAGE_NAMES=['Con el transportista (captura)','En revisión del Coordinador','Liberado / autorizado (falta XML)','XML/CP validado (falta entrega)','Entregada (falta autorizar pago)','Liberada a pago'];
-function stageLabel(o,st){if(st===0){const e=embOf(o);if(e&&e.estado==='DEVUELTO')return 'Devuelto al transportista';}return STAGE_NAMES[st]}
+/* 0 por aprobar · 1 con el transportista · 2 en revisión · 3 liberado · 4 XML/CP · 5 entregada · 6 pagada */
+function stageOf(o){if(o.liberadoPago)return 6;if(o.entregaConfirmada)return 5;if(o.documentosValidados)return 4;if(o.firmaAutoriza)return 3;const e=embOf(o),k=e&&e.estado;if(k==='ENVIADO')return 2;if(k==='EN_CAPTURA'||k==='DEVUELTO'||k==='LIBERADO')return 1;return 0}
+const STAGE_NAMES=['Por aprobar (Coordinador)','Con el transportista (captura)','En revisión del Coordinador','Liberado / autorizado (falta XML)','XML/CP validado (falta entrega)','Entregada (falta autorizar pago)','Liberada a pago'];
+function stageLabel(o,st){const e=embOf(o);if(st===0&&e&&e.estado==='RECHAZADO')return 'Rechazada por el Coordinador';if(st===1&&e&&e.estado==='DEVUELTO')return 'Devuelto al transportista';return STAGE_NAMES[st]}
 function dueOf(item,o,st){
- if(['S','A','B'].includes(item.sec))return true;
- if(item.sec==='C')return st>=1;
- if(item.sec==='D')return st>=3||st===1||!!o.documentosValidados;
- if(item.id==='L1'||item.id==='L2')return true;
- if(item.id==='L3')return st>=3;
- if(item.id==='L4')return st>=4;
+ if(item.sec==='S')return true;
+ if(item.id==='A1')return true;
+ if(['A','B'].includes(item.sec))return st>=1;
+ if(item.sec==='C')return st>=2;
+ if(item.sec==='D')return st>=4||st===2||!!o.documentosValidados;
+ if(item.id==='L1'||item.id==='L2')return st>=2;
+ if(item.id==='L3')return st>=4;
+ if(item.id==='L4')return st>=5;
  return true;
 }
 
@@ -3303,7 +3377,7 @@ function filtersHTML(all){
  const active=['comprador','etapa','fletera','texto'].some(k=>F59[k])||F59.estado!=='abiertos'||F59.periodo!=='90';
  return `<label>Comprador<select data-f="comprador">${opts(buyers,F59.comprador,'Todos los compradores')}</select></label>
  <label>Estado<select data-f="estado">${ESTADOS.map(([v,t])=>`<option value="${v}" ${v===F59.estado?'selected':''}>${t}</option>`).join('')}</select></label>
- <label>Etapa<select data-f="etapa"><option value="">Todas las etapas</option>${[0,1,2,3,4,5].map(n=>`<option value="${n}" ${String(n)===F59.etapa?'selected':''}>${STAGE_NAMES[n]}</option>`).join('')}</select></label>
+ <label>Etapa<select data-f="etapa"><option value="">Todas las etapas</option>${[0,1,2,3,4,5,6].map(n=>`<option value="${n}" ${String(n)===F59.etapa?'selected':''}>${STAGE_NAMES[n]}</option>`).join('')}</select></label>
  <label>Fletera<select data-f="fletera">${opts(fleets,F59.fletera,'Todas las fleteras')}</select></label>
  <label>Periodo<select data-f="periodo">${[['30','Últimos 30 días'],['90','Últimos 90 días'],['all','Todo']].map(([v,t])=>`<option value="${v}" ${v===F59.periodo?'selected':''}>${t}</option>`).join('')}</select></label>
  <label class="ck59-q">Buscar<input data-f="texto" type="search" placeholder="Folio, remisión, ruta…" value="${E(F59.texto)}"></label>
@@ -3312,14 +3386,14 @@ function filtersHTML(all){
 function bodyHTML(all){
  const evs=filtered(all);
  const by=new Map();evs.forEach(ev=>{const k=buyerOf(ev.o);if(!by.has(k))by.set(k,[]);by.get(k).push(ev)});
- const rows=[...by.entries()].map(([k,a])=>({k,a,open:a.filter(e=>!e.closed).length,st:[0,1,2,3,4,5].map(s=>a.filter(e=>e.st===s).length),pct:Math.round(a.reduce((s,e)=>s+e.pct,0)/a.length),crit:a.filter(e=>!e.closed&&e.critOpen.length).length,alarms:a.filter(e=>e.alarm).length})).sort((x,y)=>y.alarms-x.alarms||y.open-x.open||x.k.localeCompare(y.k));
+ const rows=[...by.entries()].map(([k,a])=>({k,a,open:a.filter(e=>!e.closed).length,st:[0,1,2,3,4,5,6].map(s=>a.filter(e=>e.st===s).length),pct:Math.round(a.reduce((s,e)=>s+e.pct,0)/a.length),crit:a.filter(e=>!e.closed&&e.critOpen.length).length,alarms:a.filter(e=>e.alarm).length})).sort((x,y)=>y.alarms-x.alarms||y.open-x.open||x.k.localeCompare(y.k));
  const list=evs.slice().sort((a,b)=>(b.alarm-a.alarm)||(b.age-a.age));
  const alarms=evs.filter(e=>e.alarm).length,avg=evs.length?Math.round(evs.reduce((s,e)=>s+e.pct,0)/evs.length):0;
  const bar=p=>`<div class="ck59-bar sm"><span style="width:${p}%"></span></div><span class="small">${p}%</span>`;
  const q=s=>E(JSON.stringify(s));
  return `<div class="kpis ck59-kpis"><div class="kpi"><b>${evs.length}</b>Folios en el filtro</div><div class="kpi"><b>${evs.filter(e=>!e.closed).length}</b>Abiertos</div><div class="kpi"><b>${avg}%</b>Checklist promedio</div><div class="kpi ${alarms?'ck59-kpi-bad':''}"><b>${alarms}</b>Alarmas &gt; ${ALARM_DAYS} días</div></div>
- <div class="table-wrap"><table class="ck59-btable" ${NOFILTER}><thead><tr><th>Comprador</th><th>Folios</th><th>Abiertos</th><th>Con transportista</th><th>En revisión</th><th>Liberadas</th><th>XML/CP</th><th>Entregadas</th><th>Pagadas</th><th>Checklist</th><th>Críticos abiertos</th><th>Alarmas</th></tr></thead><tbody>
- ${rows.map(r=>`<tr class="${r.alarms?'ck59-row-bad':''}"><td><a href="#" class="ck59-link" onclick="setBoardFilter59('comprador',${q(r.k)});return false"><b>${E(r.k)}</b></a></td><td>${r.a.length}</td><td>${r.open}</td>${r.st.map((n,i)=>`<td>${n?`<a href="#" class="ck59-link" onclick="setBoardFilter59({comprador:${q(r.k)},etapa:'${i}',estado:'todos'});return false">${n}</a>`:''}</td>`).join('')}<td class="ck59-pct">${bar(r.pct)}</td><td>${r.crit||''}</td><td>${r.alarms?`<button class="btn btn-danger ck59-alarm-btn" onclick="setBoardFilter59({comprador:${q(r.k)},estado:'alarma'})">🚨 ${r.alarms}</button>`:'—'}</td></tr>`).join('')||'<tr><td colspan="12">Ningún folio cumple los filtros.</td></tr>'}
+ <div class="table-wrap"><table class="ck59-btable" ${NOFILTER}><thead><tr><th>Comprador</th><th>Folios</th><th>Abiertos</th><th>Por aprobar</th><th>Con transportista</th><th>En revisión</th><th>Liberadas</th><th>XML/CP</th><th>Entregadas</th><th>Pagadas</th><th>Checklist</th><th>Críticos abiertos</th><th>Alarmas</th></tr></thead><tbody>
+ ${rows.map(r=>`<tr class="${r.alarms?'ck59-row-bad':''}"><td><a href="#" class="ck59-link" onclick="setBoardFilter59('comprador',${q(r.k)});return false"><b>${E(r.k)}</b></a></td><td>${r.a.length}</td><td>${r.open}</td>${r.st.map((n,i)=>`<td>${n?`<a href="#" class="ck59-link" onclick="setBoardFilter59({comprador:${q(r.k)},etapa:'${i}',estado:'todos'});return false">${n}</a>`:''}</td>`).join('')}<td class="ck59-pct">${bar(r.pct)}</td><td>${r.crit||''}</td><td>${r.alarms?`<button class="btn btn-danger ck59-alarm-btn" onclick="setBoardFilter59({comprador:${q(r.k)},estado:'alarma'})">🚨 ${r.alarms}</button>`:'—'}</td></tr>`).join('')||'<tr><td colspan="13">Ningún folio cumple los filtros.</td></tr>'}
  </tbody></table></div>
  <h3 style="margin-top:14px">Folios (${list.length})${alarms?` · <span class="ck59-days">🚨 ${alarms} en alarma</span>`:''}</h3>
  ${list.length?`<div class="table-wrap ck59-scroll"><table class="ck59-btable" id="ck59Alarms" ${NOFILTER}><thead><tr><th>Folio</th><th>Comprador</th><th>Días</th><th>Sin movimiento</th><th>Etapa</th><th>Checklist</th><th>Qué falta</th><th></th></tr></thead><tbody>
@@ -3382,18 +3456,22 @@ const perms=()=>typeof CLOUD_PERMISSIONS!=='undefined'&&CLOUD_PERMISSIONS?CLOUD_
 const canCoord60=()=>!!(perms().coordinar_transporte||perms().administrar_usuarios);
 const isTransp60=()=>{const u=me();return !!u&&String(u.rol||'').toLowerCase().split(/[|,;\s]+/).includes('transportista')};
 window.canCoord60=canCoord60;window.isTransp60=isTransp60;
+window.H60={E,M,KG,D,routeOf:o=>routeOf(o),coordRows:()=>coordRows(),upload:(...a)=>upload60(...a)};
 
-const FILES={CP_XML:'Carta Porte · XML',CP_PDF:'Carta Porte · PDF',POLIZA:'Póliza de carga (PDF)',CONTRATO:'Contrato (PDF)',LICENCIA:'Licencia del operador',FOTO:'Fotos de la carga y estiba',REMISION:'Remisión firmada por el operador'};
-const EST={EN_CAPTURA:'En captura',ENVIADO:'Enviado a revisión',DEVUELTO:'Devuelto para corregir',LIBERADO:'Liberado'};
+const FILES={CONTRATO_SANVER:'Contrato SANVER',CP_XML:'Carta Porte · XML',CP_PDF:'Carta Porte · PDF',POLIZA:'Póliza de carga (PDF)',LICENCIA:'Licencia del operador',FOTO:'Fotos de la carga y estiba',REMISION:'Remisiones firmadas por el operador'};
+const MULTI=new Set(['FOTO','REMISION']);
+const EST={POR_APROBAR:'Por aprobar',RECHAZADO:'Rechazada por el Coordinador',EN_CAPTURA:'En captura del transportista',ENVIADO:'Enviado a revisión',DEVUELTO:'Devuelto para corregir',LIBERADO:'Liberado'};
+window.EST60=EST;
 const REQUIRED=[['unidad.placas','Placas del tracto'],['operador.nombre','Nombre del operador'],['operador.licencia','Número de licencia'],['operador.licenciaVigencia','Vigencia de la licencia'],['gps.enlace','Enlace de rastreo GPS'],['poliza.aseguradora','Aseguradora'],['poliza.numero','Número de póliza'],['poliza.vigencia','Vigencia de la póliza'],['poliza.sumaAsegurada','Suma asegurada']];
 
 /* ---------- Etapas del embarque (vista común) ---------- */
 function steps60(o,emb){
  const e=emb&&emb.estado,auth=!!(o.firmaAutoriza||o.autorizado);
- const st=[['Solicitud de Compras',true],['Información del transportista',auth||e==='ENVIADO'||e==='LIBERADO'],['Revisión y liberación',auth],['Carta Porte / XML validado',!!o.documentosValidados],['Entrega confirmada',!!o.entregaConfirmada],['Pago liberado',!!o.liberadoPago]];
+ const aprob=auth||['EN_CAPTURA','ENVIADO','DEVUELTO','LIBERADO'].includes(e);
+ const st=[['Solicitud de Compras',true],['Aprobación del Coordinador',aprob],['Información del transportista',auth||e==='ENVIADO'||e==='LIBERADO'],['Revisión y liberación',auth],['Carta Porte / XML validado',!!o.documentosValidados],['Entrega confirmada',!!o.entregaConfirmada],['Pago liberado',!!o.liberadoPago]];
  let now=st.findIndex(s=>!s[1]);if(now<0)now=st.length;
- const bad=e==='DEVUELTO'&&!auth;
- return `<div class="st60">${st.map(([n,d],i)=>`<div class="st60-s ${d?'done':''} ${i===now?'now':''} ${bad&&i===1?'bad':''}"><span>${d?'✓':i+1}</span>${E(n)}</div>`).join('')}</div>`;
+ const badIx=e==='RECHAZADO'&&!auth?1:e==='DEVUELTO'&&!auth?2:-1;
+ return `<div class="st60">${st.map(([n,d],i)=>`<div class="st60-s ${d?'done':''} ${i===now?'now':''} ${i===badIx?'bad':''}"><span>${d?'✓':i+1}</span>${E(n)}</div>`).join('')}</div>`;
 }
 window.steps60=steps60;
 
@@ -3455,7 +3533,7 @@ function filesList(arr,tipo,editable){
 /* ---------- Formulario del expediente (transportista o Compras en su nombre) ---------- */
 let F=null; /* {o, emb, datos, archivos, mode:'transp'|'interno', host, editable} */
 function fld(k,label,type,extra){const v=get(F.datos,k)??'';return `<label class="t60-f"><span>${E(label)}${REQUIRED.some(r=>r[0]===k)?' *':''}</span><input data-k60="${k}" type="${type||'text'}" value="${E(v)}" ${F.editable?'':'disabled'} ${extra||''}></label>`}
-function fileRow(tipo,multiple,accept){return `<div class="t60-filerow"><b>${E(FILES[tipo])}</b> ${filesList(F.archivos,tipo,F.editable)}${F.editable?` <label class="btn btn-light t60-up">Subir<input type="file" hidden ${multiple?'multiple':''} accept="${accept}" onchange="uploadFiles60('${tipo}',this)"></label>`:''}</div>`}
+function fileRow(tipo,multiple,accept){const n=(F.archivos||[]).filter(a=>a.tipo===tipo).length;return `<div class="t60-filerow"><b>${E(FILES[tipo])}${multiple&&n?' ('+n+')':''}</b> ${filesList(F.archivos,tipo,F.editable)}${F.editable?` <label class="btn btn-light t60-up">${multiple?(n?'+ Agregar más':'Subir (puedes elegir varias)'):'Subir'}<input type="file" hidden ${multiple?'multiple':''} accept="${accept}" onchange="uploadFiles60('${tipo}',this)"></label>`:''}</div>`}
 function formHTML(){
  const o=F.o,emb=F.emb,cp=F.datos.cartaPorte;
  const lock=!F.editable?`<div class="t60-note">${o.firmaAutoriza||o.autorizado?'El embarque ya fue liberado; la información queda como expediente.':emb&&emb.estado==='ENVIADO'?'La información está en revisión del Coordinador de Transporte. Si te la devuelve podrás corregirla.':'Solo lectura.'}</div>`:'';
@@ -3464,9 +3542,10 @@ function formHTML(){
  <div class="t60-grid2">
  <div class="t60-card"><h4>1 · Unidad</h4><div class="t60-fs">${fld('unidad.placas','Placas del tracto')}${fld('unidad.economico','No. económico')}${fld('unidad.config','Configuración vehicular','text','list="cfg60" placeholder="T3S2, C3…"')}${fld('unidad.remolque','Placas de remolque(s)')}${fld('unidad.numPermisoSct','Permiso SICT')}</div></div>
  <div class="t60-card"><h4>2 · Operador y rastreo</h4><div class="t60-fs">${fld('operador.nombre','Nombre del operador')}${fld('operador.rfc','RFC del operador')}${fld('operador.licencia','No. de licencia federal')}${fld('operador.licenciaVigencia','Vigencia de la licencia','date')}${fld('operador.telefono','Teléfono del operador','tel')}${fld('gps.enlace','Enlace de rastreo GPS','url','placeholder="https://…"')}${fld('gps.proveedor','Proveedor de GPS')}</div>${fileRow('LICENCIA',false,'.pdf,image/*')}</div>
- <div class="t60-card"><h4>3 · Póliza y contrato</h4><div class="t60-fs">${fld('poliza.aseguradora','Aseguradora')}${fld('poliza.numero','No. de póliza de carga')}${fld('poliza.vigencia','Vigencia de la póliza','date')}${fld('poliza.sumaAsegurada','Suma asegurada (MXN)','number','step="0.01" min="0"')}${fld('contrato.numero','No. de contrato con SANVER')}${fld('contrato.vigencia','Vigencia del contrato','date')}</div>${fileRow('POLIZA',false,'.pdf,image/*')}${fileRow('CONTRATO',false,'.pdf,image/*')}
+ <div class="t60-card"><h4>3 · Póliza de carga</h4><div class="t60-fs">${fld('poliza.aseguradora','Aseguradora')}${fld('poliza.numero','No. de póliza de carga')}${fld('poliza.vigencia','Vigencia de la póliza','date')}${fld('poliza.sumaAsegurada','Suma asegurada (MXN)','number','step="0.01" min="0"')}</div>${fileRow('POLIZA',false,'.pdf,image/*')}
+  ${(F.datos.contratoSanver||{}).numero?`<div class="t60-filerow"><b>Contrato SANVER ${E(F.datos.contratoSanver.numero)}</b> (vence ${E(F.datos.contratoSanver.vigencia||'')}) ${filesList(F.archivos,'CONTRATO_SANVER',false)}</div>`:''}
   <div class="small t60-muted">Valor de la carga: <b>${M(o.valorMercanciaSinIva)}</b> · la suma asegurada debe ser mayor o igual.</div></div>
- <div class="t60-card"><h4>4 · Carga</h4><div class="t60-fs">${fld('remision.numero','No. de remisión de carga')}</div>${fileRow('FOTO',true,'image/*,.pdf')}${fileRow('REMISION',false,'.pdf,image/*')}</div>
+ <div class="t60-card"><h4>4 · Carga y estiba</h4><div class="small t60-muted">Sube todas las fotos de la carga y la estiba (por proveedor) y todas las remisiones firmadas. Desde el celular puedes tomarlas con la cámara.</div><div class="t60-fs">${fld('remision.numero','Números de remisión (separados por coma)')}</div>${fileRow('FOTO',true,'image/*,.pdf')}${fileRow('REMISION',true,'.pdf,image/*')}</div>
  </div>
  <div class="t60-card"><h4>5 · Carta Porte (CFDI 4.0 con complemento Carta Porte)</h4>
   <div class="small t60-muted">Sube el XML timbrado <b>antes de salir</b>. Se compara al instante contra la OC: RFC, importes, claves SAT, peso, placas y operador.</div>
@@ -3494,7 +3573,7 @@ window.uploadFiles60=async function(tipo,input){
    const rec=await upload60(F.o._cloud_id,tipo,f);
    F.archivos=F.archivos.filter(a=>a.tipo!=='CP_XML');F.archivos.push(rec);F.datos=datos;
   }else{
-   if(tipo!=='FOTO')F.archivos=F.archivos.filter(a=>a.tipo!==tipo);
+   if(!MULTI.has(tipo))F.archivos=F.archivos.filter(a=>a.tipo!==tipo);
    for(const f of files)F.archivos.push(await upload60(F.o._cloud_id,tipo,f));
   }
   await persist(false,true);
@@ -3545,6 +3624,7 @@ window.saveForm60=async function(enviar){
 
 /* ---------- Portal del transportista ---------- */
 const PORTAL={viajes:[],fletera:null,filtro:'atender',sel:null};
+window.__portalViajes60=()=>PORTAL.viajes;
 function viajeToOrder(v){
  const merch=(v.mercancias||[]).map(m=>{const cantidad=Number(m.cantidad||0),pesoKg=Number(m.peso_total_kg||0);return{clave:m.clave,descripcion:m.descripcion,cantidad,cantidadCaptura:cantidad,unidadCaptura:m.unidad_captura||'',unidadSat:m.unidad_sat,cantidadSat:typeof satQtyFromWeight28==='function'?satQtyFromWeight28(m.unidad_sat,pesoKg,cantidad):cantidad,pesoKg,valorMercanciaSinIva:Number(m.valor_mercancia_sin_iva||0),proveedor:m.proveedor||''}});
  const r=v.receptor||{};
@@ -3576,7 +3656,7 @@ function renderPortal(){
  const list=groups[PORTAL.filtro]||[];
  const fl=PORTAL.fletera||{};
  s.innerHTML=`<div class="card t60-portal"><div class="t60-ph"><div><h2>Portal del transportista</h2><div class="small">${E(fl.nombre_comercial||fl.razon_social||'')} · RFC ${E(fl.rfc||'')}</div></div><button class="btn btn-light" onclick="refreshPortal60()">Actualizar</button></div>
- <div class="notice">Aquí ves los viajes que Compras de SANVER asignó a tu línea. Por cada viaje carga los datos de la unidad y el operador, la póliza y el contrato, las fotos de la carga y la remisión firmada, y la Carta Porte timbrada. Después pulsa <b>Enviar a revisión</b>: el Coordinador de Transporte revisa el checklist y libera el embarque. <b>Ninguna unidad sale sin la liberación.</b></div>
+ <div class="notice">Aquí ves los viajes que Compras de SANVER asignó a tu línea. Por cada viaje carga los datos de la unidad y el operador, la póliza de carga, todas las fotos de la carga y estiba, las remisiones firmadas y la Carta Porte timbrada. El contrato SANVER viene adjunto en cada viaje. Después pulsa <b>Enviar a revisión</b>: el Coordinador de Transporte revisa el checklist y libera el embarque. <b>Ninguna unidad sale sin la liberación.</b></div>
  <div class="t60-tabs">${tabs.map(([k,t])=>`<button class="${PORTAL.filtro===k?'on':''}" onclick="portalTab60('${k}')">${t} <b>${groups[k].length}</b></button>`).join('')}</div>
  ${list.length?`<div class="t60-list">${list.map(v=>{const o=viajeToOrder(v),e=v.embarque;return `<button class="t60-item ${PORTAL.sel===v.id?'on':''} ${e&&e.estado==='DEVUELTO'?'dev':''}" onclick="portalOpen60('${v.id}')"><div><b>${E(v.folio)}</b> · ${E(D(v.fecha_requerida))}</div><div class="small">${E(routeOf(o))}</div><div class="small">${e?E(EST[e.estado]||e.estado):'Sin información cargada'}${e&&e.estado==='DEVUELTO'?' · '+E(e.nota_revision||''):''}</div></button>`}).join('')}</div>`:'<p class="small">No hay viajes en esta lista.</p>'}
  </div><div id="portalDetail60"></div>`;
@@ -3612,12 +3692,12 @@ async function startPortal(){
 }
 
 /* ---------- Coordinador de Transporte ---------- */
-const CF={estado:'revision',comprador:'',fletera:'',q:''};
+const CF={estado:'aprobar',comprador:'',fletera:'',q:''};
 function coordRows(){
  const list=(typeof orders!=='undefined'?orders:[]).filter(o=>o.estatus!=='CANCELADO');
  return list.map(o=>{const emb=typeof embarqueOf59==='function'?embarqueOf59(o):null,ev=typeof evaluateChecklist59==='function'?evaluateChecklist59(o):null;
   const auth=!!o.firmaAutoriza,e=emb&&emb.estado;
-  const k=auth?'liberados':e==='ENVIADO'?'revision':e==='DEVUELTO'?'devueltos':'transportista';
+  const k=auth?'liberados':e==='ENVIADO'?'revision':e==='DEVUELTO'?'devueltos':e==='RECHAZADO'?'rechazados':(e==='EN_CAPTURA'||e==='LIBERADO')?'transportista':'aprobar';
   return{o,emb,ev,k}});
 }
 function coordHTML(){
@@ -3629,12 +3709,13 @@ function coordHTML(){
  const q=CF.q.trim().toLowerCase();if(q)rows=rows.filter(r=>[r.o.folio,r.o.fletera,r.o.solicitadoPor,(r.o.remisiones||[]).join(' '),routeOf(r.o)].join(' ').toLowerCase().includes(q));
  rows.sort((a,b)=>String(a.o.fechaServicio||'').localeCompare(String(b.o.fechaServicio||'')));
  const buyers=[...new Set(all.map(r=>r.o.solicitadoPor).filter(Boolean))].sort(),fleets=[...new Set(all.map(r=>r.o.fletera).filter(Boolean))].sort();
- const tabs=[['revision','Por revisar'],['transportista','Con el transportista'],['devueltos','Devueltos'],['liberados','Liberados (7 días)']];
- return `<div class="card"><h2>Coordinación de transporte</h2><div class="notice">El comprador crea la OC, el transportista carga su información y aquí el Coordinador revisa el checklist y <b>autoriza y libera el embarque</b> o lo devuelve. Desde V60 esta liberación reemplaza la autorización del flete.</div>
+ const tabs=[['aprobar','Por aprobar'],['revision','Por revisar y liberar'],['transportista','Con el transportista'],['devueltos','Devueltos'],['rechazados','Rechazadas'],['liberados','Liberados (7 días)']];
+ return `<div class="card"><h2>Coordinación de transporte</h2><div class="notice"><b>1.</b> El comprador crea la solicitud → <b>2.</b> el Coordinador la <b>aprueba</b> (contrato y rentabilidad) y se notifica al transportista → <b>3.</b> el transportista carga su información → <b>4.</b> el Coordinador revisa el checklist y <b>libera el embarque</b>.</div>
+ <div class="t60-ph" style="margin:6px 0"><span></span><span><button class="btn btn-light" onclick="openContracts61()">Contratos de fleteras</button> <button class="btn btn-light" onclick="openGuidelines61()">Lineamientos de rentabilidad</button></span></div>
  <div class="t60-tabs">${tabs.map(([k,t])=>`<button class="${CF.estado===k?'on':''}" onclick="coordFilter60('estado','${k}')">${t} <b>${k==='liberados'?all.filter(r=>r.k==='liberados'&&Date.parse(r.o.fechaAutorizacion||0)>=weekAgo).length:cnt(k)}</b></button>`).join('')}</div>
  <div class="ck59-filters"><label>Comprador<select onchange="coordFilter60('comprador',this.value)"><option value="">Todos</option>${buyers.map(b=>`<option ${b===CF.comprador?'selected':''}>${E(b)}</option>`).join('')}</select></label><label>Fletera<select onchange="coordFilter60('fletera',this.value)"><option value="">Todas</option>${fleets.map(b=>`<option ${b===CF.fletera?'selected':''}>${E(b)}</option>`).join('')}</select></label><label class="ck59-q">Buscar<input type="search" value="${E(CF.q)}" placeholder="Folio, remisión, ruta…" oninput="coordSearch60(this.value)"></label></div>
  <div class="table-wrap"><table class="ck59-btable" data-excel-filters49="1"><thead><tr><th>Folio</th><th>Fecha requerida</th><th>Comprador</th><th>Fletera</th><th>Ruta</th><th>Transportista</th><th>Checklist</th><th>Críticos</th><th></th></tr></thead><tbody>
- ${rows.map(r=>`<tr><td><b>${E(r.o.folio)}</b></td><td>${E(D(r.o.fechaServicio))}</td><td>${E(r.o.solicitadoPor)}</td><td>${E(r.o.fletera)}</td><td class="small">${E(routeOf(r.o))}</td><td>${r.emb?E(EST[r.emb.estado]||r.emb.estado)+(r.emb.enviado_at?'<div class="small">'+E(D(r.emb.enviado_at))+'</div>':''):'<span class="small">Sin información</span>'}</td><td>${r.ev&&typeof chip59==='function'?chip59(r.ev):''}</td><td>${r.ev?(r.ev.critOpen.length||'✅'):''}</td><td><button class="btn btn-primary" onclick="openReview60('${E(r.o.folio)}')">${r.k==='revision'&&canCoord60()?'Revisar y liberar':'Ver expediente'}</button></td></tr>`).join('')||'<tr><td colspan="9">No hay folios en esta lista.</td></tr>'}
+ ${rows.map(r=>`<tr><td><b>${E(r.o.folio)}</b></td><td>${E(D(r.o.fechaServicio))}</td><td>${E(r.o.solicitadoPor)}</td><td>${E(r.o.fletera)}</td><td class="small">${E(routeOf(r.o))}</td><td>${r.emb?E(EST[r.emb.estado]||r.emb.estado)+(r.emb.enviado_at?'<div class="small">'+E(D(r.emb.enviado_at))+'</div>':''):'<span class="small">Sin información</span>'}</td><td>${r.ev&&typeof chip59==='function'?chip59(r.ev):''}</td><td>${r.ev?(r.ev.critOpen.length||'✅'):''}</td><td><button class="btn btn-primary" onclick="openReview60('${E(r.o.folio)}')">${r.k==='aprobar'&&canCoord60()?'Aprobar o rechazar':r.k==='revision'&&canCoord60()?'Revisar y liberar':'Ver expediente'}</button></td></tr>`).join('')||'<tr><td colspan="9">No hay folios en esta lista.</td></tr>'}
  </tbody></table></div></div>`;
 }
 function renderCoord60(){const s=document.getElementById('coordinacion');if(!s)return;if(s.contains(document.activeElement)&&document.activeElement.tagName==='INPUT')return;s.innerHTML=coordHTML()}
@@ -3649,7 +3730,7 @@ function embSummary(emb){
  const d=emb.datos||{},u=d.unidad||{},op=d.operador||{},g=d.gps||{},p=d.poliza||{},k=d.contrato||{},cp=d.cartaPorte;
  const kv=(a,b)=>`<div><span>${E(a)}</span><b>${E(b||'—')}</b></div>`;
  const fl=t=>filesList(emb.archivos,t,false);
- return `<div class="t60-kv">${kv('Placas',u.placas)}${kv('Económico / configuración',[u.economico,u.config].filter(Boolean).join(' · '))}${kv('Remolque',u.remolque)}${kv('Permiso SICT',u.numPermisoSct)}${kv('Operador',op.nombre)}${kv('Licencia',[op.licencia,op.licenciaVigencia&&'vence '+op.licenciaVigencia].filter(Boolean).join(' · '))}${kv('Teléfono operador',op.telefono)}${kv('GPS',g.enlace?(g.proveedor||'Enlace')+' ✓':'')}${kv('Póliza',[p.aseguradora,p.numero,p.vigencia&&'vence '+p.vigencia].filter(Boolean).join(' · '))}${kv('Suma asegurada',p.sumaAsegurada?M(p.sumaAsegurada):'')}${kv('Contrato',[k.numero,k.vigencia&&'vence '+k.vigencia].filter(Boolean).join(' · '))}${kv('Remisión',(d.remision||{}).numero)}</div>
+ return `<div class="t60-kv">${kv('Placas',u.placas)}${kv('Económico / configuración',[u.economico,u.config].filter(Boolean).join(' · '))}${kv('Remolque',u.remolque)}${kv('Permiso SICT',u.numPermisoSct)}${kv('Operador',op.nombre)}${kv('Licencia',[op.licencia,op.licenciaVigencia&&'vence '+op.licenciaVigencia].filter(Boolean).join(' · '))}${kv('Teléfono operador',op.telefono)}${kv('GPS',g.enlace?(g.proveedor||'Enlace')+' ✓':'')}${kv('Póliza',[p.aseguradora,p.numero,p.vigencia&&'vence '+p.vigencia].filter(Boolean).join(' · '))}${kv('Suma asegurada',p.sumaAsegurada?M(p.sumaAsegurada):'')}${kv('Contrato SANVER',[(d.contratoSanver||k).numero,((d.contratoSanver||k).vigencia)&&'vence '+(d.contratoSanver||k).vigencia].filter(Boolean).join(' · '))}${kv('Remisión',(d.remision||{}).numero)}</div>
  ${g.enlace?`<div class="small">Rastreo: <a href="${E(g.enlace)}" target="_blank" rel="noopener">${E(g.enlace)}</a></div>`:''}
  <div class="t60-files">${Object.keys(FILES).map(t=>`<div><b>${E(FILES[t])}:</b> ${fl(t)}</div>`).join('')}</div>
  ${cp&&cp.uuid?`<div class="t60-cpres ${cp.ok?'ok':'bad'}">${cp.ok?'✅ Carta Porte coincide con la OC':'⛔ Carta Porte con diferencias'} · UUID ${E(cp.uuid)}${cp.fechaTimbrado?' · timbrada '+E(D(cp.fechaTimbrado)):''}</div>${checksTable(cp)}`:''}
@@ -3661,7 +3742,7 @@ window.openReview60=async function(folio,captura){
  if(typeof reloadDocs59==='function')await reloadDocs59();
  const emb=typeof embarqueOf59==='function'?embarqueOf59(o):null,ev=evaluateChecklist59(o),auth=!!o.firmaAutoriza;
  const canDecide=canCoord60()&&!auth&&o.estatus!=='CANCELADO';
- const canCapture=!auth&&o.estatus!=='CANCELADO'&&!(emb&&['ENVIADO','LIBERADO'].includes(emb.estado))&&!!(perms().crear_oc||perms().editar_oc||canCoord60());
+ const canCapture=!auth&&o.estatus!=='CANCELADO'&&!!emb&&['EN_CAPTURA','DEVUELTO'].includes(emb.estado)&&!!(perms().crear_oc||perms().editar_oc||canCoord60());
  const crit=ev.critOpen.length;
  box.innerHTML=`<h2>Expediente del embarque · ${E(o.folio)}</h2>${steps60(o,emb)}
  <div class="t60-kv"><div><span>Comprador</span><b>${E(o.solicitadoPor)}</b></div><div><span>Fletera</span><b>${E(o.fletera)}</b></div><div><span>Ruta</span><b>${E(routeOf(o))}</b></div><div><span>Fecha requerida</span><b>${E(D(o.fechaServicio))}</b></div><div><span>Valor de la carga</span><b>${M(o.valorMercanciaSinIva)}</b></div><div><span>Estado del transportista</span><b>${emb?E(EST[emb.estado]||emb.estado):'Sin información'}</b></div></div>
@@ -3683,6 +3764,7 @@ window.release60=async function(folio){
  if(!canCoord60())return alert('Solo el Coordinador de Transporte puede liberar embarques.');
  if(o.firmaAutoriza)return alert('Este embarque ya fue liberado.');
  if(!u.firma)return alert('Primero registra tu firma en Mi cuenta.');
+ {const e0=embarqueOf59(o);if(!e0||['POR_APROBAR','RECHAZADO'].includes(e0.estado))return alert('Primero aprueba la solicitud (contrato y rentabilidad); después el transportista carga su información y aquí la liberas.')}
  const ev=evaluateChecklist59(o),nota=(document.getElementById('rv60Nota')||{}).value?.trim()||'',exc=!!(document.getElementById('rv60Exc')||{}).checked;
  if(ev.critOpen.length&&!exc)return alert('Faltan puntos críticos del checklist:\n• '+ev.critOpen.map(r=>r.id+' '+r.t).join('\n• ')+'\n\nDevuélvelo al transportista o marca la excepción autorizada por Gerencia.');
  if(exc&&!nota)return alert('Escribe el motivo de la excepción y quién la autorizó.');
@@ -3735,7 +3817,7 @@ window.copyNotice60=async function(folio){
  L.push(`SOLICITUD DE FLETE · Folio ${o.folio} · ${o.empresa||'SANVER'}`,'',`Transportista: ${o.razonFletera||o.fletera}`,`Fecha requerida: ${D(o.fechaServicio)}`,`Ruta: ${routeOf(o)}`);
  (o.mercancias||[]).forEach(m=>L.push(`- ${m.clave} ${m.descripcion} · ${m.cantidad} ${m.unidadCaptura||m.unidadSat||''} · ${KG(m.pesoKg)}`));
  L.push('',`Facturar a: ${o.empresa} · RFC ${o.rfcReceptor} · C.P. ${o.cpFiscal} · Uso CFDI ${o.usoCfdi}`,`Subtotal ${M(o.montoBase)} · IVA ${M(o.iva)} · Retención ${M(o.retencion)} · Total ${M(o.total)}`,`Incluir en la Carta Porte: ${(o.remisiones||[]).join(', ')||'número de OC '+o.folio}`,'',
- 'ANTES DE CARGAR, entra al portal y carga en este folio:','1. Placas, operador con licencia vigente y enlace de GPS.','2. Póliza de carga vigente (suma asegurada ≥ valor de la carga) y contrato.','3. Fotos de la carga y remisión firmada por el operador.','4. XML y PDF de la Carta Porte timbrada antes de salir.','',`Portal: ${url}`,'La unidad sale solo cuando el Coordinador de Transporte libera el embarque.');
+ 'ANTES DE CARGAR, entra al portal y carga en este folio:','1. Placas, operador con licencia vigente y enlace de GPS.','2. Póliza de carga vigente (suma asegurada ≥ valor de la carga).','3. Fotos de la carga y estiba y remisiones firmadas por el operador.','4. XML y PDF de la Carta Porte timbrada antes de salir.','',`Portal: ${url}`,'La unidad sale solo cuando el Coordinador de Transporte libera el embarque.');
  const t=L.join('\n');
  try{await navigator.clipboard.writeText(t);alert('Aviso copiado. Pégalo en el correo o WhatsApp al transportista.')}catch(e){const w=window.open('','_blank');if(w){w.document.write('<pre style="white-space:pre-wrap;font:14px Arial">'+E(t)+'</pre>');w.document.close()}else prompt('Copia el aviso:',t)}
 };
@@ -3779,6 +3861,387 @@ if(typeof clearUserForm==='function'){const base=clearUserForm;clearUserForm=fun
 if(typeof renderUsers24==='function'){const base=renderUsers24;renderUsers24=async function(){const r=await base.apply(this,arguments);usersUI();try{const fl=new Map(((typeof CATALOGS!=='undefined'&&CATALOGS.fleteras)||[]).map(f=>[f._cloud_id,f['NOMBRE COMERCIAL']||f['RAZÓN SOCIAL']]));const all=[...(typeof CLOUD_PROFILES!=='undefined'?CLOUD_PROFILES:[]),...(typeof CLOUD_PENDING!=='undefined'?CLOUD_PENDING:[])];
  document.querySelectorAll('#usersBody tr').forEach(tr=>{const login=(tr.cells[2]&&tr.cells[2].innerText||'').trim().toLowerCase();const p=all.find(x=>String(x.usuario||'').toLowerCase()===login);if(p&&String(p.rol||'').toLowerCase().split(/[|,;\s]+/).includes('transportista')&&!tr.querySelector('.t60-badge'))tr.cells[0].insertAdjacentHTML('beforeend',` <span class="t60-badge">Transportista · ${E(fl.get(p.fletera_id)||'sin fletera')}</span>`)})}catch(e){}return r}}
 document.addEventListener('DOMContentLoaded',usersUI);if(document.readyState!=='loading')usersUI();
+})();
+
+</script>
+<script>
+/* V61 · Aprobación del Coordinador antes del transportista: contrato SANVER vigente + rentabilidad, y aviso por correo y WhatsApp */
+(function(){
+'use strict';
+const BUCKET='erp-fletes-documentos';
+const H=window.H60||{};
+const E=H.E||(v=>String(v??'')),M=H.M||(v=>'$'+Number(v||0).toFixed(2)),D=v=>v?String(v).slice(0,10):'';
+const me=()=>typeof current24==='function'?current24():null;
+const perms=()=>typeof CLOUD_PERMISSIONS!=='undefined'&&CLOUD_PERMISSIONS?CLOUD_PERMISSIONS:{};
+const canCoord=()=>typeof canCoord60==='function'&&canCoord60();
+const today=()=>new Date().toISOString().slice(0,10);
+const routeOf=o=>H.routeOf?H.routeOf(o):'';
+const emb=o=>typeof embarqueOf59==='function'?embarqueOf59(o):null;
+const N=v=>Number(String(v??'').replace(/[^0-9.\-]/g,''))||0;
+
+/* ---------- Catálogos propios: contratos de fleteras y lineamientos ---------- */
+let FL=new Map(),LIN=new Map(),LOADED_AT=0;
+async function loadRefs(force){
+ if(!force&&Date.now()-LOADED_AT<30000)return;
+ const [f,l]=await Promise.all([supa.from('fleteras').select('*'),supa.from('lineamientos_flete').select('*')]);
+ if(!f.error)FL=new Map((f.data||[]).map(r=>[r.id,r]));
+ if(!l.error)LIN=new Map((l.data||[]).map(r=>[r.tipo_servicio,r]));
+ LOADED_AT=Date.now();
+}
+window.reloadRefs61=()=>loadRefs(true);
+function fleteraOf(o){if(o._fletera_id&&FL.has(o._fletera_id))return FL.get(o._fletera_id);for(const r of FL.values())if((o.rfcFletera&&r.rfc===o.rfcFletera)||(o.razonFletera&&r.razon_social===o.razonFletera))return r;return null}
+window.contratoFletera61=function(o){const f=fleteraOf(o);return f&&f.contrato_vigencia?{numero:f.contrato_numero,vigencia:f.contrato_vigencia}:null};
+function contractState(f,fecha){
+ if(!f||!f.contrato_numero||!f.contrato_vigencia)return{k:'none',t:'Sin contrato registrado',c:'bad'};
+ const ref=fecha||today(),days=Math.round((Date.parse(f.contrato_vigencia)-Date.parse(today()))/864e5);
+ if(f.contrato_vigencia<ref)return{k:'exp',t:'Vencido o vence antes del viaje ('+f.contrato_vigencia+')',c:'bad'};
+ if(days<=30)return{k:'soon',t:'Vigente, vence en '+days+' día(s) ('+f.contrato_vigencia+')',c:'warn'};
+ return{k:'ok',t:'Vigente hasta '+f.contrato_vigencia,c:'ok'};
+}
+
+/* ---------- Rentabilidad ---------- */
+function metrics(o){
+ const flete=N(o.montoBase),valor=N(o.valorMercanciaSinIva),kg=(o.mercancias||[]).reduce((a,m)=>a+N(m.pesoKg),0);
+ return{flete,valor,kg,pct:valor>0?flete/valor*100:null,ton:kg>0?flete/(kg/1000):null};
+}
+function routeKey(o){const p=o.puntos||[];return p.length?(p[0].ubicacion||'')+'→'+(p[p.length-1].ubicacion||''):''}
+function history(o,by){
+ const xs=(typeof orders!=='undefined'?orders:[]).filter(x=>x.folio!==o.folio&&x.estatus!=='CANCELADO'&&(by==='ruta'?routeKey(x)===routeKey(o):(x.tipoServicio||'')===(o.tipoServicio||''))).map(metrics);
+ const avg=k=>{const v=xs.map(m=>m[k]).filter(x=>x!=null&&isFinite(x));return v.length?{v:v.reduce((a,b)=>a+b,0)/v.length,n:v.length}:null};
+ return{pct:avg('pct'),ton:avg('ton')};
+}
+function guideline(o){return LIN.get(o.tipoServicio||'')||LIN.get('GENERAL')||null}
+function profitability(o){
+ const m=metrics(o),g=guideline(o),hr=history(o,'ruta'),ht=history(o,'tipo');
+ const tp=g&&g.max_pct_flete!=null&&g.max_pct_flete!==''?Number(g.max_pct_flete):null,tt=g&&g.max_costo_ton!=null&&g.max_costo_ton!==''?Number(g.max_costo_ton):null;
+ const okPct=tp==null||m.pct==null?null:m.pct<=tp,okTon=tt==null||m.ton==null?null:m.ton<=tt;
+ const state=okPct===false||okTon===false?'excede':okPct==null&&okTon==null?'sin_tope':'cumple';
+ return{m,g,tp,tt,okPct,okTon,state,hr,ht,tipo:g?g.tipo_servicio:''};
+}
+const pctTxt=v=>v==null?'—':v.toFixed(2)+' %';
+const tonTxt=v=>v==null?'—':M(v)+' /ton';
+
+/* ---------- Ventana de aprobación ---------- */
+function ensureModal(){let m=document.getElementById('ap61Modal');if(m)return m;m=document.createElement('div');m.className='modal';m.id='ap61Modal';m.innerHTML='<div class="modal-card ck59-card rv60-card"><div id="ap61Content"></div><div class="actions no-print"><button class="btn btn-light" onclick="closeApproval61()">Cerrar</button></div></div>';document.body.appendChild(m);return m}
+window.closeApproval61=()=>{const m=document.getElementById('ap61Modal');if(m)m.classList.remove('open')};
+function badge(ok,t){return `<span class="ap61-b ${ok===true?'ok':ok===false?'bad':'warn'}">${ok===true?'✅':ok===false?'⛔':'⚠️'} ${E(t)}</span>`}
+window.openApproval61=async function(folio){
+ const o=(typeof orders!=='undefined'?orders:[]).find(x=>x.folio===folio);if(!o)return alert('No se encontró el folio '+folio);
+ ensureModal().classList.add('open');const box=document.getElementById('ap61Content');box.innerHTML='<p>Cargando solicitud…</p>';
+ await loadRefs(true);if(typeof reloadDocs59==='function')await reloadDocs59();
+ const e=emb(o),f=fleteraOf(o),cs=contractState(f,D(o.fechaServicio)),r=profitability(o),u=me();
+ const decide=canCoord()&&!o.firmaAutoriza&&o.estatus!=='CANCELADO'&&(!e||['POR_APROBAR','RECHAZADO'].includes(e.estado));
+ const mine=u&&(o.usuarioSolicitaId===u.id||perms().editar_oc||perms().crear_oc);
+ const approved=e&&['EN_CAPTURA','ENVIADO','DEVUELTO','LIBERADO'].includes(e.estado);
+ const ap=(e&&e.aprobacion)||{};
+ box.innerHTML=`<h2>Solicitud de servicio · ${E(o.folio)}</h2>${typeof steps60==='function'?steps60(o,e):''}
+ ${e&&e.estado==='RECHAZADO'?`<div class="t60-dev">Rechazada por el Coordinador: ${E(e.nota_aprobacion||'')}</div>`:''}
+ ${approved?`<div class="ck59-res ok">Aprobada${e.aprobado_at?' el '+E(D(e.aprobado_at)):''}${e.nota_aprobacion?' · '+E(e.nota_aprobacion):''}. ${e.estado==='EN_CAPTURA'?'El transportista está cargando su información.':''}</div>`:''}
+ <div class="t60-kv"><div><span>Comprador</span><b>${E(o.solicitadoPor)}</b></div><div><span>Fletera</span><b>${E(o.razonFletera||o.fletera)}</b></div><div><span>Tipo de servicio</span><b>${E(o.tipoServicio||'—')}</b></div><div><span>Ruta</span><b>${E(routeOf(o))}</b></div><div><span>Fecha requerida</span><b>${E(D(o.fechaServicio))}</b></div><div><span>Unidad</span><b>${E(o.unidad||'—')}</b></div><div><span>Remisiones / OC</span><b>${E((o.remisiones||[]).join(', ')||'—')}</b></div><div><span>Total del flete</span><b>${M(o.total)}</b></div></div>
+ <div class="t60-grid2">
+  <div class="t60-card"><h4>1 · Contrato SANVER con la fletera</h4>
+   ${f?`<div class="t60-kv"><div><span>No. de contrato</span><b>${E(f.contrato_numero||'—')}</b></div><div><span>Vigencia</span><b>${E(f.contrato_vigencia||'—')}</b></div><div><span>Archivo</span><b>${f.contrato_archivo?`<a href="#" onclick="openFile60(${E(JSON.stringify(f.contrato_archivo))});return false">Ver contrato</a>`:'Sin PDF'}</b></div></div>`:'<div class="small">No se encontró la fletera en el catálogo.</div>'}
+   <div>${badge(cs.k==='ok'||cs.k==='soon'?(cs.k==='ok'?true:null):false,cs.t)}</div>
+   ${decide&&f?`<details class="ap61-det" ${cs.k==='none'||cs.k==='exp'?'open':''}><summary>${cs.k==='none'?'Registrar contrato':'Actualizar contrato'}</summary>${contractForm(f)}</details>`:''}
+   ${decide?`<label class="t60-chk"><input type="checkbox" id="ap61Contrato" ${cs.k==='none'||cs.k==='exp'?'disabled':''}> Confirmo que existe contrato SANVER vigente con esta fletera y que la fecha de vencimiento es correcta</label>`:''}
+   ${ap.contrato?`<div class="small">Al aprobar se confirmó el contrato ${E(ap.contrato.numero||'')} (vence ${E(ap.contrato.vigencia||'')}).</div>`:''}
+  </div>
+  <div class="t60-card"><h4>2 · Rentabilidad del flete</h4>
+   <table class="t60-t" data-excel-filters49="1"><thead><tr><th>Indicador</th><th>Esta solicitud</th><th>Lineamiento SANVER${r.tipo?' ('+E(r.tipo)+')':''}</th><th>Promedio de la ruta</th><th>Promedio del tipo</th></tr></thead><tbody>
+    <tr><td>% flete sobre valor de la mercancía<div class="small">${M(r.m.flete)} / ${M(r.m.valor)}</div></td><td><b>${pctTxt(r.m.pct)}</b></td><td>${r.tp==null?'Sin tope':'Máx. '+pctTxt(r.tp)} ${r.okPct==null?'':badge(r.okPct,r.okPct?'Cumple':'Excede')}</td><td>${r.hr.pct?pctTxt(r.hr.pct.v)+' <span class="small">('+r.hr.pct.n+')</span>':'—'}</td><td>${r.ht.pct?pctTxt(r.ht.pct.v)+' <span class="small">('+r.ht.pct.n+')</span>':'—'}</td></tr>
+    <tr><td>Costo por tonelada<div class="small">${(r.m.kg/1000).toFixed(2)} ton</div></td><td><b>${tonTxt(r.m.ton)}</b></td><td>${r.tt==null?'Sin tope':'Máx. '+tonTxt(r.tt)} ${r.okTon==null?'':badge(r.okTon,r.okTon?'Cumple':'Excede')}</td><td>${r.hr.ton?tonTxt(r.hr.ton.v)+' <span class="small">('+r.hr.ton.n+')</span>':'—'}</td><td>${r.ht.ton?tonTxt(r.ht.ton.v)+' <span class="small">('+r.ht.ton.n+')</span>':'—'}</td></tr>
+   </tbody></table>
+   <div>${r.state==='excede'?badge(false,'Excede los lineamientos: solo se aprueba con justificación'):r.state==='sin_tope'?badge(null,'No hay lineamiento configurado para este tipo de servicio'):badge(true,'Dentro de los lineamientos de SANVER')}</div>
+   ${canCoord()?'<div class="small"><a href="#" onclick="openGuidelines61();return false">Configurar lineamientos de rentabilidad</a></div>':''}
+   ${decide?`<label class="t60-chk"><input type="checkbox" id="ap61Rent"> Confirmo que la rentabilidad cumple los lineamientos de SANVER${r.state==='excede'?' (con la justificación escrita abajo)':''}</label>`:''}
+  </div>
+ </div>
+ ${decide?`<div class="t60-card rv60-decision"><h4>Decisión del Coordinador</h4>
+  <label class="t60-f"><span>Nota${r.state==='excede'?' (obligatoria: justifica por qué se aprueba fuera de lineamiento)':' (obligatoria para rechazar)'}</span><textarea id="ap61Nota" rows="2"></textarea></label>
+  <div class="actions" style="justify-content:flex-start"><button class="btn btn-primary" onclick="approve61('${E(o.folio)}')">✅ Aprobar y enviar al transportista</button><button class="btn btn-danger" onclick="reject61('${E(o.folio)}')">✖ Rechazar solicitud</button></div></div>`
+ :approved?`<div class="actions" style="justify-content:flex-start"><button class="btn btn-light" onclick="notify61('${E(o.folio)}')">✉️ Volver a avisar al transportista</button><button class="btn btn-light" onclick="closeApproval61();openReview60('${E(o.folio)}',false,true)">Ver expediente del embarque</button></div>`
+ :e&&e.estado==='RECHAZADO'&&mine?`<div class="t60-card"><h4>Corregir y reenviar</h4><div class="small">Corrige la OC (tarifa, fletera, ruta o datos) desde el Histórico y después reenvíala a aprobación.</div><label class="t60-f"><span>Comentario para el Coordinador</span><textarea id="ap61Nota" rows="2"></textarea></label><div class="actions" style="justify-content:flex-start"><button class="btn btn-primary" onclick="resubmit61('${E(o.folio)}')">Reenviar a aprobación</button></div></div>`
+ :`<div class="small t60-muted">${canCoord()?'':'La aprobación la realiza el Coordinador de Transporte.'}</div>`}`;
+};
+function contractForm(f){return `<div class="t60-fs" id="ap61CF" data-id="${E(f.id)}"><label class="t60-f"><span>No. de contrato</span><input id="ap61CNum" value="${E(f.contrato_numero||'')}"></label><label class="t60-f"><span>Vigencia (vence)</span><input id="ap61CVig" type="date" value="${E(f.contrato_vigencia||'')}"></label><label class="t60-f"><span>PDF del contrato</span><input id="ap61CFile" type="file" accept=".pdf,image/*"></label><label class="t60-f"><span>Correo de la fletera</span><input id="ap61CMail" type="email" value="${E(f.correo||'')}"></label><label class="t60-f"><span>WhatsApp (10 dígitos)</span><input id="ap61CWa" type="tel" value="${E(f.whatsapp||f.telefono||'')}"></label></div><button class="btn btn-light" onclick="saveContract61(this)">Guardar contrato</button>`}
+window.saveContract61=async function(btn,fid){
+ const root=btn.closest('[data-cf]')||document;const id=fid||(root.querySelector('#ap61CF')||{}).dataset?.id;if(!id)return;
+ const q=s=>root.querySelector(s);const numero=q('#ap61CNum').value.trim(),vig=q('#ap61CVig').value,file=q('#ap61CFile').files[0];
+ if(!numero||!vig)return alert('Captura el número y la fecha de vencimiento del contrato.');
+ const row={contrato_numero:numero,contrato_vigencia:vig,correo:q('#ap61CMail').value.trim()||null,whatsapp:q('#ap61CWa').value.replace(/\D/g,'')||null};
+ if(file){const path=`contratos/${id}/${Date.now()}_${file.name.replace(/[^\w.\-]+/g,'_')}`;const up=await supa.storage.from(BUCKET).upload(path,file,{upsert:false,contentType:file.type||'application/pdf'});if(up.error)return alert('No se pudo subir el contrato: '+up.error.message);row.contrato_archivo=path}
+ const r=await supa.from('fleteras').update(row).eq('id',id);if(r.error)return alert('No se pudo guardar el contrato: '+r.error.message);
+ await supa.from('bitacora').insert({usuario_id:me().id,accion:'CONTRATO DE FLETERA ACTUALIZADO',modulo:'FLETERAS',registro_id:id,detalle:{numero,vigencia:vig,archivo:!!file}});
+ await loadRefs(true);
+ const ap=document.getElementById('ap61Modal');if(ap&&ap.classList.contains('open')){const h=document.querySelector('#ap61Content h2');const folio=h&&h.textContent.split('·').pop().trim();if(folio)return openApproval61(folio)}
+ openContracts61();
+};
+
+window.approve61=async function(folio){
+ const o=orders.find(x=>x.folio===folio),u=me();if(!o||!u)return;
+ if(!canCoord())return alert('Solo el Coordinador de Transporte aprueba solicitudes.');
+ await loadRefs(true);
+ const f=fleteraOf(o),cs=contractState(f,D(o.fechaServicio)),r=profitability(o),nota=(document.getElementById('ap61Nota')||{}).value?.trim()||'';
+ if(cs.k==='none'||cs.k==='exp')return alert('No se puede aprobar: '+cs.t+'. Registra o actualiza el contrato de la fletera.');
+ if(!(document.getElementById('ap61Contrato')||{}).checked)return alert('Confirma que existe contrato SANVER vigente y que la fecha de vencimiento es correcta.');
+ if(!(document.getElementById('ap61Rent')||{}).checked)return alert('Confirma que la rentabilidad cumple los lineamientos de SANVER.');
+ if(r.state==='excede'&&!nota)return alert('El flete excede los lineamientos: escribe la justificación en la nota.');
+ if(!confirm(`¿Aprobar la solicitud ${folio} y enviarla al transportista ${o.fletera}?`))return;
+ const prev=emb(o)||{},now=new Date().toISOString();
+ let archivos=(prev.archivos||[]).filter(a=>a.tipo!=='CONTRATO_SANVER'),copyMsg='';
+ if(f.contrato_archivo){const to=`embarques/${o._cloud_id}/CONTRATO_SANVER_${Date.now()}_${f.contrato_archivo.split('/').pop()}`;const c=await supa.storage.from(BUCKET).copy(f.contrato_archivo,to);if(c.error)copyMsg='\n\n⚠️ No se pudo adjuntar el PDF del contrato al viaje: '+c.error.message;else archivos=[{tipo:'CONTRATO_SANVER',path:to,nombre:'Contrato SANVER '+(f.contrato_numero||'')+'.pdf',at:now}].concat(archivos)}
+ else copyMsg='\n\n⚠️ La fletera no tiene PDF del contrato; el transportista solo verá el número y la vigencia.';
+ const aprobacion={contrato:{numero:f.contrato_numero,vigencia:f.contrato_vigencia,archivo:f.contrato_archivo||null},rentabilidad:{pct:r.m.pct,tope_pct:r.tp,costo_ton:r.m.ton,tope_ton:r.tt,estado:r.state,promedio_ruta_ton:r.hr.ton&&r.hr.ton.v,lineamiento:r.tipo}};
+ const row={orden_id:o._cloud_id,estado:'EN_CAPTURA',aprobado_por:u.id,aprobado_at:now,nota_aprobacion:nota||null,aprobacion,datos:Object.assign({},prev.datos||{},{contratoSanver:{numero:f.contrato_numero,vigencia:f.contrato_vigencia}}),archivos};
+ const x=await supa.from('embarques_transportista').upsert(row,{onConflict:'orden_id'});
+ if(x.error)return alert('No se pudo aprobar: '+x.error.message);
+ await supa.from('bitacora').insert({usuario_id:u.id,accion:'SOLICITUD APROBADA POR COORDINADOR',modulo:'ORDEN',registro_id:folio,detalle:Object.assign({nota},aprobacion)});
+ if(typeof loadCloudData==='function')await loadCloudData();if(typeof reloadDocs59==='function')await reloadDocs59();
+ if(typeof renderCoord60==='function')renderCoord60();
+ await openApproval61(folio);
+ notify61(folio,'Solicitud aprobada. Ahora avisa al transportista:'+copyMsg);
+};
+window.reject61=async function(folio){
+ const o=orders.find(x=>x.folio===folio),u=me();if(!o||!u)return;
+ const nota=(document.getElementById('ap61Nota')||{}).value?.trim()||'';if(!nota)return alert('Escribe el motivo del rechazo para el comprador.');
+ if(!confirm('¿Rechazar la solicitud '+folio+'? Regresará al comprador para corregirla.'))return;
+ const x=await supa.from('embarques_transportista').upsert({orden_id:o._cloud_id,estado:'RECHAZADO',nota_aprobacion:nota,aprobado_por:null,aprobado_at:null,revisado_por:u.id,revisado_at:new Date().toISOString(),...(emb(o)?{}:{datos:{},archivos:[]})},{onConflict:'orden_id'});
+ if(x.error)return alert('No se pudo rechazar: '+x.error.message);
+ await supa.from('bitacora').insert({usuario_id:u.id,accion:'SOLICITUD RECHAZADA POR COORDINADOR',modulo:'ORDEN',registro_id:folio,detalle:{nota}});
+ if(typeof loadCloudData==='function')await loadCloudData();if(typeof reloadDocs59==='function')await reloadDocs59();
+ if(typeof renderCoord60==='function')renderCoord60();closeApproval61();alert('Solicitud '+folio+' rechazada. El comprador verá el motivo.');
+};
+window.resubmit61=async function(folio){
+ const o=orders.find(x=>x.folio===folio),u=me();if(!o||!u)return;
+ const nota=(document.getElementById('ap61Nota')||{}).value?.trim()||'';
+ const x=await supa.from('embarques_transportista').update({estado:'POR_APROBAR'}).eq('orden_id',o._cloud_id);
+ if(x.error)return alert('No se pudo reenviar: '+x.error.message);
+ await supa.from('bitacora').insert({usuario_id:u.id,accion:'SOLICITUD REENVIADA A APROBACIÓN',modulo:'ORDEN',registro_id:folio,detalle:{nota}});
+ if(typeof loadCloudData==='function')await loadCloudData();if(typeof reloadDocs59==='function')await reloadDocs59();
+ closeApproval61();alert('Solicitud '+folio+' reenviada al Coordinador.');
+};
+
+/* ---------- Aviso al transportista: correo nuevo + WhatsApp ---------- */
+function portalUrl(){const a=window.APP61||{};return a.urlEmbarques||location.href.split('#')[0].split('?')[0]}
+async function noticeTexts(o){
+ const e=emb(o)||{},f=fleteraOf(o)||{},c=(e.archivos||[]).find(a=>a.tipo==='CONTRATO_SANVER');
+ let link='';if(c){const s=await supa.storage.from(BUCKET).createSignedUrl(c.path,7*24*3600);if(!s.error)link=s.data.signedUrl}
+ const merc=(o.mercancias||[]).map(m=>`- ${m.clave} ${m.descripcion} · ${m.cantidad} ${m.unidadCaptura||m.unidadSat||''} · ${Math.round(N(m.pesoKg)).toLocaleString('es-MX')} kg`).join('\n');
+ const k=e.datos&&e.datos.contratoSanver||{numero:f.contrato_numero,vigencia:f.contrato_vigencia};
+ const subject=`Solicitud de servicio de flete ${o.folio} · SANVER`;
+ const body=`Estimados ${o.razonFletera||o.fletera}:\n\nSANVER les asigna el siguiente servicio de flete, aprobado por la Coordinación de Transporte.\n\nFolio / OC: ${o.folio}\nFecha requerida: ${D(o.fechaServicio)}\nRuta: ${routeOf(o)}\nUnidad: ${o.unidad||'—'}\nMercancía:\n${merc}\n\nFacturar a: ${o.empresa} · RFC ${o.rfcReceptor} · C.P. ${o.cpFiscal} · Uso CFDI ${o.usoCfdi}\nSubtotal ${M(o.montoBase)} · IVA ${M(o.iva)} · Retención ${M(o.retencion)} · Total ${M(o.total)}\nIncluir en la Carta Porte: ${(o.remisiones||[]).join(', ')||o.folio}\n\nContrato SANVER: ${k.numero||'—'} (vigente hasta ${k.vigencia||'—'})${link?'\nDescargar contrato (liga válida 7 días): '+link:''}\n\nANTES DE CARGAR, entren al portal SANVER Embarques y carguen en este folio:\n1. Placas, operador con licencia vigente y enlace de GPS.\n2. Póliza de carga vigente (suma asegurada mayor o igual al valor de la carga).\n3. Fotos de la carga y estiba y las remisiones firmadas por el operador.\n4. XML y PDF de la Carta Porte timbrada antes de salir.\n\nPortal: ${portalUrl()}\n\nLa unidad sale solo cuando la Coordinación de Transporte libera el embarque.\n\nSaludos,\n${(me()||{}).nombre||'Coordinación de Transporte'}\nCompras · SANVER`;
+ const wa=`*SANVER · Solicitud de flete ${o.folio}*\nFecha: ${D(o.fechaServicio)}\nRuta: ${routeOf(o)}\nUnidad: ${o.unidad||'—'}\nTotal: ${M(o.total)}\nContrato SANVER ${k.numero||''} vigente hasta ${k.vigencia||'—'}\n\nCarga en el portal placas, operador y licencia, GPS, póliza, fotos de carga y estiba, remisiones y la Carta Porte antes de salir:\n${portalUrl()}${link?'\n\nContrato: '+link:''}\n\nLa unidad sale solo con la liberación de SANVER.`;
+ const to=(f.correo||o.correoFletera||'').trim(),phone=String(f.whatsapp||f.telefono||o.telefonoFletera||'').replace(/\D/g,'');
+ return{subject,body,wa,to,phone:phone.length===10?'52'+phone:phone};
+}
+window.notify61=async function(folio,title){
+ const o=orders.find(x=>x.folio===folio);if(!o)return;await loadRefs(false);
+ const t=await noticeTexts(o);window.__notice61=t;
+ let m=document.getElementById('nt61Modal');if(!m){m=document.createElement('div');m.className='modal';m.id='nt61Modal';document.body.appendChild(m)}
+ m.innerHTML=`<div class="modal-card" style="max-width:640px"><h2>Avisar al transportista · ${E(folio)}</h2>${title?`<div class="ck59-res ok" style="white-space:pre-line">${E(title)}</div>`:''}
+ <div class="t60-kv"><div><span>Correo</span><b>${E(t.to||'Sin correo en el catálogo')}</b></div><div><span>WhatsApp</span><b>${E(t.phone||'Sin número en el catálogo')}</b></div></div>
+ <div class="actions" style="justify-content:flex-start"><a class="btn btn-primary" id="nt61Mail" href="mailto:${encodeURIComponent(t.to)}?subject=${encodeURIComponent(t.subject)}&body=${encodeURIComponent(t.body)}" onclick="logNotice61('${E(folio)}','correo')">✉️ Abrir correo nuevo</a><button class="btn btn-green" onclick="whatsapp61('${E(folio)}')">🟢 Copiar y abrir WhatsApp</button><button class="btn btn-light" onclick="copyMail61()">Copiar texto del correo</button></div>
+ <details><summary class="small">Ver mensaje</summary><pre class="nt61-pre">${E(t.body)}</pre></details>
+ <div class="actions"><button class="btn btn-light" onclick="document.getElementById('nt61Modal').classList.remove('open')">Listo</button></div></div>`;
+ m.classList.add('open');
+};
+window.whatsapp61=function(folio){const t=window.__notice61;if(!t)return;window.open('https://wa.me/'+(t.phone||'')+'?text='+encodeURIComponent(t.wa),'_blank','noopener');try{navigator.clipboard&&navigator.clipboard.writeText(t.wa).catch(()=>{})}catch(e){}logNotice61(folio,'whatsapp')};
+window.copyMail61=async function(){const t=window.__notice61;if(!t)return;try{await navigator.clipboard.writeText(t.subject+'\n\n'+t.body);alert('Texto del correo copiado.')}catch(e){prompt('Copia el texto:',t.body)}};
+window.logNotice61=function(folio,canal){const u=me();if(u)supa.from('bitacora').insert({usuario_id:u.id,accion:'AVISO AL TRANSPORTISTA ('+canal.toUpperCase()+')',modulo:'ORDEN',registro_id:folio,detalle:{canal}}).then(()=>{})};
+
+/* ---------- Contratos de fleteras ---------- */
+window.openContracts61=async function(){
+ await loadRefs(true);
+ let m=document.getElementById('ct61Modal');if(!m){m=document.createElement('div');m.className='modal';m.id='ct61Modal';document.body.appendChild(m)}
+ const rows=[...FL.values()].filter(f=>f.activo!==false).sort((a,b)=>String(a.nombre_comercial||a.razon_social).localeCompare(String(b.nombre_comercial||b.razon_social)));
+ const can=canCoord()||perms().editar_catalogos;
+ m.innerHTML=`<div class="modal-card ck59-card"><h2>Contratos SANVER con fleteras</h2><div class="small">El contrato se confirma al aprobar cada solicitud y se adjunta al aviso del transportista.</div>
+ <div class="table-wrap"><table class="ck59-btable" data-excel-filters49="1"><thead><tr><th>Fletera</th><th>Contrato</th><th>Vigencia</th><th>Estado</th><th>PDF</th><th>Correo / WhatsApp</th><th></th></tr></thead><tbody>
+ ${rows.map(f=>{const cs=contractState(f);return `<tr><td><b>${E(f.nombre_comercial||f.razon_social)}</b><div class="small">${E(f.rfc||'')}</div></td><td>${E(f.contrato_numero||'—')}</td><td>${E(f.contrato_vigencia||'—')}</td><td>${badge(cs.c==='ok'?true:cs.c==='bad'?false:null,cs.k==='none'?'Sin contrato':cs.k==='exp'?'Vencido':cs.k==='soon'?'Por vencer':'Vigente')}</td><td>${f.contrato_archivo?`<a href="#" onclick="openFile60(${E(JSON.stringify(f.contrato_archivo))});return false">Ver</a>`:'—'}</td><td class="small">${E(f.correo||'—')}<br>${E(f.whatsapp||f.telefono||'—')}</td><td>${can?`<button class="btn btn-light" onclick="editContract61('${E(f.id)}')">Editar</button>`:''}</td></tr><tr id="ct61-${E(f.id)}" style="display:none"><td colspan="7" data-cf="1">${contractForm(f).replace('saveContract61(this)',`saveContract61(this,'${E(f.id)}')`)}</td></tr>`}).join('')}
+ </tbody></table></div><div class="actions"><button class="btn btn-light" onclick="document.getElementById('ct61Modal').classList.remove('open')">Cerrar</button></div></div>`;
+ m.classList.add('open');
+};
+window.editContract61=id=>{const r=document.getElementById('ct61-'+id);if(r)r.style.display=r.style.display==='none'?'':'none'};
+
+/* ---------- Lineamientos de rentabilidad ---------- */
+window.openGuidelines61=async function(){
+ await loadRefs(true);
+ let m=document.getElementById('gl61Modal');if(!m){m=document.createElement('div');m.className='modal';m.id='gl61Modal';document.body.appendChild(m)}
+ const tipos=['GENERAL',...new Set((typeof orders!=='undefined'?orders:[]).map(o=>o.tipoServicio).filter(Boolean))].filter((v,i,a)=>a.indexOf(v)===i);
+ const can=canCoord();
+ const avg=t=>{const xs=(orders||[]).filter(o=>o.estatus!=='CANCELADO'&&(t==='GENERAL'||o.tipoServicio===t)).map(metrics);const a=k=>{const v=xs.map(x=>x[k]).filter(x=>x!=null&&isFinite(x));return v.length?v.reduce((p,q)=>p+q,0)/v.length:null};return{pct:a('pct'),ton:a('ton'),n:xs.length}};
+ m.innerHTML=`<div class="modal-card ck59-card"><h2>Lineamientos de rentabilidad de fletes</h2><div class="small">Tope máximo del flete (sin IVA) para aprobar una solicitud. “GENERAL” aplica a los tipos de servicio que no tengan uno propio. Deja vacío para no aplicar tope.</div>
+ <div class="table-wrap"><table class="ck59-btable" data-excel-filters49="1"><thead><tr><th>Tipo de servicio</th><th>Máx. % flete / valor</th><th>Máx. $ por tonelada</th><th>Notas</th><th>Histórico (promedio)</th></tr></thead><tbody>
+ ${tipos.map(t=>{const g=LIN.get(t)||{},a=avg(t);return `<tr data-t="${E(t)}"><td><b>${E(t)}</b></td><td><input class="gl61-pct" type="number" step="0.01" min="0" value="${E(g.max_pct_flete??'')}" ${can?'':'disabled'}></td><td><input class="gl61-ton" type="number" step="1" min="0" value="${E(g.max_costo_ton??'')}" ${can?'':'disabled'}></td><td><input class="gl61-notas" value="${E(g.notas||'')}" ${can?'':'disabled'}></td><td class="small">${pctTxt(a.pct)} · ${tonTxt(a.ton)} <span>(${a.n} OC)</span></td></tr>`}).join('')}
+ </tbody></table></div><div class="actions">${can?'<button class="btn btn-primary" onclick="saveGuidelines61()">Guardar lineamientos</button>':''}<button class="btn btn-light" onclick="document.getElementById(\'gl61Modal\').classList.remove(\'open\')">Cerrar</button></div></div>`;
+ m.classList.add('open');
+};
+window.saveGuidelines61=async function(){
+ const u=me(),rows=[...document.querySelectorAll('#gl61Modal tbody tr')].map(tr=>{const v=s=>tr.querySelector(s).value;return{tipo_servicio:tr.dataset.t,max_pct_flete:v('.gl61-pct')===''?null:Number(v('.gl61-pct')),max_costo_ton:v('.gl61-ton')===''?null:Number(v('.gl61-ton')),notas:v('.gl61-notas')||null,updated_por:u.id,updated_at:new Date().toISOString()}}).filter(r=>r.tipo_servicio==='GENERAL'||r.max_pct_flete!=null||r.max_costo_ton!=null||r.notas||LIN.has(r.tipo_servicio));
+ const r=await supa.from('lineamientos_flete').upsert(rows,{onConflict:'tipo_servicio'});if(r.error)return alert('No se pudieron guardar: '+r.error.message);
+ await supa.from('bitacora').insert({usuario_id:u.id,accion:'LINEAMIENTOS DE RENTABILIDAD ACTUALIZADOS',modulo:'LINEAMIENTOS',registro_id:'FLETES',detalle:{lineamientos:rows.map(({updated_por,updated_at,...x})=>x)}});
+ await loadRefs(true);document.getElementById('gl61Modal').classList.remove('open');alert('Lineamientos guardados.');
+};
+
+/* ---------- Enganches ---------- */
+if(typeof window.openReview60==='function'){const base=window.openReview60;window.openReview60=function(folio,captura,force){const o=(typeof orders!=='undefined'?orders:[]).find(x=>x.folio===folio);const e=o&&emb(o);if(o&&!force&&!o.firmaAutoriza&&(!e||['POR_APROBAR','RECHAZADO'].includes(e.estado)))return openApproval61(folio);return base(folio,captura)}}
+if(typeof signatureHTML==='function'){const base=signatureHTML;signatureHTML=function(o){let h=base.apply(this,arguments);const e=o&&emb(o);if(o&&!o.firmaAutoriza&&(!e||['POR_APROBAR','RECHAZADO'].includes(e.estado)))h=h.replace(/(<div class="auth-actions no-print"><button[^>]*>)[^<]*(<\/button>)/,`$1${canCoord()?'Aprobar o rechazar solicitud':'Ver estado de la solicitud'}$2`);return h}}
+const boot=()=>{if(typeof current24==='function'&&current24()&&!(typeof isTransp60==='function'&&isTransp60()))loadRefs(false).catch(()=>{})};
+if(typeof refreshKpis==='function'){const base=refreshKpis;refreshKpis=function(){const r=base.apply(this,arguments);boot();return r}}
+})();
+
+</script>
+<script>
+/* V61 · Encabezado, separación de portales (Mini ERP cemento / SANVER Embarques) y notificaciones en tiempo real */
+(function(){
+'use strict';
+const A=window.APP61=Object.assign({modo:'embarques',nombre:'SANVER Embarques',sub:'Solicitud · Aprobación · Transportista · Liberación',otro:'Mini ERP',urlOtro:'../',urlEmbarques:'',logo:'assets/logo-sanver.png'},window.APP61||{});
+if(!A.urlEmbarques)A.urlEmbarques=A.modo==='embarques'?location.href.split('#')[0].split('?')[0]:new URL(A.urlOtro,location.href).href;
+const E=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const me=()=>typeof current24==='function'?current24():null;
+const perms=()=>typeof CLOUD_PERMISSIONS!=='undefined'&&CLOUD_PERMISSIONS?CLOUD_PERMISSIONS:{};
+const isT=()=>typeof isTransp60==='function'&&isTransp60();
+const canCoord=()=>typeof canCoord60==='function'&&canCoord60();
+const CEM_PAGES=new Set(['cemento','respaldo','manual','usuarios','micuenta']);
+document.documentElement.classList.add('mode-'+A.modo);
+document.title=A.nombre+(A.modo==='cemento'?' · Inventario de cemento':' · SANVER');
+
+/* ---------- Marca y encabezado ---------- */
+const logoHTML=cls=>`<span class="brand61-logo ${cls||''}"><img src="${E(A.logo)}" alt="SANVER" onerror="this.parentNode.classList.add('nologo');this.remove()"><b>SANVER</b></span>`;
+function buildHeader(){
+ const h=document.querySelector('body>header');if(!h||h.dataset.v61)return;h.dataset.v61='1';
+ const nav=h.querySelector('nav');
+ h.innerHTML=`<div class="top61"><a class="brand61" href="#" onclick="go(window.APP61.home||'inicio');return false">${logoHTML()}<span class="brand61-t"><b>${E(A.nombre)}</b><small>${E(A.sub)}</small></span></a><div class="act61"><a class="switch61" href="${E(A.urlOtro)}" title="Ir a ${E(A.otro)}">⇄ ${E(A.otro)}</a><button class="bell61" id="bell61" onclick="toggleBell61()" title="Notificaciones">🔔<span id="bellCount61"></span></button><div class="user61" id="user61"></div></div></div>`;
+ if(nav){nav.classList.add('nav61');h.appendChild(nav)}
+ const lg=document.querySelector('#loginGate .login-card h1');if(lg)lg.outerHTML=`<div class="login61">${logoHTML('big')}<h1>${E(A.nombre)}</h1><small>${E(A.sub)}</small></div>`;
+ if(A.modo==='cemento'){const b=document.querySelector('nav button[data-page="cemento"]');if(b)b.textContent='Inventario de cemento'}
+ else{const b=document.querySelector('nav button[data-page="nueva"]');if(b)b.textContent='Nueva solicitud'}
+}
+function renderUser(){
+ const u=me(),box=document.getElementById('user61');if(!box)return;
+ if(!u){box.innerHTML='';return}
+ const ini=String(u.nombre||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase();
+ const role=isT()?'Transportista':canCoord()&&!perms().administrar_usuarios?'Coordinador de Transporte':perms().administrar_usuarios?'Administrador':(u.puesto||'Usuario');
+ box.innerHTML=`<button class="chip61" onclick="this.parentNode.classList.toggle('open')"><span class="av61">${E(ini)}</span><span class="nm61"><b>${E(u.nombre)}</b><small>${E(role)}</small></span></button><div class="menu61">${isT()?'':`<button onclick="go('micuenta');document.getElementById('user61').classList.remove('open')">Mi cuenta</button>`}<button onclick="enableDesktop61()">Activar avisos en el escritorio</button><a href="${E(A.urlOtro)}">Ir a ${E(A.otro)}</a><button onclick="logoutV24()">Cerrar sesión</button></div>`;
+}
+document.addEventListener('click',e=>{const u=document.getElementById('user61');if(u&&!u.contains(e.target))u.classList.remove('open');const p=document.getElementById('bellPanel61'),b=document.getElementById('bell61');if(p&&!p.contains(e.target)&&b&&!b.contains(e.target))p.classList.remove('open')});
+
+/* ---------- Separación por portal ---------- */
+function applyMode(){
+ document.querySelectorAll('nav button[data-page]').forEach(b=>{const p=b.dataset.page;const allowed=A.modo==='cemento'?CEM_PAGES.has(p):p!=='cemento';if(!allowed)b.style.setProperty('display','none','important')});
+ if(A.modo==='cemento'){
+  const sec=document.getElementById('inicio');
+  if(sec&&!sec.querySelector('.nocem61')&&me()&&typeof canCement34==='function'&&!canCement34())sec.insertAdjacentHTML('afterbegin',`<div class="card nocem61"><h2>Sin acceso al Mini ERP de cemento</h2><p>Tu usuario no tiene el permiso de compra de cemento. Los fletes, solicitudes y transportistas están en <a href="${E(A.urlOtro)}"><b>${E(A.otro)}</b></a>.</p></div>`);
+ }
+ const hero=document.querySelector('#inicio .hero .card');if(hero&&A.modo==='embarques'&&!hero.dataset.v61){hero.dataset.v61='1';hero.innerHTML=`<h2>Solicitudes de flete</h2><p>El comprador crea la solicitud, el Coordinador de Transporte la aprueba (contrato y rentabilidad), el transportista carga su información y el Coordinador libera el embarque.</p><div class="actions" style="justify-content:flex-start"><button class="btn btn-primary" onclick="go('nueva')">Crear nueva solicitud</button><button class="btn btn-blue" onclick="go('historico')">Ver histórico</button>${canCoord()?'<button class="btn btn-light" onclick="go(\'coordinacion\')">Ir a Coordinación</button>':''}</div>`}
+}
+A.home=A.modo==='cemento'?'cemento':'inicio';
+if(typeof applyPermissions24==='function'){const base=applyPermissions24;applyPermissions24=function(){const r=base.apply(this,arguments);applyMode();renderUser();return r}}
+if(typeof unlock24==='function'){const base=unlock24;unlock24=function(){
+ if(A.modo==='cemento'&&isT()){location.replace(A.urlOtro);return}
+ const r=base.apply(this,arguments);
+ Promise.resolve(r).then(()=>{applyMode();renderUser();if(isT()){try{(window.__portalViajes60?window.__portalViajes60():[]).forEach(v=>{LASTEST[v.id]=v.embarque?v.embarque.estado:null})}catch(e){}}if(A.modo==='cemento'&&typeof go==='function'&&typeof canCement34==='function'&&canCement34())go('cemento');startRealtime();loadStore();paintBell()});
+ return r}}
+
+/* ---------- Notificaciones ---------- */
+let STORE=[],KEY='';
+function loadStore(){const u=me();KEY=u?'n61_'+A.modo+'_'+u.id:'';try{STORE=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){STORE=[]}}
+function saveStore(){try{if(KEY)localStorage.setItem(KEY,JSON.stringify(STORE.slice(0,60)))}catch(e){}}
+function paintBell(){
+ const n=STORE.filter(x=>!x.leida).length,c=document.getElementById('bellCount61');if(c){c.textContent=n?String(n>99?'99+':n):'';c.style.display=n?'':'none'}
+ const p=document.getElementById('bellPanel61');if(p&&p.classList.contains('open'))renderPanel();
+ badges();
+}
+function renderPanel(){
+ let p=document.getElementById('bellPanel61');if(!p){p=document.createElement('div');p.id='bellPanel61';document.body.appendChild(p)}
+ const perm=('Notification' in window)?Notification.permission:'unsupported';
+ p.innerHTML=`<div class="bp61-h"><b>Notificaciones</b><span>${STORE.length?'<button onclick="markAll61()">Marcar leídas</button>':''}</span></div>
+ ${perm==='default'?'<button class="bp61-on" onclick="enableDesktop61()">🔔 Activar avisos en el escritorio</button>':''}
+ <div class="bp61-l">${STORE.length?STORE.map((x,i)=>`<button class="bp61-i ${x.leida?'':'new'}" onclick="openNote61(${i})"><b>${E(x.titulo)}</b><span>${E(x.texto||'')}</span><small>${E(new Date(x.at).toLocaleString('es-MX',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}))}</small></button>`).join(''):'<div class="bp61-e">Sin notificaciones por ahora. Aquí aparecen al instante las solicitudes, aprobaciones y liberaciones.</div>'}</div>`;
+}
+window.toggleBell61=function(){renderPanel();const p=document.getElementById('bellPanel61');p.classList.toggle('open')};
+window.markAll61=function(){STORE.forEach(x=>x.leida=true);saveStore();paintBell();renderPanel()};
+window.openNote61=function(i){const x=STORE[i];if(!x)return;x.leida=true;saveStore();paintBell();document.getElementById('bellPanel61').classList.remove('open');
+ if(isT()){if(x.orden&&typeof portalOpen60==='function'){if(typeof refreshPortal60==='function')refreshPortal60().then(()=>{const v=document.querySelector(`.t60-item[onclick*="${x.orden}"]`);portalOpen60(x.orden)})}}
+ else if(x.folio){if(A.modo==='embarques'&&typeof openReview60==='function')openReview60(x.folio);else if(typeof showByFolio==='function')showByFolio(x.folio)}};
+window.enableDesktop61=async function(){if(!('Notification' in window))return alert('Este navegador no permite avisos de escritorio.');const r=await Notification.requestPermission();if(r==='granted'){new Notification(A.nombre,{body:'Listo: recibirás avisos aunque la pestaña no esté a la vista.'})}renderPanel()};
+let ac=null;function beep(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.value=880;g.gain.value=.05;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.18)}catch(e){}}
+function toast(t,s){let d=document.getElementById('toast61');if(!d){d=document.createElement('div');d.id='toast61';document.body.appendChild(d)}const el=document.createElement('div');el.className='t61';el.innerHTML=`<b>${E(t)}</b><span>${E(s||'')}</span>`;d.appendChild(el);setTimeout(()=>el.classList.add('out'),5200);setTimeout(()=>el.remove(),5800)}
+function notify(n){
+ const k=n.key||(n.titulo+'|'+(n.folio||n.orden||''));if(STORE.some(x=>x.key===k&&Date.now()-x.at<60000))return;
+ n.key=k;n.at=Date.now();n.leida=false;STORE.unshift(n);saveStore();paintBell();toast(n.titulo,n.texto);beep();
+ try{if('Notification' in window&&Notification.permission==='granted'&&(document.hidden||!document.hasFocus())){const w=new Notification(n.titulo,{body:n.texto||'',tag:k});w.onclick=()=>{window.focus();w.close()}}}catch(e){}
+}
+window.pushNote61=notify;
+
+/* Qué le importa a cada quien (a partir de la bitácora) */
+const RULES=[
+ {acc:'CREADA',coord:true,t:'Nueva solicitud por aprobar'},
+ {acc:'SOLICITUD REENVIADA A APROBACIÓN',coord:true,t:'Solicitud reenviada a aprobación'},
+ {acc:'TRANSPORTISTA: ENVIÓ A REVISIÓN',coord:true,owner:true,t:'Transportista envió su información'},
+ {acc:'SOLICITUD APROBADA POR COORDINADOR',owner:true,t:'Tu solicitud fue aprobada'},
+ {acc:'SOLICITUD RECHAZADA POR COORDINADOR',owner:true,t:'Tu solicitud fue rechazada'},
+ {acc:'AUTORIZADA',owner:true,t:'Embarque liberado'},
+ {acc:'DEVUELTO AL TRANSPORTISTA',owner:true,t:'Embarque devuelto al transportista'},
+ {acc:'XML + CARTA PORTE VALIDADOS',owner:true,t:'Carta Porte validada'},
+ {acc:'ENTREGA CONFIRMADA',coord:true,t:'Entrega confirmada'}];
+function onBitacora(r){
+ const u=me();if(!u||!r||r.modulo!=='ORDEN'||r.usuario_id===u.id)return;
+ const rule=RULES.find(x=>x.acc===r.accion||String(r.accion||'').startsWith(x.acc));if(!rule)return;
+ const o=(typeof orders!=='undefined'?orders:[]).find(x=>x.folio===r.registro_id);
+ const owner=o&&o.usuarioSolicitaId===u.id;
+ if(!((rule.coord&&canCoord())||(rule.owner&&owner)))return;
+ notify({titulo:rule.t,texto:'Folio '+r.registro_id+(o?' · '+(o.fletera||'')+(r.detalle&&r.detalle.nota?' · '+r.detalle.nota:''):''),folio:r.registro_id,key:r.accion+'|'+r.registro_id});
+}
+const TRANS_T={EN_CAPTURA:['Nuevo viaje asignado','Carga la información antes de salir'],DEVUELTO:['Viaje devuelto para corregir',''],LIBERADO:['Embarque liberado','La unidad puede salir']};
+let LASTEST={};
+function onEmbarque(row,old){
+ if(!row)return;
+ if(isT()){const t=TRANS_T[row.estado];const prev=LASTEST[row.orden_id]||(old&&old.estado);LASTEST[row.orden_id]=row.estado;if(t&&prev!==row.estado){const v=(window.PORTAL60_VIAJES||[]).find(x=>x.id===row.orden_id);notify({titulo:t[0],texto:(v?'Folio '+v.folio+' · ':'')+(row.estado==='DEVUELTO'?(row.nota_revision||''):t[1]),orden:row.orden_id,key:row.estado+'|'+row.orden_id})}}
+}
+
+/* ---------- Tiempo real (Supabase Realtime) con respaldo por consulta ---------- */
+let CH=null,refreshT=null;
+function scheduleRefresh(){clearTimeout(refreshT);refreshT=setTimeout(async()=>{try{
+ if(isT()){if(typeof refreshPortal60==='function')await refreshPortal60()}
+ else{if(typeof loadCloudData==='function')await loadCloudData();if(typeof reloadDocs59==='function')await reloadDocs59();if(typeof refreshKpis==='function')refreshKpis()}
+}catch(e){console.warn('Actualización en tiempo real',e)}},700)}
+function startRealtime(){
+ if(CH||typeof supa==='undefined'||!supa.channel||!me())return;
+ try{
+  CH=supa.channel('sanver61-'+me().id);
+  CH.on('postgres_changes',{event:'*',schema:'public',table:'embarques_transportista'},p=>{onEmbarque(p.new,p.old);scheduleRefresh()});
+  if(!isT()){
+   CH.on('postgres_changes',{event:'*',schema:'public',table:'ordenes_servicio'},()=>scheduleRefresh());
+   CH.on('postgres_changes',{event:'INSERT',schema:'public',table:'bitacora'},p=>{onBitacora(p.new)});
+  }
+  CH.subscribe(st=>{const b=document.getElementById('bell61');if(b)b.classList.toggle('live',st==='SUBSCRIBED')});
+ }catch(e){console.warn('Realtime no disponible',e)}
+ if(isT())setInterval(()=>{if(!document.hidden&&typeof refreshPortal60==='function')refreshPortal60()},60000);
+}
+window.startRealtime61=startRealtime;
+
+/* Respaldo: si el tiempo real no llega, la recarga normal también genera avisos a partir de la bitácora */
+let SEEN=null;
+function scanOrders(){
+ if(isT()||typeof orders==='undefined')return;
+ const all=[];orders.forEach(o=>(o.bitacora||[]).forEach(b=>all.push({id:o.folio+'|'+b.accion+'|'+b.createdAt,modulo:'ORDEN',registro_id:o.folio,accion:b.accion,usuario_id:b.usuarioId||b.usuario_id||null,detalle:b.detalle,at:b.createdAt})));
+ if(SEEN===null){SEEN=new Set(all.map(x=>x.id));return}
+ all.filter(x=>!SEEN.has(x.id)).forEach(x=>{SEEN.add(x.id);if(Date.now()-Date.parse(x.at||0)<15*60000)onBitacora(Object.assign({},x,{id:x.id}))});
+}
+/* Contadores en el menú */
+function badges(){
+ if(isT()||typeof orders==='undefined')return;
+ const b=document.querySelector('nav button[data-page="coordinacion"]');if(!b||!canCoord())return;
+ let n=0;try{n=(window.H60&&H60.coordRows?H60.coordRows():[]).filter(r=>r.k==='aprobar'||r.k==='revision').length}catch(e){}
+ b.innerHTML='Coordinación'+(n?` <span class="nb61">${n}</span>`:'');
+}
+if(typeof refreshKpis==='function'){const base=refreshKpis;refreshKpis=function(){const r=base.apply(this,arguments);try{scanOrders();badges()}catch(e){}return r}}
+
+/* Portal del transportista: avisos sobre sus viajes */
+if(typeof window.refreshPortal60==='function'){const base=window.refreshPortal60;window.refreshPortal60=async function(){const r=await base.apply(this,arguments);try{const vs=(window.PORTAL60_VIAJES=window.__portalViajes60?window.__portalViajes60():[]);vs.forEach(v=>{const e=v.embarque;if(!e)return;const prev=LASTEST[v.id];if(prev===undefined){LASTEST[v.id]=e.estado;return}if(prev!==e.estado)onEmbarque({orden_id:v.id,estado:e.estado,nota_revision:e.nota_revision},{estado:prev})})}catch(e){}return r}}
+
+document.addEventListener('DOMContentLoaded',buildHeader);if(document.readyState!=='loading')buildHeader();
 })();
 
 </script>
